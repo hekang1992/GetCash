@@ -50,7 +50,7 @@ class CustomTabBar: UIView {
         for (i, btn) in buttons.enumerated() {
             btn.frame = CGRect(
                 x: startX + CGFloat(i) * itemWidth,
-                y: 10,
+                y: 9,
                 width: itemWidth,
                 height: itemHeight
             )
