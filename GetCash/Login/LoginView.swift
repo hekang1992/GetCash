@@ -13,6 +13,7 @@ class LoginView: BaseView {
     lazy var bgImageView: UIImageView = {
         let bgImageView = UIImageView()
         bgImageView.image = UIImage(named: "login_bg_image")
+        bgImageView.contentMode = .scaleAspectFill
         bgImageView.isUserInteractionEnabled = true
         return bgImageView
     }()

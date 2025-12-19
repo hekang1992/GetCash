@@ -9,78 +9,51 @@ import UIKit
 
 class BaseTabBarController: UITabBarController {
 
+    private let customTabBar = CustomTabBar(
+        images: [
+            ("home_not_selected", "home_selected"),
+            ("order_not_selected", "order_selected"),
+            ("mine_not_selected", "mine_selected")
+        ]
+    )
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTabBar()
+        setupViewControllers()
+        setupCustomTabBar()
     }
 
-    private func setupTabBar() {
-
-        // MARK: - Root ViewControllers
-        let homeVC = BaseNavigationController(
-            rootViewController: HomeViewController()
-        )
-
-        let orderVC = BaseNavigationController(
-            rootViewController: OrderViewController()
-        )
-
-        let mineVC = BaseNavigationController(
-            rootViewController: MineViewController()
-        )
-
-        homeVC.tabBarItem = makeItem(
-            normal: "home_not_selected",
-            selected: "home_selected"
-        )
-
-        orderVC.tabBarItem = makeItem(
-            normal: "order_not_selected",
-            selected: "order_selected"
-        )
-
-        mineVC.tabBarItem = makeItem(
-            normal: "mine_not_selected",
-            selected: "mine_selected"
-        )
-
+    private func setupViewControllers() {
+        let homeVC = BaseNavigationController(rootViewController: HomeViewController())
+        let orderVC = BaseNavigationController(rootViewController: OrderViewController())
+        let mineVC = BaseNavigationController(rootViewController: MineViewController())
         viewControllers = [homeVC, orderVC, mineVC]
-
-        tabBar.isTranslucent = false
-        tabBar.itemPositioning = .centered
-        tabBar.itemWidth = 100
-
-        setupTabBarAppearance()
     }
 
-    private func setupTabBarAppearance() {
-        if #available(iOS 13.0, *) {
-            let appearance = UITabBarAppearance()
-            if #available(iOS 15.0, *) {
-                tabBar.scrollEdgeAppearance = appearance
-            }
-            tabBar.selectionIndicatorImage = UIImage()
-            tabBar.backgroundColor = .white
+    private func setupCustomTabBar() {
+
+        // 隐藏系统 tabBar
+        tabBar.isHidden = true
+
+        customTabBar.didSelectIndex = { [weak self] index in
+            self?.selectedIndex = index
         }
+
+        view.addSubview(customTabBar)
     }
 
-    // MARK: - TabBarItem Factory
-    private func makeItem(normal: String, selected: String) -> UITabBarItem {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
-        let normalImage = UIImage(named: normal)?
-            .withRenderingMode(.alwaysOriginal)
+        let height: CGFloat = 65
+        let bottom = view.safeAreaInsets.bottom
 
-        let selectedImage = UIImage(named: selected)?
-            .withRenderingMode(.alwaysOriginal)
-
-        let item = UITabBarItem(
-            title: nil,
-            image: normalImage,
-            selectedImage: selectedImage
+        customTabBar.frame = CGRect(
+            x: 0,
+            y: view.bounds.height - height - bottom * 0.7,
+            width: view.bounds.width,
+            height: height + bottom * 0.7
         )
-
-        item.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-
-        return item
     }
+
 }

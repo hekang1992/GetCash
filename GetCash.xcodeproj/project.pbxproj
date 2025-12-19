@@ -26,6 +26,7 @@
 		735C8D642EF5311300C7D507 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735C8D632EF5311300C7D507 /* OrderView.swift */; };
 		73ECF6022EF5352B0029AF7A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6012EF5352B0029AF7A /* BaseView.swift */; };
 		73ECF6042EF538260029AF7A /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6032EF538100029AF7A /* LoginManager.swift */; };
+		73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6052EF552560029AF7A /* CustomTabBar.swift */; };
 		E6F2EC06CC78FE768C0E8120 /* Pods_GetCash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C46BA4FEF58CE6806646D4 /* Pods_GetCash.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		735C8D632EF5311300C7D507 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		73ECF6012EF5352B0029AF7A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		73ECF6032EF538100029AF7A /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		73ECF6052EF552560029AF7A /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		88C46BA4FEF58CE6806646D4 /* Pods_GetCash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetCash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -150,6 +152,7 @@
 				735C8D452EF52EFA00C7D507 /* BaseViewController.swift */,
 				735C8D492EF52F2900C7D507 /* BaseTabBarController.swift */,
 				735C8D4B2EF52F4300C7D507 /* BaseNavigationController.swift */,
+				73ECF6052EF552560029AF7A /* CustomTabBar.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				735C8D5C2EF530E300C7D507 /* LaunchView.swift in Sources */,
 				735C8D602EF530FD00C7D507 /* HomeView.swift in Sources */,
 				735C8D622EF5310900C7D507 /* MineView.swift in Sources */,
+				73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */,
 				735C8D4C2EF52F4300C7D507 /* BaseNavigationController.swift in Sources */,
 				73ECF6042EF538260029AF7A /* LoginManager.swift in Sources */,
 				735C8D4E2EF5300000C7D507 /* AppConfig.swift in Sources */,

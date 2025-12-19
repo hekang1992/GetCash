@@ -36,16 +36,11 @@ extension AppDelegate {
     }
     
     @objc private func changeRootVC() {
-        UIView.transition(with: window!,
-                         duration: 0.25,
-                         options: .transitionCrossDissolve,
-                         animations: {
-            if !LoginManager.isLoggedIn {
-                self.window?.rootViewController = BaseTabBarController()
-            }else {
-                self.window?.rootViewController = BaseNavigationController(rootViewController: LoginViewController())
-            }
-        })
+        if !LoginManager.isLoggedIn {
+            self.window?.rootViewController = BaseTabBarController()
+        }else {
+            self.window?.rootViewController = BaseNavigationController(rootViewController: LoginViewController())
+        }
     }
     
 }
