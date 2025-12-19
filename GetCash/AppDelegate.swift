@@ -13,9 +13,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        getChangeRootVcNoti()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = LaunchViewController()
+        window?.makeKeyAndVisible()
         return true
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
+extension AppDelegate {
+    
+    private func getChangeRootVcNoti() {
+        NotificationCenter.default.addObserver(self,
+                                             selector: #selector(changeRootVC),
+                                             name: NSNotification.Name("changeRootVc"),
+                                             object: nil)
+    }
+    
+    @objc private func changeRootVC() {
+        UIView.transition(with: window!,
+                         duration: 0.25,
+                         options: .transitionCrossDissolve,
+                         animations: {
+            if LoginManager.isLoggedIn {
+                self.window?.rootViewController = BaseTabBarController()
+            }else {
+                self.window?.rootViewController = BaseNavigationController(rootViewController: LoginViewController())
+            }
+        })
+    }
+    
+}
