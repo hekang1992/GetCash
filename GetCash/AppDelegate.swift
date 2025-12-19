@@ -40,7 +40,7 @@ extension AppDelegate {
                          duration: 0.25,
                          options: .transitionCrossDissolve,
                          animations: {
-            if LoginManager.isLoggedIn {
+            if !LoginManager.isLoggedIn {
                 self.window?.rootViewController = BaseTabBarController()
             }else {
                 self.window?.rootViewController = BaseNavigationController(rootViewController: LoginViewController())
