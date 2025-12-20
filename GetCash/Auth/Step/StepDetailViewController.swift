@@ -27,7 +27,6 @@ class StepDetailViewController: BaseViewController{
         // Do any additional setup after loading the view.
         
         view.addSubview(headView)
-        headView.nameLabel.text = "Product Details"
         headView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(87.pix())
@@ -64,6 +63,7 @@ extension StepDetailViewController {
             if model.hoping == "0" {
                 self.model = model
                 self.setpView.model = model
+                self.headView.config(title: model.awe?.sentence?.add ?? "")
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")
             }
