@@ -12,6 +12,8 @@ import RxCocoa
 
 class LoginView: BaseView {
     
+    private lazy var containerView = UIView()
+    
     lazy var bgImageView: UIImageView = {
         let bgImageView = UIImageView()
         bgImageView.image = UIImage(named: "login_bg_image")
@@ -148,15 +150,30 @@ class LoginView: BaseView {
    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupUI()
+        tapClick()
+    }
+    
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension LoginView {
+    
+    private func setupUI() {
         addSubview(bgImageView)
         addSubview(scrollView)
-        scrollView.addSubview(oneImageView)
-        scrollView.addSubview(oneView)
-        scrollView.addSubview(twoView)
-        scrollView.addSubview(voiceBtn)
-        scrollView.addSubview(agreeBtn)
-        scrollView.addSubview(agreeLabel)
-        scrollView.addSubview(loginBtn)
+        
+        scrollView.addSubview(containerView)
+        
+        containerView.addSubview(oneImageView)
+        containerView.addSubview(oneView)
+        containerView.addSubview(twoView)
+        containerView.addSubview(voiceBtn)
+        containerView.addSubview(agreeBtn)
+        containerView.addSubview(agreeLabel)
+        containerView.addSubview(loginBtn)
         
         oneView.addSubview(oneLabel)
         oneView.addSubview(phoneTextFiled)
@@ -167,31 +184,38 @@ class LoginView: BaseView {
         bgImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
         scrollView.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+        }
+        
+        containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.width.equalTo(self)
         }
         
         oneImageView.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(83)
-            make.left.equalToSuperview().offset(108.pix())
+            make.top.equalTo(containerView).offset(83)
+            make.left.equalTo(containerView).offset(108.pix())
             make.size.equalTo(CGSize(width: 202, height: 101))
         }
         
         oneView.snp.makeConstraints { make in
             make.top.equalTo(oneImageView.snp.bottom).offset(60)
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(containerView)
             make.size.equalTo(CGSize(width: 327.pix(), height: 52.pix()))
         }
         
         twoView.snp.makeConstraints { make in
             make.top.equalTo(oneView.snp.bottom).offset(32)
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(containerView)
             make.size.equalTo(CGSize(width: 327.pix(), height: 52.pix()))
         }
         
         voiceBtn.snp.makeConstraints { make in
             make.top.equalTo(twoView.snp.bottom).offset(32)
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(containerView)
             make.size.equalTo(CGSize(width: 327.pix(), height: 52.pix()))
         }
         
@@ -210,8 +234,8 @@ class LoginView: BaseView {
         loginBtn.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 340.pix(), height: 48.pix()))
             make.top.equalTo(agreeLabel.snp.bottom).offset(24)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-20)
+            make.centerX.equalTo(containerView)
+            make.bottom.equalTo(containerView).offset(-20)
         }
         
         oneLabel.snp.makeConstraints { make in
@@ -236,12 +260,6 @@ class LoginView: BaseView {
             make.right.equalToSuperview().offset(-8)
             make.size.equalTo(CGSize(width: 89, height: 36))
         }
-        
-        tapClick()
-    }
-    
-    @MainActor required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }
