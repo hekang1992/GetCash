@@ -10,7 +10,16 @@ import RxSwift
 import RxCocoa
 
 class BaseView: UIView {
-
-   let disposeBag = DisposeBag()
+    
+    let disposeBag = DisposeBag()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = UIColor.init(hex: "#EDF0FF")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 }

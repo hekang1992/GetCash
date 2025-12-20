@@ -8,6 +8,8 @@
 import UIKit
 import Foundation
 
+let SCREEN_WIDTH = UIScreen.main.bounds.size.width
+
 extension UIColor {
     convenience init(hex: String, alpha: CGFloat = 1.0) {
         var hexFormatted = hex.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -28,5 +30,23 @@ extension UIColor {
             blue: CGFloat((rgbValue & 0x0000FF00) >> 8) / 255.0,
             alpha: CGFloat(rgbValue & 0x000000FF) / 255.0
         )
+    }
+}
+
+extension Double {
+    func pix() -> CGFloat {
+        return CGFloat.init(CGFloat.init(self)/375.0 * SCREEN_WIDTH)
+    }
+}
+
+extension CGFloat {
+    func pix() -> CGFloat {
+        return CGFloat.init(CGFloat.init(self)/375.0 * SCREEN_WIDTH)
+    }
+}
+
+extension Int {
+    func pix() -> CGFloat {
+        return CGFloat.init(CGFloat.init(self)/375.0 * SCREEN_WIDTH)
     }
 }

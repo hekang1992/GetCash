@@ -36,7 +36,7 @@ extension AppDelegate {
     }
     
     @objc private func changeRootVC() {
-        if !LoginManager.isLoggedIn {
+        if LoginManager.isLoggedIn {
             self.window?.rootViewController = BaseTabBarController()
         }else {
             self.window?.rootViewController = BaseNavigationController(rootViewController: LoginViewController())
