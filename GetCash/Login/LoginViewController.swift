@@ -22,6 +22,13 @@ class LoginViewController: BaseViewController {
         loginView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        LoadingIndicator.shared.show()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            LoadingIndicator.shared.hide()
+        }
+        
     }
 
 }
