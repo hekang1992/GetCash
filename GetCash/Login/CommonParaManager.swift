@@ -15,7 +15,8 @@ class CommonParameterManager {
     static let idfv = DeviceConfig.getIDFV()
     static let systemVersion = UIDevice.current.systemVersion
     static let authToken = LoginManager.currentToken
-    static let idfa = DeviceConfig.getIDFA()
+//    static let idfa = DeviceConfig.getIDFA()
+    static let idfa = "4315431-43113-431413"
     
     struct DeviceInfo {
         let appVersion: String

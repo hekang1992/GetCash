@@ -67,16 +67,14 @@ extension BaseTabBarController: TabBarVisibilityDelegate {
         let targetY = hidden ? view.bounds.height : view.bounds.height - height - bottom * 0.7
         
         if animated {
-            UIView.animate(withDuration: 0.25, animations: {
-                self.customTabBar.frame = CGRect(
-                    x: 0,
-                    y: targetY,
-                    width: self.view.bounds.width,
-                    height: height + bottom * 0.7
-                )
-            })
+            self.customTabBar.frame = CGRect(
+                x: 0,
+                y: targetY,
+                width: self.view.bounds.width,
+                height: height + bottom * 0.7
+            )
         } else {
-            customTabBar.frame = CGRect(
+            self.customTabBar.frame = CGRect(
                 x: 0,
                 y: targetY,
                 width: view.bounds.width,

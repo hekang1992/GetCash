@@ -14,6 +14,7 @@ class BaseViewController: UIViewController {
     
     lazy var headView: AppNavHeadView = {
         let headView = AppNavHeadView()
+        headView.backgroundColor = .clear
         return headView
     }()
 

@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7333F5162EF6FAA100E74153 /* AuthIDListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */; };
+		7333F5182EF708D100E74153 /* AuthIDListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */; };
+		7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5192EF70D2300E74153 /* DotLineView.swift */; };
+		7333F51C2EF7112A00E74153 /* FaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F51B2EF7112A00E74153 /* FaceViewController.swift */; };
+		7333F51E2EF7151F00E74153 /* StepScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F51D2EF7151F00E74153 /* StepScrollView.swift */; };
+		7333F5202EF7177D00E74153 /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F51F2EF7177D00E74153 /* FaceView.swift */; };
+		7333F5222EF7189900E74153 /* FaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5212EF7189900E74153 /* FaceListView.swift */; };
+		7333F5262EF71C6E00E74153 /* FacePopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5252EF71C6E00E74153 /* FacePopAlertView.swift */; };
 		735C8D362EF5213500C7D507 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 735C8D2D2EF5213500C7D507 /* Assets.xcassets */; };
 		735C8D382EF5213500C7D507 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 735C8D302EF5213500C7D507 /* LaunchScreen.storyboard */; };
 		735C8D3A2EF5213500C7D507 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735C8D2C2EF5213500C7D507 /* AppDelegate.swift */; };
@@ -48,6 +56,14 @@
 /* Begin PBXFileReference section */
 		342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.debug.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.release.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.release.xcconfig"; sourceTree = "<group>"; };
+		7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewController.swift; sourceTree = "<group>"; };
+		7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewCell.swift; sourceTree = "<group>"; };
+		7333F5192EF70D2300E74153 /* DotLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLineView.swift; sourceTree = "<group>"; };
+		7333F51B2EF7112A00E74153 /* FaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceViewController.swift; sourceTree = "<group>"; };
+		7333F51D2EF7151F00E74153 /* StepScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepScrollView.swift; sourceTree = "<group>"; };
+		7333F51F2EF7177D00E74153 /* FaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
+		7333F5212EF7189900E74153 /* FaceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceListView.swift; sourceTree = "<group>"; };
+		7333F5252EF71C6E00E74153 /* FacePopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacePopAlertView.swift; sourceTree = "<group>"; };
 		735C8D142EF5212D00C7D507 /* GetCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		735C8D2C2EF5213500C7D507 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		735C8D2D2EF5213500C7D507 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,6 +117,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7333F5142EF6FA4100E74153 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				7333F5232EF71AA600E74153 /* List */,
+				7333F5242EF71AB000E74153 /* Face */,
+			);
+			path = Photo;
+			sourceTree = "<group>";
+		};
+		7333F5232EF71AA600E74153 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				7333F51D2EF7151F00E74153 /* StepScrollView.swift */,
+				7333F5192EF70D2300E74153 /* DotLineView.swift */,
+				7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */,
+				7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		7333F5242EF71AB000E74153 /* Face */ = {
+			isa = PBXGroup;
+			children = (
+				7333F51B2EF7112A00E74153 /* FaceViewController.swift */,
+				7333F51F2EF7177D00E74153 /* FaceView.swift */,
+				7333F5212EF7189900E74153 /* FaceListView.swift */,
+				7333F5252EF71C6E00E74153 /* FacePopAlertView.swift */,
+			);
+			path = Face;
+			sourceTree = "<group>";
+		};
 		735C8D0B2EF5212D00C7D507 = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				73633CF92EF6BC5A009F182D /* Step */,
+				7333F5142EF6FA4100E74153 /* Photo */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -403,6 +451,8 @@
 				73633CFF2EF6BFAD009F182D /* StepListView.swift in Sources */,
 				73633CEB2EF68F71009F182D /* LoginViewModel.swift in Sources */,
 				73633CE92EF68D3A009F182D /* LoadingIndicator.swift in Sources */,
+				7333F51E2EF7151F00E74153 /* StepScrollView.swift in Sources */,
+				7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */,
 				735C8D502EF5304D00C7D507 /* LoginViewController.swift in Sources */,
 				73633CEF2EF697EF009F182D /* HomeViewModel.swift in Sources */,
 				73633CF52EF6B791009F182D /* SchemeConfig.swift in Sources */,
@@ -411,14 +461,20 @@
 				735C8D5C2EF530E300C7D507 /* LaunchView.swift in Sources */,
 				735C8D602EF530FD00C7D507 /* HomeView.swift in Sources */,
 				73633CFB2EF6BC70009F182D /* StepView.swift in Sources */,
+				7333F5162EF6FAA100E74153 /* AuthIDListViewController.swift in Sources */,
+				7333F5202EF7177D00E74153 /* FaceView.swift in Sources */,
+				7333F51C2EF7112A00E74153 /* FaceViewController.swift in Sources */,
 				73633CED2EF68FA3009F182D /* BaseModel.swift in Sources */,
 				735C8D622EF5310900C7D507 /* MineView.swift in Sources */,
 				73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */,
+				7333F5222EF7189900E74153 /* FaceListView.swift in Sources */,
 				73633CF12EF6A1B9009F182D /* AppNavHeadView.swift in Sources */,
+				7333F5262EF71C6E00E74153 /* FacePopAlertView.swift in Sources */,
 				73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */,
 				735C8D4C2EF52F4300C7D507 /* BaseNavigationController.swift in Sources */,
 				73ECF6042EF538260029AF7A /* LoginManager.swift in Sources */,
 				735C8D4E2EF5300000C7D507 /* AppConfig.swift in Sources */,
+				7333F5182EF708D100E74153 /* AuthIDListViewCell.swift in Sources */,
 				735C8D542EF5306A00C7D507 /* HomeViewController.swift in Sources */,
 				735C8D3A2EF5213500C7D507 /* AppDelegate.swift in Sources */,
 				73633CE72EF68053009F182D /* HttpRequestManager.swift in Sources */,

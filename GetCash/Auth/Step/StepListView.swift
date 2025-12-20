@@ -7,8 +7,12 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class StepLeftListView: BaseView {
+    
+    var tapClickBlock: TapCilckBlock?
     
     lazy var leftImageVie: UIImageView = {
         let leftImageVie = UIImageView()
@@ -19,6 +23,11 @@ class StepLeftListView: BaseView {
         let rightImageVie = UIImageView()
         return rightImageVie
     }()
+    
+    lazy var clickBtn: UIButton = {
+        let clickBtn = UIButton(type: .custom)
+        return clickBtn
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +35,7 @@ class StepLeftListView: BaseView {
         
         addSubview(leftImageVie)
         addSubview(rightImageVie)
+        addSubview(clickBtn)
         
         leftImageVie.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 208, height: 118))
@@ -38,6 +48,15 @@ class StepLeftListView: BaseView {
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-10)
         }
+        
+        clickBtn.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        clickBtn.rx.tap.bind(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.tapClickBlock?()
+        }).disposed(by: disposeBag)
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -48,6 +67,8 @@ class StepLeftListView: BaseView {
 
 class StepRightListView: BaseView {
     
+    var tapClickBlock: TapCilckBlock?
+    
     lazy var leftImageVie: UIImageView = {
         let leftImageVie = UIImageView()
         return leftImageVie
@@ -57,6 +78,11 @@ class StepRightListView: BaseView {
         let rightImageVie = UIImageView()
         return rightImageVie
     }()
+    
+    lazy var clickBtn: UIButton = {
+        let clickBtn = UIButton(type: .custom)
+        return clickBtn
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,6 +90,7 @@ class StepRightListView: BaseView {
         
         addSubview(leftImageVie)
         addSubview(rightImageVie)
+        addSubview(clickBtn)
         
         rightImageVie.snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 208, height: 118))
@@ -77,6 +104,15 @@ class StepRightListView: BaseView {
             make.left.equalToSuperview().offset(16)
             
         }
+        
+        clickBtn.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        clickBtn.rx.tap.bind(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.tapClickBlock?()
+        }).disposed(by: disposeBag)
     }
     
     @MainActor required init?(coder: NSCoder) {

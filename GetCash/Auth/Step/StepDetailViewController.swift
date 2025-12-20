@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import MJRefresh
 
 class StepDetailViewController: BaseViewController{
     
@@ -43,12 +44,52 @@ class StepDetailViewController: BaseViewController{
             make.top.equalTo(headView.snp.bottom).offset(10)
         }
         
+        setpView.tapClickBlock = { [weak self] model in
+            guard let self = self else { return }
+            let isAuth = model.used ?? 0
+            let type = model.blanc ?? ""
+            let name = model.shrunk ?? ""
+            if isAuth == 1 {
+                shouldGoVc(with: type, name: name)
+            }else {
+                setpView.nextBtnClickBlock?()
+            }
+        }
+        
+        setpView.nextBtnClickBlock = { [weak self] in
+            guard let self = self else { return }
+            if let model = self.model?.awe?.de {
+                let type = model.blanc ?? ""
+                let name = model.shrunk ?? ""
+                shouldGoVc(with: type, name: name)
+            }
+        }
+        
+        self.setpView.scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            guard let self = self else { return }
+            Task {
+                await self.getSetpInfo()
+            }
+        })
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
             await self.getSetpInfo()
+        }
+    }
+    
+}
+
+extension StepDetailViewController {
+    
+    private func shouldGoVc(with authType: String, name: String) {
+        if authType == "few" {
+            Task {
+                await self.getFaceInfo(with: name)
+            }
         }
     }
     
@@ -64,6 +105,39 @@ extension StepDetailViewController {
                 self.model = model
                 self.setpView.model = model
                 self.headView.config(title: model.awe?.sentence?.add ?? "")
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+            await self.setpView.scrollView.mj_header?.endRefreshing()
+        } catch {
+            await self.setpView.scrollView.mj_header?.endRefreshing()
+        }
+    }
+    
+    private func getFaceInfo(with name: String) async {
+        do {
+            let json = ["childhood": productID]
+            let model = try await viewModel.getFaceInfo(json: json)
+            if model.hoping == "0" {
+                let photoModel = model.awe?.fane ?? faneModel()
+                let faceModel = model.awe?.hid ?? faneModel()
+                
+                if photoModel.used == 0 {
+                    let listVc = AuthIDListViewController()
+                    listVc.name = name
+                    listVc.productID = productID
+                    listVc.modelArray = model.awe?.pardon ?? []
+                    listVc.recModelArray = model.awe?.pardon ?? []
+                    listVc.otherModelArray = model.awe?.quickness ?? []
+                    listVc.stepArray = self.model?.awe?.residence ?? []
+                    self.navigationController?.pushViewController(listVc, animated: true)
+                    return
+                }
+                
+                if faceModel.used == 0 {
+                    return
+                }
+                
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")
             }

@@ -7,8 +7,14 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class StepView: BaseView {
+    
+    var tapClickBlock: ((residenceModel) -> Void)?
+    
+    var nextBtnClickBlock: (() -> Void)?
     
     var model: BaseModel? {
         didSet{
@@ -85,6 +91,12 @@ class StepView: BaseView {
             make.centerX.equalToSuperview()
             make.height.equalTo(235.pix())
         }
+        
+        nextBtn.rx.tap.bind(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.nextBtnClickBlock?()
+        }).disposed(by: disposeBag)
+        
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -106,6 +118,11 @@ class StepView: BaseView {
             leftListView.rightImageVie.image = used == 1 ? UIImage(named: "sel_srtp_list_image") : UIImage(named: "nor_srtp_list_image")
             
             listView = leftListView
+            
+            leftListView.tapClickBlock = { [weak self] in
+                self?.tapClickBlock?(modelItem)
+            }
+            
         } else {
             let rightListView = StepRightListView()
             rightListView.snp.makeConstraints { make in
@@ -117,6 +134,11 @@ class StepView: BaseView {
             let used = modelItem.used ?? 0
             rightListView.leftImageVie.image = used == 1 ? UIImage(named: "sel_srtp_list_image") : UIImage(named: "nor_srtp_list_image")
             listView = rightListView
+            
+            rightListView.tapClickBlock = { [weak self] in
+                self?.tapClickBlock?(modelItem)
+            }
+            
         }
         return listView
     }

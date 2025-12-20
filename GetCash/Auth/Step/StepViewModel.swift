@@ -9,6 +9,7 @@ import Foundation
 
 class StepViewModel {
     
+    /// product_detail_info
     func setpInfo(json: [String: String]) async throws -> BaseModel {
         
         LoadingIndicator.shared.show()
@@ -27,5 +28,22 @@ class StepViewModel {
         }
     }
     
-    
+    /// face_detail_info
+    func getFaceInfo(json: [String: String]) async throws -> BaseModel {
+        
+        LoadingIndicator.shared.show()
+        
+        defer {
+            DispatchQueue.main.async {
+                LoadingIndicator.shared.hide()
+            }
+        }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/breathe", parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
 }

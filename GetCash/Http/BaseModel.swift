@@ -19,6 +19,10 @@ class aweModel: Codable {
     var sentence: sentenceModel?
     var residence: [residenceModel]?
     var de: deModel?
+    var fane: faneModel?
+    var hid: faneModel?
+    var pardon: [String]?
+    var quickness: [String]?
 }
 
 class settledModel: Codable {
@@ -60,8 +64,15 @@ class attendingModel: Codable {
 class residenceModel: Codable {
     var used: Int?
     var blanc: String?
+    var shrunk: String?
+    var favourite: String?
 }
 
 class deModel: Codable {
     var blanc: String?
+    var shrunk: String?
+}
+
+class faneModel: Codable {
+    var used: Int?
 }
