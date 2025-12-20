@@ -34,6 +34,34 @@ class HomeViewController: BaseViewController {
             }
         })
         
+        self.homeView.oneBlock = { [weak self] in
+            guard let self = self else { return }
+            let whatVc = WhatViewController()
+            whatVc.setConfig(with: "Loan conditions", bgImage: "wht_desc_image")
+            self.navigationController?.pushViewController(whatVc, animated: true)
+        }
+        
+        self.homeView.twoBlock = { [weak self] in
+            guard let self = self else { return }
+            let whatVc = WhatViewController()
+            whatVc.setConfig(with: "Loan conditions", bgImage: "wht_desc_image")
+            self.navigationController?.pushViewController(whatVc, animated: true)
+        }
+        
+        self.homeView.threeBlock = { [weak self] in
+            guard let self = self else { return }
+            let whatVc = WhatViewController()
+            whatVc.setConfig(with: "Loan conditions", bgImage: "wht_desc_image")
+            self.navigationController?.pushViewController(whatVc, animated: true)
+        }
+        
+        self.homeView.fourBlock = { [weak self] in
+            guard let self = self else { return }
+            let whatVc = WhatViewController()
+            whatVc.setConfig(with: "Common problem", bgImage: "com_ques_image")
+            self.navigationController?.pushViewController(whatVc, animated: true)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,11 +80,11 @@ extension HomeViewController {
             let model = try await viewModel.homeInfo()
             if model.hoping == "0" {
                 let settledModelArray = model.awe?.settled ?? []
-                for (index, model) in settledModelArray.enumerated() {
+                for (_, model) in settledModelArray.enumerated() {
                     let courteous = model.courteous ?? ""
                     if courteous == "While" {
                         let modelArray = model.inherited ?? []
-                        self.homeView.configure(with: modelArray[0])
+                        self.homeView.model = modelArray[0]
                     }
                 }
             }

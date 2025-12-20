@@ -8,8 +8,39 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import RxSwift
+import RxCocoa
+import RxGesture
 
 class HomeView: BaseView {
+    
+    var applyBlock: ((String) -> Void)?
+    
+    var oneBlock: TapCilckBlock?
+    
+    var twoBlock: TapCilckBlock?
+    
+    var threeBlock: TapCilckBlock?
+    
+    var fourBlock: TapCilckBlock?
+    
+    var model: inheritedModel? {
+        didSet {
+            guard let model = model else { return }
+            nameLabel.text = model.add ?? ""
+            let logoUrl = model.emigrants ?? ""
+            logoImageView.kf.setImage(with: URL(string: logoUrl))
+            moneyLabel.text = model.casements ?? ""
+            
+            let hopeless = model.hopeless ?? ""
+            let ashes = model.ashes ?? ""
+            oneLabel.text = String(format: "%@: %@", hopeless, ashes)
+            
+            let blunted = model.blunted ?? ""
+            let dim = model.dim ?? ""
+            twoLabel.text = String(format: "%@: %@", blunted, dim)
+        }
+    }
 
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -22,6 +53,7 @@ class HomeView: BaseView {
     lazy var oneImageView: UIImageView = {
         let oneImageView = UIImageView()
         oneImageView.image = UIImage(named: "one_home_head_image")
+        oneImageView.isUserInteractionEnabled = true
         return oneImageView
     }()
     
@@ -106,6 +138,27 @@ class HomeView: BaseView {
         return moneyLabel
     }()
     
+    lazy var oneLabel: UILabel = {
+        let oneLabel = UILabel()
+        oneLabel.textColor = UIColor.init(hex: "#000000")
+        oneLabel.textAlignment = .left
+        oneLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
+        return oneLabel
+    }()
+    
+    lazy var twoLabel: UILabel = {
+        let twoLabel = UILabel()
+        twoLabel.textColor = UIColor.init(hex: "#000000")
+        twoLabel.textAlignment = .left
+        twoLabel.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
+        return twoLabel
+    }()
+    
+    lazy var applyBtn: UIButton = {
+        let applyBtn = UIButton(type: .custom)
+        return applyBtn
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(scrollView)
@@ -126,8 +179,11 @@ class HomeView: BaseView {
         scrollView.addSubview(footerImageView)
         
         oneImageView.addSubview(descImageView)
-        oneImageView.addSubview(applyImageView)
         oneImageView.addSubview(moneyLabel)
+        oneImageView.addSubview(oneLabel)
+        oneImageView.addSubview(twoLabel)
+        oneImageView.addSubview(applyImageView)
+        oneImageView.addSubview(applyBtn)
         
         oneImageView.snp.makeConstraints { make in
             make.top.left.equalToSuperview()
@@ -172,7 +228,7 @@ class HomeView: BaseView {
         }
         
         descImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(98)
+            make.top.equalToSuperview().offset(98.pix())
             make.size.equalTo(CGSize(width: 189, height: 22))
             make.centerX.equalToSuperview()
         }
@@ -182,6 +238,30 @@ class HomeView: BaseView {
             make.centerX.equalToSuperview()
             make.height.equalTo(79)
         }
+        
+        oneLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(moneyLabel.snp.bottom).offset(16.pix())
+            make.height.equalTo(17)
+        }
+        
+        twoLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(oneLabel.snp.bottom).offset(8.pix())
+            make.height.equalTo(17)
+        }
+        
+        applyImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.size.equalTo(CGSize(width: 242.pix(), height: 66.pix()))
+            make.bottom.equalToSuperview().offset(-90.pix())
+        }
+        
+        applyBtn.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        tapClick()
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -192,11 +272,34 @@ class HomeView: BaseView {
 
 extension HomeView {
     
-    func configure(with model: inheritedModel) {
-        nameLabel.text = model.add ?? ""
-        let logoUrl = model.emigrants ?? ""
-        logoImageView.kf.setImage(with: URL(string: logoUrl))
-        moneyLabel.text = model.casements ?? ""
+    private func tapClick() {
+        
+        applyBtn.rx.tap.bind(onNext: { [weak self] in
+            guard let self = self, let model = model else { return }
+            let suspended = String(model.suspended ?? 0)
+            self.applyBlock?(suspended)
+        }).disposed(by: disposeBag)
+        
+        threeImageView.rx.tapGesture().when(.recognized).bind(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.oneBlock?()
+        }).disposed(by: disposeBag)
+        
+        fourImageView.rx.tapGesture().when(.recognized).bind(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.twoBlock?()
+        }).disposed(by: disposeBag)
+        
+        fiveImageView.rx.tapGesture().when(.recognized).bind(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.threeBlock?()
+        }).disposed(by: disposeBag)
+        
+        sixImageView.rx.tapGesture().when(.recognized).bind(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.fourBlock?()
+        }).disposed(by: disposeBag)
+        
     }
     
 }

@@ -11,12 +11,17 @@ import RxSwift
 class BaseViewController: UIViewController {
     
     let disposeBag = DisposeBag()
+    
+    lazy var headView: AppNavHeadView = {
+        let headView = AppNavHeadView()
+        return headView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        view.backgroundColor = UIColor(hex: "#D8D8D8")
+        view.backgroundColor = UIColor(hex: "#EDF0FF")
     }
     
 

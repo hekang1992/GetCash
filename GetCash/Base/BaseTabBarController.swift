@@ -8,7 +8,7 @@
 import UIKit
 
 class BaseTabBarController: UITabBarController {
-
+    
     private let customTabBar = CustomTabBar(
         images: [
             ("home_not_selected", "home_selected"),
@@ -16,38 +16,41 @@ class BaseTabBarController: UITabBarController {
             ("mine_not_selected", "mine_selected")
         ]
     )
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllers()
         setupCustomTabBar()
     }
-
+    
     private func setupViewControllers() {
         let homeVC = BaseNavigationController(rootViewController: HomeViewController())
         let orderVC = BaseNavigationController(rootViewController: OrderViewController())
         let mineVC = BaseNavigationController(rootViewController: MineViewController())
+        
+        homeVC.tabBarDelegate = self
+        orderVC.tabBarDelegate = self
+        mineVC.tabBarDelegate = self
+        
         viewControllers = [homeVC, orderVC, mineVC]
     }
-
+    
     private func setupCustomTabBar() {
-
-        // 隐藏系统 tabBar
         tabBar.isHidden = true
-
+        
         customTabBar.didSelectIndex = { [weak self] index in
             self?.selectedIndex = index
         }
-
+        
         view.addSubview(customTabBar)
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
+        
         let height: CGFloat = 65
         let bottom = view.safeAreaInsets.bottom
-
+        
         customTabBar.frame = CGRect(
             x: 0,
             y: view.bounds.height - height - bottom * 0.7,
@@ -55,5 +58,34 @@ class BaseTabBarController: UITabBarController {
             height: height + bottom * 0.7
         )
     }
+}
 
+extension BaseTabBarController: TabBarVisibilityDelegate {
+    func updateTabBarVisibility(_ hidden: Bool, animated: Bool) {
+        let height: CGFloat = 65
+        let bottom = view.safeAreaInsets.bottom
+        let targetY = hidden ? view.bounds.height : view.bounds.height - height - bottom * 0.7
+        
+        if animated {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.customTabBar.frame = CGRect(
+                    x: 0,
+                    y: targetY,
+                    width: self.view.bounds.width,
+                    height: height + bottom * 0.7
+                )
+            })
+        } else {
+            customTabBar.frame = CGRect(
+                x: 0,
+                y: targetY,
+                width: view.bounds.width,
+                height: height + bottom * 0.7
+            )
+        }
+    }
+}
+
+protocol TabBarVisibilityDelegate: AnyObject {
+    func updateTabBarVisibility(_ hidden: Bool, animated: Bool)
 }

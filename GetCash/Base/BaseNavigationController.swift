@@ -8,25 +8,37 @@
 import UIKit
 
 class BaseNavigationController: UINavigationController {
-
+    
+    weak var tabBarDelegate: TabBarVisibilityDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.isHidden = true
         self.navigationBar.isTranslucent = false
+        self.delegate = self
+        
         if let gestureRecognizers = view.gestureRecognizers {
             for gesture in gestureRecognizers {
-                if let popGesture = gesture as? UIScreenEdgePanGestureRecognizer {
-                    view.removeGestureRecognizer(popGesture)
-                }
+                view.removeGestureRecognizer(gesture)
             }
         }
     }
     
-    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        if viewControllers.count > 0 {
-            viewController.hidesBottomBarWhenPushed = true
-        }
-        super.pushViewController(viewController, animated: animated)
-    }
+}
 
+extension BaseNavigationController: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController,
+                              willShow viewController: UIViewController,
+                              animated: Bool) {
+        let isRoot = viewController == navigationController.viewControllers.first
+        tabBarDelegate?.updateTabBarVisibility(!isRoot, animated: animated)
+    }
+    
+    func navigationController(_ navigationController: UINavigationController,
+                              didShow viewController: UIViewController,
+                              animated: Bool) {
+        let isRoot = viewController == navigationController.viewControllers.first
+        tabBarDelegate?.updateTabBarVisibility(!isRoot, animated: animated)
+    }
 }
