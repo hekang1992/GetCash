@@ -15,6 +15,10 @@ class aweModel: Codable {
     var studded: String?
     var extreme: String?
     var settled: [settledModel]?
+    var fully: String?
+    var sentence: sentenceModel?
+    var residence: [residenceModel]?
+    var de: deModel?
 }
 
 class settledModel: Codable {
@@ -33,4 +37,31 @@ class inheritedModel: Codable {
     var blunted: String?
     var ashes: String?
     var hopeless: String?
+}
+
+class sentenceModel: Codable {
+    var add: String?
+    var emigrants: String?
+    var symbol: String?
+    var suppose: Int?
+    var lord: lordModel?
+}
+
+class lordModel: Codable {
+    var attending: attendingModel?
+    var weeks: attendingModel?
+}
+
+class attendingModel: Codable {
+    var shrunk: String?
+    var extraordinary: String?
+}
+
+class residenceModel: Codable {
+    var used: Int?
+    var blanc: String?
+}
+
+class deModel: Codable {
+    var blanc: String?
 }

@@ -27,4 +27,22 @@ class HomeViewModel {
         }
     }
     
+    func enterInfo(json: [String: String]) async throws -> BaseModel {
+        
+        LoadingIndicator.shared.show()
+        
+        defer {
+            DispatchQueue.main.async {
+                LoadingIndicator.shared.hide()
+            }
+        }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/hint", parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
 }

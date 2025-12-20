@@ -31,6 +31,12 @@
 		73633CEF2EF697EF009F182D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CEE2EF697EE009F182D /* HomeViewModel.swift */; };
 		73633CF12EF6A1B9009F182D /* AppNavHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CF02EF6A1B9009F182D /* AppNavHeadView.swift */; };
 		73633CF32EF6A541009F182D /* WhatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CF22EF6A541009F182D /* WhatViewController.swift */; };
+		73633CF52EF6B791009F182D /* SchemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CF42EF6B789009F182D /* SchemeConfig.swift */; };
+		73633CF82EF6BA34009F182D /* StepDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CF72EF6BA34009F182D /* StepDetailViewController.swift */; };
+		73633CFB2EF6BC70009F182D /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CFA2EF6BC70009F182D /* StepView.swift */; };
+		73633CFD2EF6BCE9009F182D /* StepHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CFC2EF6BCE9009F182D /* StepHeadView.swift */; };
+		73633CFF2EF6BFAD009F182D /* StepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CFE2EF6BFAD009F182D /* StepListView.swift */; };
+		73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633D002EF6C0F4009F182D /* StepViewModel.swift */; };
 		73ECF6022EF5352B0029AF7A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6012EF5352B0029AF7A /* BaseView.swift */; };
 		73ECF6042EF538260029AF7A /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6032EF538100029AF7A /* LoginManager.swift */; };
 		73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6052EF552560029AF7A /* CustomTabBar.swift */; };
@@ -69,6 +75,12 @@
 		73633CEE2EF697EE009F182D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		73633CF02EF6A1B9009F182D /* AppNavHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavHeadView.swift; sourceTree = "<group>"; };
 		73633CF22EF6A541009F182D /* WhatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatViewController.swift; sourceTree = "<group>"; };
+		73633CF42EF6B789009F182D /* SchemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeConfig.swift; sourceTree = "<group>"; };
+		73633CF72EF6BA34009F182D /* StepDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDetailViewController.swift; sourceTree = "<group>"; };
+		73633CFA2EF6BC70009F182D /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
+		73633CFC2EF6BCE9009F182D /* StepHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHeadView.swift; sourceTree = "<group>"; };
+		73633CFE2EF6BFAD009F182D /* StepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepListView.swift; sourceTree = "<group>"; };
+		73633D002EF6C0F4009F182D /* StepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewModel.swift; sourceTree = "<group>"; };
 		73ECF6012EF5352B0029AF7A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		73ECF6032EF538100029AF7A /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		73ECF6052EF552560029AF7A /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -121,6 +133,7 @@
 				735C8D3F2EF529A900C7D507 /* Home */,
 				735C8D402EF529AC00C7D507 /* Order */,
 				735C8D412EF529AF00C7D507 /* Mine */,
+				73633CF62EF6BA09009F182D /* Auth */,
 				735C8D5A2EF530B500C7D507 /* Launch */,
 				735C8D422EF529B100C7D507 /* Base */,
 			);
@@ -191,6 +204,7 @@
 		735C8D442EF529B700C7D507 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				73633CF42EF6B789009F182D /* SchemeConfig.swift */,
 				73633CE82EF68D3A009F182D /* LoadingIndicator.swift */,
 				735C8D4D2EF5300000C7D507 /* AppConfig.swift */,
 				73ECF6092EF559D10029AF7A /* DeviceConfig.swift */,
@@ -207,6 +221,26 @@
 				735C8D512EF5305800C7D507 /* LaunchViewController.swift */,
 			);
 			path = Launch;
+			sourceTree = "<group>";
+		};
+		73633CF62EF6BA09009F182D /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				73633CF92EF6BC5A009F182D /* Step */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		73633CF92EF6BC5A009F182D /* Step */ = {
+			isa = PBXGroup;
+			children = (
+				73633D002EF6C0F4009F182D /* StepViewModel.swift */,
+				73633CFA2EF6BC70009F182D /* StepView.swift */,
+				73633CFE2EF6BFAD009F182D /* StepListView.swift */,
+				73633CFC2EF6BCE9009F182D /* StepHeadView.swift */,
+				73633CF72EF6BA34009F182D /* StepDetailViewController.swift */,
+			);
+			path = Step;
 			sourceTree = "<group>";
 		};
 		738045BCA3C101B36D295532 /* Frameworks */ = {
@@ -366,17 +400,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73633CFF2EF6BFAD009F182D /* StepListView.swift in Sources */,
 				73633CEB2EF68F71009F182D /* LoginViewModel.swift in Sources */,
 				73633CE92EF68D3A009F182D /* LoadingIndicator.swift in Sources */,
 				735C8D502EF5304D00C7D507 /* LoginViewController.swift in Sources */,
 				73633CEF2EF697EF009F182D /* HomeViewModel.swift in Sources */,
+				73633CF52EF6B791009F182D /* SchemeConfig.swift in Sources */,
+				73633CFD2EF6BCE9009F182D /* StepHeadView.swift in Sources */,
 				73ECF60A2EF559DF0029AF7A /* DeviceConfig.swift in Sources */,
 				735C8D5C2EF530E300C7D507 /* LaunchView.swift in Sources */,
 				735C8D602EF530FD00C7D507 /* HomeView.swift in Sources */,
+				73633CFB2EF6BC70009F182D /* StepView.swift in Sources */,
 				73633CED2EF68FA3009F182D /* BaseModel.swift in Sources */,
 				735C8D622EF5310900C7D507 /* MineView.swift in Sources */,
 				73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */,
 				73633CF12EF6A1B9009F182D /* AppNavHeadView.swift in Sources */,
+				73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */,
 				735C8D4C2EF52F4300C7D507 /* BaseNavigationController.swift in Sources */,
 				73ECF6042EF538260029AF7A /* LoginManager.swift in Sources */,
 				735C8D4E2EF5300000C7D507 /* AppConfig.swift in Sources */,
@@ -384,6 +423,7 @@
 				735C8D3A2EF5213500C7D507 /* AppDelegate.swift in Sources */,
 				73633CE72EF68053009F182D /* HttpRequestManager.swift in Sources */,
 				735C8D5E2EF530F300C7D507 /* LoginView.swift in Sources */,
+				73633CF82EF6BA34009F182D /* StepDetailViewController.swift in Sources */,
 				73ECF6082EF557280029AF7A /* CommonParaManager.swift in Sources */,
 				735C8D642EF5311300C7D507 /* OrderView.swift in Sources */,
 				735C8D462EF52EFA00C7D507 /* BaseViewController.swift in Sources */,

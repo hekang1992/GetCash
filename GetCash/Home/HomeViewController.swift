@@ -34,6 +34,30 @@ class HomeViewController: BaseViewController {
             }
         })
         
+        oneTapClick()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Task {
+            await self.refeshHomeData()
+        }
+    }
+    
+}
+
+extension HomeViewController {
+    
+    private func oneTapClick() {
+        
+        self.homeView.applyBlock = { [weak self] productID in
+            guard let self = self else { return }
+            Task {
+                await self.enterInfo(with: productID)
+            }
+        }
+        
         self.homeView.oneBlock = { [weak self] in
             guard let self = self else { return }
             let whatVc = WhatViewController()
@@ -64,13 +88,6 @@ class HomeViewController: BaseViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Task {
-            await self.refeshHomeData()
-        }
-    }
-    
 }
 
 extension HomeViewController {
@@ -95,6 +112,29 @@ extension HomeViewController {
             await MainActor.run {
                 self.homeView.scrollView.mj_header?.endRefreshing()
             }
+        }
+    }
+    
+    private func enterInfo(with productID: String) async {
+        do {
+            let json = ["childhood": productID]
+            let model = try await viewModel.enterInfo(json: json)
+            if model.hoping == "0" {
+                let pageUrl = model.awe?.fully ?? ""
+                judgeScheme(with: pageUrl)
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+        } catch {
+            
+        }
+    }
+    
+    private func judgeScheme(with pageUrl: String) {
+        if pageUrl.contains(SchemeConfig.baseURL) {
+            SchemeConfig.handleRoute(pageUrl: pageUrl, from: self)
+        }else if pageUrl.hasPrefix("http") || pageUrl.hasPrefix("https") {
+            
         }
     }
     
