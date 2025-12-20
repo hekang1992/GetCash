@@ -36,12 +36,12 @@ class CommonParameterManager {
         
         func toAPIDictionary() -> [String: String] {
             return [
-                "app_version": appVersion,
-                "device_name": deviceName,
-                "idfv": idfv,
-                "os_version": systemVersion,
-                "auth_token": authToken,
-                "idfa": idfa
+                "please": appVersion,
+                "liable": deviceName,
+                "gloominess": idfv,
+                "startled": systemVersion,
+                "extreme": authToken,
+                "reluctance": idfa
             ]
         }
     }

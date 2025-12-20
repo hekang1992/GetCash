@@ -11,14 +11,16 @@ import MJRefresh
 
 class HomeViewController: BaseViewController {
     
+    let viewModel = HomeViewModel()
+    
     lazy var homeView: HomeView = {
         let homeView = HomeView()
         return homeView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.addSubview(homeView)
         homeView.snp.makeConstraints { make in
@@ -33,15 +35,38 @@ class HomeViewController: BaseViewController {
         })
         
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Task {
+            await self.refeshHomeData()
+        }
+    }
+    
 }
 
 extension HomeViewController {
     
     private func refeshHomeData() async {
-        try? await Task.sleep(nanoseconds: 200_000_000_0)
-        await MainActor.run {
-            self.homeView.scrollView.mj_header?.endRefreshing()
+        do {
+            let model = try await viewModel.homeInfo()
+            if model.hoping == "0" {
+                let settledModelArray = model.awe?.settled ?? []
+                for (index, model) in settledModelArray.enumerated() {
+                    let courteous = model.courteous ?? ""
+                    if courteous == "While" {
+                        let modelArray = model.inherited ?? []
+                        self.homeView.configure(with: modelArray[0])
+                    }
+                }
+            }
+            await MainActor.run {
+                self.homeView.scrollView.mj_header?.endRefreshing()
+            }
+        } catch {
+            await MainActor.run {
+                self.homeView.scrollView.mj_header?.endRefreshing()
+            }
         }
     }
     

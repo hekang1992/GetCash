@@ -10,7 +10,16 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+typealias TapCilckBlock = () -> Void
 class LoginView: BaseView {
+    
+    var codeBlock: TapCilckBlock?
+    
+    var voiceBlock: TapCilckBlock?
+    
+    var loginBlock: TapCilckBlock?
+    
+    var isSureAgreement: Bool = true
     
     private lazy var containerView = UIView()
     
@@ -267,10 +276,35 @@ extension LoginView {
 extension LoginView {
     
     private func tapClick() {
+        
         agreeBtn.rx.tap.bind(onNext: { [weak self] in
             guard let self = self else { return }
             agreeBtn.isSelected.toggle()
+            isSureAgreement = agreeBtn.isSelected
         }).disposed(by: disposeBag)
+        
+        codeBtn.rx.tap.bind(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.codeBlock?()
+        }).disposed(by: disposeBag)
+        
+        voiceBtn.rx.tap.bind(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.voiceBlock?()
+        }).disposed(by: disposeBag)
+        
+        loginBtn.rx.tap.bind(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.loginBlock?()
+        }).disposed(by: disposeBag)
+        
+    }
+    
+    func updateVerificationButton(title: String? = nil, isEnabled: Bool = true) {
+        codeBtn.isEnabled = isEnabled
+        if let title = title {
+            codeBtn.setTitle(title, for: .normal)
+        }
     }
     
 }
