@@ -124,6 +124,7 @@ extension TapClickViewCell {
         phoneTextFiled.attributedPlaceholder = attrString
         
         phoneTextFiled.text = model.dead ?? ""
+        
     }
     
 }

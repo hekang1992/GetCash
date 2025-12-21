@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 import MJRefresh
 import TYAlertController
+import BRPickerView
+import RxSwift
+import RxCocoa
 
 class PersonalViewController: BaseViewController {
     
@@ -58,7 +61,6 @@ class PersonalViewController: BaseViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(EnterViewCell.self, forCellReuseIdentifier: "EnterViewCell")
         tableView.register(TapClickViewCell.self, forCellReuseIdentifier: "TapClickViewCell")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
@@ -150,6 +152,31 @@ class PersonalViewController: BaseViewController {
             make.left.right.equalToSuperview().inset(5)
             make.bottom.equalToSuperview().offset(-5)
         }
+        
+        nextBtn
+            .rx
+            .tap
+            .debounce(.milliseconds(100), scheduler: MainScheduler.instance)
+            .bind(onNext: { [weak self] in
+                guard let self = self else { return }
+                var json = ["childhood": productID]
+                for model in modelArray {
+                    let type = model.remark ?? ""
+                    let key = model.hoping ?? ""
+                    var value = model.courteous ?? ""
+                    if type == "chapel" {
+                        value = model.courteous ?? ""
+                    }else {
+                        value = model.dead ?? ""
+                    }
+                    json[key] = value
+                }
+                Task {
+                    await self.savePersonalInfo(with: json)
+                }
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -178,6 +205,19 @@ extension PersonalViewController {
         }
     }
     
+    private func savePersonalInfo(with json: [String: String]) async {
+        do {
+            let model = try await viewModel.savePersonalInfo(json: json)
+            if model.hoping == "0" {
+                self.backStepPageVc()
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+        } catch {
+            ToastManager.showMessage(message: "Network Connection Error")
+        }
+    }
+    
 }
 
 
@@ -194,6 +234,7 @@ extension PersonalViewController: UITableViewDelegate, UITableViewDataSource, UI
             cell.configEnterModel(with: model)
             cell.phoneTextChanged = { text in
                 model.dead = text
+                model.courteous = text
             }
             return cell
         }else {
@@ -202,7 +243,12 @@ extension PersonalViewController: UITableViewDelegate, UITableViewDataSource, UI
             cell.tapClickBlock = { [weak self] in
                 guard let self = self else { return }
                 self.view.endEditing(true)
-                self.tapClickCell(with: model, selectCell: cell)
+                if remark == "the" {
+                    self.tapCityClickCell(with: model, selectCell: cell)
+                }else {
+                    self.tapClickCell(with: model, selectCell: cell)
+                }
+                
             }
             return cell
         }
@@ -214,7 +260,17 @@ extension PersonalViewController {
     
     private func tapClickCell(with model: gotModel, selectCell: TapClickViewCell) {
         let popView = PopAlertEnmuView(frame: self.view.bounds)
-        popView.modelArray = model.mortals ?? []
+        let modelArray = model.mortals ?? []
+        
+        for (index, model) in modelArray.enumerated() {
+            let text = selectCell.phoneTextFiled.text ?? ""
+            let target = model.planet ?? ""
+            if target == text {
+                popView.selectedIndex = index
+            }
+            popView.modelArray = modelArray
+        }
+        
         popView.configTitle(with: model.favourite ?? "")
         let alertVc = TYAlertController(alert: popView, preferredStyle: .actionSheet)
         self.present(alertVc!, animated: true)
@@ -233,4 +289,35 @@ extension PersonalViewController {
         }
         
     }
+    
+    private func tapCityClickCell(with model: gotModel, selectCell: TapClickViewCell) {
+        let cityModelArray = AppCityModel.shared.modelArray ?? []
+        let listArray = AddressDecodeModel.getAddressModelArray(dataSourceArr: cityModelArray)
+        
+        let stringPickerView = BRTextPickerView()
+        stringPickerView.pickerMode = .componentCascade
+        stringPickerView.title = model.favourite ?? ""
+        stringPickerView.dataSourceArr = listArray
+        
+        
+        let customStyle = BRPickerStyle()
+        customStyle.rowHeight = 44
+        customStyle.selectRowTextColor = UIColor.init(hex: "#7895F4")
+        customStyle.pickerTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
+        customStyle.selectRowTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
+        stringPickerView.pickerStyle = customStyle
+        
+        stringPickerView.multiResultBlock = { models, indexs in
+            if let models = models {
+                let selectText = models.map { $0.text ?? "" }.joined(separator: "-")
+                selectCell.phoneTextFiled.text = selectText
+                model.dead = selectText
+                model.courteous = selectText
+            }
+        }
+        
+        stringPickerView.show()
+    }
+    
 }
+

@@ -46,4 +46,42 @@ class PersonalViewModel {
             throw error
         }
     }
+    
+    /// personal_detail_info
+    func getWorkInfo(json: [String: String]) async throws -> BaseModel {
+        
+        LoadingIndicator.shared.show()
+        
+        defer {
+            DispatchQueue.main.async {
+                LoadingIndicator.shared.hide()
+            }
+        }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/dread", parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
+    /// save_personal_detail_info
+    func saveWorkInfo(json: [String: String]) async throws -> BaseModel {
+        
+        LoadingIndicator.shared.show()
+        
+        defer {
+            DispatchQueue.main.async {
+                LoadingIndicator.shared.hide()
+            }
+        }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/superstitious", parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
 }

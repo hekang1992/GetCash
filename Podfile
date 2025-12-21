@@ -16,6 +16,7 @@ target 'GetCash' do
   pod 'Kingfisher'
   pod 'Toast-Swift'
   pod 'FBSDKCoreKit'
+  pod 'BRPickerView'
   pod 'TYAlertController'
   pod 'IQKeyboardManagerSwift', '~> 6.5.16'
   

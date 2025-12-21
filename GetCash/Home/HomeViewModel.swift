@@ -46,4 +46,13 @@ class HomeViewModel {
         }
     }
     
+    func getAdressInfo() async throws -> BaseModel {
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.get("/zyxwv/indicated")
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
 }

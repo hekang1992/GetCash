@@ -9,8 +9,13 @@ import UIKit
 import SnapKit
 import MJRefresh
 import TYAlertController
+import BRPickerView
+import RxSwift
+import RxCocoa
 
 class WorkViewController: BaseViewController {
+    
+    private let viewModel = PersonalViewModel()
     
     var name: String? {
         didSet {
@@ -24,6 +29,8 @@ class WorkViewController: BaseViewController {
     var stepArray: [residenceModel] = []
     
     private let stepView = StepScrollView()
+    
+    var modelArray: [gotModel] = []
     
     lazy var nextBtn: UIButton = {
         let nextBtn = UIButton(type: .custom)
@@ -45,14 +52,15 @@ class WorkViewController: BaseViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .systemPink
+        tableView.backgroundColor = .white
         tableView.estimatedRowHeight = 60
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(EnterViewCell.self, forCellReuseIdentifier: "EnterViewCell")
+        tableView.register(TapClickViewCell.self, forCellReuseIdentifier: "TapClickViewCell")
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
@@ -141,22 +149,175 @@ class WorkViewController: BaseViewController {
         contentView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(44)
-            make.left.right.equalToSuperview().inset(10)
+            make.left.right.equalToSuperview().inset(5)
             make.bottom.equalToSuperview().offset(-5)
+        }
+        
+        nextBtn
+            .rx
+            .tap
+            .debounce(.milliseconds(100), scheduler: MainScheduler.instance)
+            .bind(onNext: { [weak self] in
+                guard let self = self else { return }
+                var json = ["childhood": productID]
+                for model in modelArray {
+                    let type = model.remark ?? ""
+                    let key = model.hoping ?? ""
+                    var value = model.courteous ?? ""
+                    if type == "chapel" {
+                        value = model.courteous ?? ""
+                    }else {
+                        value = model.dead ?? ""
+                    }
+                    json[key] = value
+                }
+                Task {
+                    await self.saveWorkInfo(with: json)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Task {
+            await self.getWorkInfo()
         }
     }
     
 }
 
-extension WorkViewController: UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+extension WorkViewController {
+    
+    private func getWorkInfo() async {
+        do {
+            let json = ["childhood": productID]
+            let model = try await viewModel.getWorkInfo(json: json)
+            if model.hoping == "0" {
+                self.modelArray = model.awe?.got ?? []
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+            self.tableView.reloadData()
+        } catch {
+            ToastManager.showMessage(message: "Network Connection Error")
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-        cell.textLabel?.text = "indexPath.row=====\(indexPath.row)"
-        return cell
+    private func saveWorkInfo(with json: [String: String]) async {
+        do {
+            let model = try await viewModel.saveWorkInfo(json: json)
+            if model.hoping == "0" {
+                self.backStepPageVc()
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+        } catch {
+            ToastManager.showMessage(message: "Network Connection Error")
+        }
     }
     
 }
+
+
+extension WorkViewController: UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.modelArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = self.modelArray[indexPath.row]
+        let remark = model.remark ?? ""
+        if remark == "thought" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EnterViewCell", for: indexPath) as! EnterViewCell
+            cell.configEnterModel(with: model)
+            cell.phoneTextChanged = { text in
+                model.dead = text
+                model.courteous = text
+            }
+            return cell
+        }else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TapClickViewCell", for: indexPath) as! TapClickViewCell
+            cell.configEnterModel(with: model)
+            cell.tapClickBlock = { [weak self] in
+                guard let self = self else { return }
+                self.view.endEditing(true)
+                if remark == "the" {
+                    self.tapCityClickCell(with: model, selectCell: cell)
+                }else {
+                    self.tapClickCell(with: model, selectCell: cell)
+                }
+                
+            }
+            return cell
+        }
+    }
+    
+}
+
+extension WorkViewController {
+    
+    private func tapClickCell(with model: gotModel, selectCell: TapClickViewCell) {
+        let popView = PopAlertEnmuView(frame: self.view.bounds)
+        let modelArray = model.mortals ?? []
+        
+        for (index, model) in modelArray.enumerated() {
+            let text = selectCell.phoneTextFiled.text ?? ""
+            let target = model.planet ?? ""
+            if target == text {
+                popView.selectedIndex = index
+            }
+            popView.modelArray = modelArray
+        }
+        
+        popView.configTitle(with: model.favourite ?? "")
+        let alertVc = TYAlertController(alert: popView, preferredStyle: .actionSheet)
+        self.present(alertVc!, animated: true)
+        
+        popView.cancelBlock = { [weak self] in
+            self?.dismiss(animated: true)
+        }
+        
+        popView.confirmBlock = { [weak self] listModel in
+            guard let self = self else { return }
+            self.dismiss(animated: true) {
+                selectCell.phoneTextFiled.text = listModel.planet ?? ""
+                model.courteous = String(listModel.courteous ?? 0)
+                model.dead = listModel.planet ?? ""
+            }
+        }
+        
+    }
+    
+    private func tapCityClickCell(with model: gotModel, selectCell: TapClickViewCell) {
+        let cityModelArray = AppCityModel.shared.modelArray ?? []
+        let listArray = AddressDecodeModel.getAddressModelArray(dataSourceArr: cityModelArray)
+        
+        let stringPickerView = BRTextPickerView()
+        stringPickerView.pickerMode = .componentCascade
+        stringPickerView.title = model.favourite ?? ""
+        stringPickerView.dataSourceArr = listArray
+        
+        
+        let customStyle = BRPickerStyle()
+        customStyle.rowHeight = 44
+        customStyle.selectRowTextColor = UIColor.init(hex: "#7895F4")
+        customStyle.pickerTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
+        customStyle.selectRowTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
+        stringPickerView.pickerStyle = customStyle
+        
+        stringPickerView.multiResultBlock = { models, indexs in
+            if let models = models {
+                let selectText = models.map { $0.text ?? "" }.joined(separator: "-")
+                selectCell.phoneTextFiled.text = selectText
+                model.dead = selectText
+                model.courteous = selectText
+            }
+        }
+        
+        stringPickerView.show()
+    }
+    
+}
+

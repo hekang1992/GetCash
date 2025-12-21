@@ -36,6 +36,17 @@ class HomeViewController: BaseViewController {
         
         oneTapClick()
         
+        Task {
+            do {
+                let model = try await viewModel.getAdressInfo()
+                if model.hoping == "0" {
+                    AppCityModel.shared.modelArray = model.awe?.settled ?? []
+                }
+            } catch {
+                
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

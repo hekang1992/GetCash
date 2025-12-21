@@ -30,6 +30,9 @@ class aweModel: Codable {
 class settledModel: Codable {
     var courteous: String?
     var inherited: [inheritedModel]?
+    var planet: String?
+    var settled: [settledModel]?
+    var suspended: Int?
 }
 
 class inheritedModel: Codable {
@@ -85,22 +88,39 @@ class ridiculousModel: Codable {
     var hoping: String?
 }
 
-class gotModel: Codable {
-    var shrunk: String?
-    var favourite: String?
-    /// key
-    var hoping: String?
-    /// value
-    var dead: String?
-    /// keyboard
-    var rejoined: Int?
-    /// enum
-    var remark: String?
-    var courteous: String?
-    var mortals: [mortalsModel]?
-}
-
 class mortalsModel: Codable {
     var planet: String?
     var courteous: Int?
+}
+
+class gotModel: Codable {
+    var shrunk: String?
+    var favourite: String?
+    var hoping: String?
+    var dead: String?
+    var rejoined: Int?
+    var remark: String?
+    var courteous: String?
+    var mortals: [mortalsModel]?
+    
+    enum CodingKeys: String, CodingKey {
+        case shrunk, favourite, hoping, dead, rejoined, remark, mortals
+        case courteous
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        shrunk = try container.decodeIfPresent(String.self, forKey: .shrunk)
+        favourite = try container.decodeIfPresent(String.self, forKey: .favourite)
+        hoping = try container.decodeIfPresent(String.self, forKey: .hoping)
+        dead = try container.decodeIfPresent(String.self, forKey: .dead)
+        rejoined = try container.decodeIfPresent(Int.self, forKey: .rejoined)
+        remark = try container.decodeIfPresent(String.self, forKey: .remark)
+        mortals = try container.decodeIfPresent([mortalsModel].self, forKey: .mortals)
+        if let stringValue = try? container.decode(String.self, forKey: .courteous) {
+            courteous = stringValue
+        } else if let intValue = try? container.decode(Int.self, forKey: .courteous) {
+            courteous = String(intValue)
+        }
+    }
 }
