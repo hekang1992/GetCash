@@ -87,7 +87,8 @@ class StepView: BaseView {
         }
         
         headView.snp.makeConstraints { make in
-            make.top.left.equalToSuperview()
+            make.top.equalToSuperview().offset(5.pix())
+            make.left.equalToSuperview()
             make.centerX.equalToSuperview()
             make.height.equalTo(235.pix())
         }

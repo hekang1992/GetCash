@@ -23,6 +23,8 @@ class aweModel: Codable {
     var hid: faneModel?
     var pardon: [String]?
     var quickness: [String]?
+    var ridiculous: [ridiculousModel]?
+    var got: [gotModel]?
 }
 
 class settledModel: Codable {
@@ -75,4 +77,30 @@ class deModel: Codable {
 
 class faneModel: Codable {
     var used: Int?
+}
+
+class ridiculousModel: Codable {
+    var warning: String?
+    var outlived: String?
+    var hoping: String?
+}
+
+class gotModel: Codable {
+    var shrunk: String?
+    var favourite: String?
+    /// key
+    var hoping: String?
+    /// value
+    var dead: String?
+    /// keyboard
+    var rejoined: Int?
+    /// enum
+    var remark: String?
+    var courteous: String?
+    var mortals: [mortalsModel]?
+}
+
+class mortalsModel: Codable {
+    var planet: String?
+    var courteous: Int?
 }

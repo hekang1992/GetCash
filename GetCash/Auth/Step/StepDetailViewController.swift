@@ -41,7 +41,7 @@ class StepDetailViewController: BaseViewController{
         view.addSubview(setpView)
         setpView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
-            make.top.equalTo(headView.snp.bottom).offset(10)
+            make.top.equalTo(headView.snp.bottom)
         }
         
         setpView.tapClickBlock = { [weak self] model in
@@ -90,6 +90,28 @@ extension StepDetailViewController {
             Task {
                 await self.getFaceInfo(with: name)
             }
+        }else if authType == "frequently" {
+            let personalVc = PersonalViewController()
+            personalVc.name = name
+            personalVc.productID = productID
+            personalVc.stepArray = self.model?.awe?.residence ?? []
+            self.navigationController?.pushViewController(personalVc, animated: true)
+        }else if authType == "gratitude" {
+            let workVc = WorkViewController()
+            workVc.name = name
+            workVc.productID = productID
+            workVc.stepArray = self.model?.awe?.residence ?? []
+            self.navigationController?.pushViewController(workVc, animated: true)
+        }else if authType == "The" {
+            let contactVc = ContactViewController()
+            contactVc.name = name
+            contactVc.productID = productID
+            contactVc.stepArray = self.model?.awe?.residence ?? []
+            self.navigationController?.pushViewController(contactVc, animated: true)
+        }else if authType == "variety" {
+            
+        }else {
+            
         }
     }
     
@@ -120,7 +142,6 @@ extension StepDetailViewController {
             let model = try await viewModel.getFaceInfo(json: json)
             if model.hoping == "0" {
                 let photoModel = model.awe?.fane ?? faneModel()
-                let faceModel = model.awe?.hid ?? faneModel()
                 
                 if photoModel.used == 0 {
                     let listVc = AuthIDListViewController()
@@ -134,9 +155,11 @@ extension StepDetailViewController {
                     return
                 }
                 
-                if faceModel.used == 0 {
-                    return
-                }
+                let faceVc = FaceViewController()
+                faceVc.name = name
+                faceVc.productID = productID
+                faceVc.stepArray = self.model?.awe?.residence ?? []
+                self.navigationController?.pushViewController(faceVc, animated: true)
                 
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")

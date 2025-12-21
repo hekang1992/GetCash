@@ -97,7 +97,7 @@ class AuthIDListViewController: BaseViewController {
         
         headView.backBlock = { [weak self] in
             guard let self = self else { return }
-            self.navigationController?.popViewController(animated: true)
+            self.backStepPageVc()
         }
         
         setupUI()

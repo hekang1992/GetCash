@@ -46,4 +46,43 @@ class StepViewModel {
             throw error
         }
     }
+    
+    /// upload_id_info
+    func uploadIDInfo(json: [String: String], imageData: Data) async throws -> BaseModel {
+        
+        LoadingIndicator.shared.show()
+        
+        defer {
+            DispatchQueue.main.async {
+                LoadingIndicator.shared.hide()
+            }
+        }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/cottager", parameters: json, imageData: imageData)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
+    /// save_id_info
+    func savePhotoIDInfo(json: [String: String]) async throws -> BaseModel {
+        
+        LoadingIndicator.shared.show()
+        
+        defer {
+            DispatchQueue.main.async {
+                LoadingIndicator.shared.hide()
+            }
+        }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/aether", parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
 }

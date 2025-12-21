@@ -1,5 +1,5 @@
 //
-//  FacePopAlertView.swift
+//  PhotoPopAlertView.swift
 //  GetCash
 //
 //  Created by hekang on 2025/12/21.
@@ -10,15 +10,17 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class FacePopAlertView: BaseView {
+class PhotoPopAlertView: BaseView {
     
     var cancelBlock: TapCilckBlock?
     
     var oneBlock: TapCilckBlock?
     
+    var twoBlock: TapCilckBlock?
+    
     lazy var bgImageView: UIImageView = {
         let bgImageView = UIImageView()
-        bgImageView.image = UIImage(named: "face_demo_desc_image")
+        bgImageView.image = UIImage(named: "photo_demo_desc_image")
         bgImageView.isUserInteractionEnabled = true
         return bgImageView
     }()
@@ -26,6 +28,11 @@ class FacePopAlertView: BaseView {
     lazy var oneBtn: UIButton = {
         let oneBtn = UIButton(type: .custom)
         return oneBtn
+    }()
+    
+    lazy var twoBtn: UIButton = {
+        let twoBtn = UIButton(type: .custom)
+        return twoBtn
     }()
     
     lazy var cancelBtn: UIButton = {
@@ -38,6 +45,7 @@ class FacePopAlertView: BaseView {
         backgroundColor = .clear
         addSubview(bgImageView)
         bgImageView.addSubview(oneBtn)
+        bgImageView.addSubview(twoBtn)
         bgImageView.addSubview(cancelBtn)
         bgImageView.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -50,8 +58,13 @@ class FacePopAlertView: BaseView {
         }
         oneBtn.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-114)
-            make.centerX.equalToSuperview()
-            make.size.equalTo(CGSize(width: 300.pix(), height: 40.pix()))
+            make.left.equalToSuperview().offset(38.pix())
+            make.size.equalTo(CGSize(width: 120.pix(), height: 40.pix()))
+        }
+        twoBtn.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-114)
+            make.right.equalToSuperview().offset(-38.pix())
+            make.size.equalTo(CGSize(width: 120.pix(), height: 40.pix()))
         }
         
         tapClick()
@@ -63,7 +76,7 @@ class FacePopAlertView: BaseView {
     
 }
 
-extension FacePopAlertView {
+extension PhotoPopAlertView {
     
     private func tapClick() {
         
@@ -74,6 +87,16 @@ extension FacePopAlertView {
             .bind(onNext: { [weak self] in
             guard let self = self else { return }
             self.oneBlock?()
+        })
+            .disposed(by: disposeBag)
+        
+        twoBtn
+            .rx
+            .tap
+            .debounce(.milliseconds(100), scheduler: MainScheduler.instance)
+            .bind(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.twoBlock?()
         })
             .disposed(by: disposeBag)
         

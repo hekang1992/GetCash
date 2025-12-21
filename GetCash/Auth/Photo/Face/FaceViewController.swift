@@ -19,7 +19,12 @@ class FaceViewController: BaseViewController {
         }
     }
     
-    var type: String = ""
+    var type: String? {
+        didSet {
+            guard let type = type else { return }
+            print("type=====\(type)")
+        }
+    }
     
     var productID: String = ""
     
@@ -51,12 +56,12 @@ class FaceViewController: BaseViewController {
         
         headView.backBlock = { [weak self] in
             guard let self = self else { return }
-            self.navigationController?.popViewController(animated: true)
+            self.backStepPageVc()
         }
         
         view.addSubview(stepView)
         stepView.snp.makeConstraints { make in
-            make.top.equalTo(headView.snp.bottom).offset(10)
+            make.top.equalTo(headView.snp.bottom).offset(5)
             make.left.right.equalToSuperview()
             make.height.equalTo(72)
         }
@@ -71,17 +76,33 @@ class FaceViewController: BaseViewController {
         
         faceView.oneBlock = { [weak self] in
             guard let self = self, let model = model else { return }
+            let photoModel = model.awe?.fane ?? faneModel()
+            if photoModel.used == 1 {
+                ToastManager.showMessage(message: "The verification has already been successfully completed.")
+                return
+            }
             alertModel(with: model)
         }
         
         faceView.twoBlock = { [weak self] in
             guard let self = self, let model = model else { return }
+            let faceModel = model.awe?.hid ?? faneModel()
+            if faceModel.used == 1 {
+                ToastManager.showMessage(message: "The verification has already been successfully completed.")
+                return
+            }
             alertModel(with: model)
         }
         
         faceView.threeBlock = { [weak self] in
             guard let self = self, let model = model else { return }
-            alertModel(with: model)
+            let photoModel = model.awe?.fane ?? faneModel()
+            let faceModel = model.awe?.hid ?? faneModel()
+            if photoModel.used == 1 && faceModel.used == 1 {
+                self.backStepPageVc()
+            }else {
+                alertModel(with: model)
+            }
         }
         
         self.faceView.scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
@@ -91,13 +112,10 @@ class FaceViewController: BaseViewController {
             }
         })
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         Task {
             await self.getFaceInfo()
         }
+        
     }
     
 }
@@ -138,14 +156,57 @@ extension FaceViewController {
             return
         }
         
+        if photoModel.used == 1 {
+            self.faceView.oneListView.twoImageView.image = UIImage(named: "upload_suce_c_image")
+        }
+        
         if faceModel.used == 0 {
             alertFace()
             return
         }
         
+        if faceModel.used == 1 {
+            self.faceView.twoListView.twoImageView.image = UIImage(named: "upload_suce_c_image")
+        }
+        
     }
     
     private func alertPhoto() {
+        let popView = PhotoPopAlertView(frame: self.view.bounds)
+        let alertVc = TYAlertController(alert: popView, preferredStyle: .alert)
+        self.present(alertVc!, animated: true)
+        
+        popView.cancelBlock = { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+        
+        popView.oneBlock = { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true) {
+                ImagePickerHelper.takePhoto(from: self, isFront: false) { image in
+                    guard let image = image else { return }
+                    Task {
+                        await self.takePhoto(with: image, authType: "11")
+                    }
+                }
+            }
+        }
+        
+        popView.twoBlock = { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true) {
+                ImagePickerHelper.pickPhoto(from: self) { image in
+                    guard let image = image else { return }
+                    Task {
+                        await self.pickPhoto(with: image)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func alertFace() {
         let popView = FacePopAlertView(frame: self.view.bounds)
         let alertVc = TYAlertController(alert: popView, preferredStyle: .alert)
         self.present(alertVc!, animated: true)
@@ -157,12 +218,95 @@ extension FaceViewController {
         
         popView.oneBlock = { [weak self] in
             guard let self = self else { return }
-            self.dismiss(animated: true)
+            self.dismiss(animated: true) {
+                ImagePickerHelper.takePhoto(from: self, isFront: true) { image in
+                    guard let image = image else { return }
+                    Task {
+                        await self.takePhoto(with: image, authType: "10")
+                    }
+                }
+            }
         }
     }
     
-    private func alertFace() {
+    private func takePhoto(with image: UIImage, authType: String) async {
+        do {
+            let json = ["sets": "1", "courteous": authType, "glitter": type ?? ""]
+            let imageData = image.jpegData(compressionQuality: 0.3) ?? Data()
+            let model = try await viewModel.uploadIDInfo(json: json, imageData: imageData)
+            if model.hoping == "0" {
+                if authType == "11" {
+                    await MainActor.run {
+                        let modelArray = model.awe?.ridiculous ?? []
+                        alertSucView(with: modelArray)
+                    }
+                }else if authType == "10" {
+                    await self.getFaceInfo()
+                }
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+        } catch  {
+            
+        }
+    }
+    
+    private func pickPhoto(with image: UIImage) async {
+        do {
+            let json = ["sets": "2", "courteous": "11", "glitter": type ?? ""]
+            let imageData = image.jpegData(compressionQuality: 0.3) ?? Data()
+            let model = try await viewModel.uploadIDInfo(json: json, imageData: imageData)
+            if model.hoping == "0" {
+                await MainActor.run {
+                    let modelArray = model.awe?.ridiculous ?? []
+                    alertSucView(with: modelArray)
+                }
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+        } catch  {
+            
+        }
+    }
+    
+    private func alertSucView(with modelArray: [ridiculousModel]) {
+        let popView = PhotoSuccessAlertView(frame: self.view.bounds)
+        popView.modelArray = modelArray
+        let alertVc = TYAlertController(alert: popView, preferredStyle: .actionSheet)
+        self.present(alertVc!, animated: true)
         
+        popView.cancelBlock = { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+        
+        popView.oneBlock = { [weak self] in
+            guard let self = self else { return }
+            Task {
+                await self.savePhotoIDInfo(with: modelArray)
+            }
+        }
+        
+    }
+    
+    private func savePhotoIDInfo(with modelArray: [ridiculousModel]) async {
+        var json = ["childhood": productID, "courteous": "11", "glitter": type ?? ""]
+        for model in modelArray {
+            let key = model.hoping ?? ""
+            let value = model.outlived ?? ""
+            json[key] = value
+        }
+        do {
+            let model = try await viewModel.savePhotoIDInfo(json: json)
+            if model.hoping == "0" {
+                self.dismiss(animated: true)
+                await self.getFaceInfo()
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+        } catch {
+            
+        }
     }
     
 }

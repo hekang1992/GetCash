@@ -1,15 +1,16 @@
 //
-//  HomeViewModel.swift
+//  PersonalViewModel.swift
 //  GetCash
 //
-//  Created by hekang on 2025/12/20.
+//  Created by hekang on 2025/12/21.
 //
 
 import Foundation
 
-class HomeViewModel {
+class PersonalViewModel {
     
-    func homeInfo() async throws -> BaseModel {
+    /// personal_detail_info
+    func getPersonalInfo(json: [String: String]) async throws -> BaseModel {
         
         LoadingIndicator.shared.show()
         
@@ -20,15 +21,15 @@ class HomeViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.get("/zyxwv/enwrapt")
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/boundless", parameters: json)
             return model
         } catch {
-            ToastManager.showMessage(message: "Network Connection Error")
             throw error
         }
     }
     
-    func enterInfo(json: [String: String]) async throws -> BaseModel {
+    /// save_personal_detail_info
+    func savePersonalInfo(json: [String: String]) async throws -> BaseModel {
         
         LoadingIndicator.shared.show()
         
@@ -39,11 +40,10 @@ class HomeViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/hint", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/mould", parameters: json)
             return model
         } catch {
             throw error
         }
     }
-    
 }

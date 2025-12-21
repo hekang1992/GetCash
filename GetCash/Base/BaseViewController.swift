@@ -17,23 +17,25 @@ class BaseViewController: UIViewController {
         headView.backgroundColor = .clear
         return headView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor(hex: "#EDF0FF")
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension BaseViewController {
+    
+    func backStepPageVc() {
+        guard let navigationController = self.navigationController else { return }
+        if let targetVC = navigationController.viewControllers.first(where: { $0 is StepDetailViewController }) {
+            navigationController.popToViewController(targetVC, animated: true)
+        } else {
+            navigationController.popToRootViewController(animated: true)
+        }
     }
-    */
-
+    
 }
