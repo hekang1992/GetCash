@@ -50,14 +50,6 @@ class ContactViewModel {
     /// upload_contact_info
     func uploadContactInfo(json: [String: String]) async throws -> BaseModel {
         
-        LoadingIndicator.shared.show()
-        
-        defer {
-            DispatchQueue.main.async {
-                LoadingIndicator.shared.hide()
-            }
-        }
-        
         do {
             let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/describe", parameters: json)
             return model

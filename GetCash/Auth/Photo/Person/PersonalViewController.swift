@@ -153,27 +153,36 @@ class PersonalViewController: BaseViewController {
             make.bottom.equalToSuperview().offset(-5)
         }
         
-        nextBtn
-            .rx
+        nextBtn.rx
             .tap
-            .debounce(.milliseconds(100), scheduler: MainScheduler.instance)
-            .bind(onNext: { [weak self] in
-                guard let self = self else { return }
-                var json = ["childhood": productID]
-                for model in modelArray {
+            .throttle(.milliseconds(100), latest: false, scheduler: MainScheduler.instance)
+            .withUnretained(self)
+            .map { owner, _ in
+                var json = ["childhood": owner.productID]
+                owner.modelArray.forEach { model in
                     let type = model.remark ?? ""
                     let key = model.hoping ?? ""
-                    var value = model.courteous ?? ""
-                    if type == "chapel" {
-                        value = model.courteous ?? ""
-                    }else {
-                        value = model.dead ?? ""
+                    let value = (type == "chapel") ? (model.courteous ?? "") : (model.dead ?? "")
+                    
+                    if !key.isEmpty {
+                        json[key] = value
                     }
-                    json[key] = value
                 }
-                Task {
-                    await self.savePersonalInfo(with: json)
+                
+                return json
+            }
+            .flatMapLatest { [weak self] json in
+                Observable.create { observer in
+                    Task {
+                        await self?.savePersonalInfo(with: json)
+                        observer.onNext(())
+                        observer.onCompleted()
+                    }
+                    return Disposables.create()
                 }
+            }
+            .subscribe(onNext: {
+                
             })
             .disposed(by: disposeBag)
         
@@ -221,7 +230,7 @@ extension PersonalViewController {
 }
 
 
-extension PersonalViewController: UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+extension PersonalViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.modelArray.count
     }

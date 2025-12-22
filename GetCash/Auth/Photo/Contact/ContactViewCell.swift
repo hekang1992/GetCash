@@ -78,13 +78,11 @@ class ContactViewCell: UITableViewCell {
     
     lazy var oneBtn: UIButton = {
         let oneBtn = UIButton(type: .custom)
-        oneBtn.backgroundColor = .systemBlue
         return oneBtn
     }()
     
     lazy var twoBtn: UIButton = {
         let twoBtn = UIButton(type: .custom)
-        twoBtn.backgroundColor = .systemYellow
         return twoBtn
     }()
     
@@ -206,6 +204,22 @@ extension ContactViewCell {
         
         oneLabel.text = model.bitter ?? ""
         twoLabel.text = model.innocently ?? ""
+        
+        let name = model.planet ?? ""
+        let phone = model.cheeks ?? ""
+
+        nameTextFiled.text = [name, phone].allSatisfy { $0.isEmpty } ? "" : "\(name)-\(phone)"
+        
+        let renewing = model.renewing ?? ""
+        let mortals = model.mortals ?? []
+        
+        for item in mortals {
+            let courteous = String(item.courteous ?? 0)
+            if courteous == renewing {
+                phoneTextFiled.text = item.planet ?? ""
+            }
+        }
+        
         
     }
     

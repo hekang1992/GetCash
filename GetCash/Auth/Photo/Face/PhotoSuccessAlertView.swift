@@ -78,7 +78,7 @@ class PhotoSuccessAlertView: BaseView {
             make.size.equalTo(CGSize(width: 50, height: 50))
         }
         oneBtn.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-44)
+            make.bottom.equalToSuperview().offset(-114)
             make.centerX.equalToSuperview()
             make.size.equalTo(CGSize(width: 171.pix(), height: 43.pix()))
         }
