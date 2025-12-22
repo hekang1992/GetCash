@@ -302,6 +302,8 @@ extension PersonalViewController {
         
         let customStyle = BRPickerStyle()
         customStyle.rowHeight = 44
+        customStyle.language = "en"
+        customStyle.doneTextColor = UIColor.init(hex: "#7895F4")
         customStyle.selectRowTextColor = UIColor.init(hex: "#7895F4")
         customStyle.pickerTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
         customStyle.selectRowTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))

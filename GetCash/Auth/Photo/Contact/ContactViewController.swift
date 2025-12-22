@@ -25,6 +25,10 @@ class ContactViewController: BaseViewController {
     
     private let stepView = StepScrollView()
     
+    private let viewModel = ContactViewModel()
+    
+    var modelArray: [relationsModel] = []
+    
     lazy var nextBtn: UIButton = {
         let nextBtn = UIButton(type: .custom)
         nextBtn.setTitle("Next step", for: .normal)
@@ -45,14 +49,14 @@ class ContactViewController: BaseViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .systemPink
+        tableView.backgroundColor = .white
         tableView.estimatedRowHeight = 60
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(ContactViewCell.self, forCellReuseIdentifier: "ContactViewCell")
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0
         }
@@ -146,16 +150,42 @@ class ContactViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Task {
+            await self.contactInfo()
+        }
+    }
+}
+
+extension ContactViewController {
+    
+    private func contactInfo() async {
+        do {
+            let json = ["childhood": productID, "count": "1", ]
+            let model = try await viewModel.getContactInfo(json: json)
+            if model.hoping == "0" {
+                self.modelArray = model.awe?.relations ?? []
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+            self.tableView.reloadData()
+        } catch {
+            
+        }
+    }
+    
 }
 
 extension ContactViewController: UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return self.modelArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-        cell.textLabel?.text = "indexPath.row=====\(indexPath.row)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactViewCell", for: indexPath) as! ContactViewCell
+        let model = self.modelArray[indexPath.row]
+        cell.configWithModel(model: model)
         return cell
     }
     
