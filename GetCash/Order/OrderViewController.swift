@@ -22,10 +22,12 @@ class OrderViewController: BaseViewController {
         static let headerHeight: CGFloat = 87
     }
     
-    private let viewModel = MineViewModel()
+    private let viewModel = OrderViewModel()
     private var buttons: [UIButton] = []
     private let selectedIndex = BehaviorRelay<Int>(value: 0)
-        
+    private var type: String = "4"
+    private var modelArray: [settledModel] = []
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
@@ -56,7 +58,30 @@ class OrderViewController: BaseViewController {
         selectedImage: "order_four_sel_image",
         tag: 3
     )
-        
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.estimatedRowHeight = 60
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(OrderViewCell.self, forCellReuseIdentifier: "OrderViewCell")
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
+        return tableView
+    }()
+    
+    lazy var emptyView: OrderEmptyView = {
+        let emptyView = OrderEmptyView(frame: .zero)
+        emptyView.isHidden = true
+        return emptyView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -88,12 +113,37 @@ class OrderViewController: BaseViewController {
     
     private func setupScrollView() {
         view.addSubview(scrollView)
+        view.addSubview(tableView)
+        view.addSubview(emptyView)
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(headView.snp.bottom).offset(Constants.topOffset)
             make.left.equalToSuperview()
             make.width.equalTo(SCREEN_WIDTH)
             make.height.equalTo(Constants.scrollViewHeight.pix())
         }
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.snp.bottom).offset(10.pix())
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(60)
+        }
+        
+        emptyView.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.snp.bottom).offset(10.pix())
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(60)
+        }
+        
+        emptyView.setTapHandler {
+            NotificationCenter.default.post(name: NSNotification.Name("changeRootVc"), object: nil)
+        }
+        
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            guard let self = self else { return }
+            Task {
+                await self.orderListInfo()
+            }
+        })
+        
     }
     
     private func setupButtons() {
@@ -157,15 +207,63 @@ class OrderViewController: BaseViewController {
         }
         switch selectedIndex {
         case 0:
-            print("切换到第一个分类")
+            Task {
+                self.type = String(2 + 2)
+                await self.orderListInfo()
+            }
         case 1:
-            print("切换到第二个分类")
+            Task {
+                self.type = String(2 + 2 + 2 + 1)
+                await self.orderListInfo()
+            }
         case 2:
-            print("切换到第三个分类")
+            Task {
+                self.type = String(2 + 2 + 2)
+                await self.orderListInfo()
+            }
         case 3:
-            print("切换到第四个分类")
+            Task {
+                self.type = String(2 + 2 + 1)
+                await self.orderListInfo()
+            }
         default:
             break
         }
     }
+}
+
+extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.modelArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderViewCell", for: indexPath) as! OrderViewCell
+        let model = self.modelArray[indexPath.row]
+        cell.configUI(with: model)
+        return cell
+    }
+}
+
+extension OrderViewController {
+    
+    private func orderListInfo() async {
+        do {
+            let json = ["futurity": type]
+            let model = try await viewModel.orderListInfo(json: json)
+            if model.hoping == "0" {
+                let modelArray = model.awe?.settled ?? []
+                self.modelArray = modelArray
+                emptyView.isHidden = !modelArray.isEmpty
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+            self.tableView.reloadData()
+            await self.tableView.mj_header?.endRefreshing()
+        } catch {
+            await self.tableView.mj_header?.endRefreshing()
+        }
+    }
+    
 }
