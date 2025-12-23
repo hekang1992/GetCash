@@ -50,7 +50,7 @@ class GWebViewController: BaseViewController {
     
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .default)
-        progressView.progressTintColor = UIColor(hex: "#EDF0FF")
+        progressView.progressTintColor = UIColor(hex: "#FFA500")
         progressView.trackTintColor = .clear
         progressView.isHidden = true
         return progressView
@@ -289,7 +289,7 @@ extension GWebViewController: WKScriptMessageHandler {
     }
     
     private func handleNecksScript() {
-        navigationController?.popToRootViewController(animated: true)
+        self.backStepPageVc()
     }
     
     private func handleModerateScript(_ body: Any) {

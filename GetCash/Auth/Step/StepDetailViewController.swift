@@ -49,8 +49,9 @@ class StepDetailViewController: BaseViewController{
             let isAuth = model.used ?? 0
             let type = model.blanc ?? ""
             let name = model.shrunk ?? ""
+            let pageUrl = model.fully ?? ""
             if isAuth == 1 {
-                shouldGoVc(with: type, name: name)
+                shouldGoVc(with: type, name: name, pageUrl: pageUrl)
             }else {
                 setpView.nextBtnClickBlock?()
             }
@@ -61,7 +62,8 @@ class StepDetailViewController: BaseViewController{
             if let model = self.model?.awe?.de {
                 let type = model.blanc ?? ""
                 let name = model.shrunk ?? ""
-                shouldGoVc(with: type, name: name)
+                let pageUrl = model.fully ?? ""
+                shouldGoVc(with: type, name: name, pageUrl: pageUrl)
             }
         }
         
@@ -85,7 +87,7 @@ class StepDetailViewController: BaseViewController{
 
 extension StepDetailViewController {
     
-    private func shouldGoVc(with authType: String, name: String) {
+    private func shouldGoVc(with authType: String, name: String, pageUrl: String) {
         if authType == "few" {
             Task {
                 await self.getFaceInfo(with: name)
@@ -109,9 +111,11 @@ extension StepDetailViewController {
             contactVc.stepArray = self.model?.awe?.residence ?? []
             self.navigationController?.pushViewController(contactVc, animated: true)
         }else if authType == "variety" {
-            
+            self.goWebVc(with: pageUrl)
         }else {
-            
+            Task {
+                await self.applyOrderInfo()
+            }
         }
     }
     
@@ -161,6 +165,30 @@ extension StepDetailViewController {
                 faceVc.stepArray = self.model?.awe?.residence ?? []
                 self.navigationController?.pushViewController(faceVc, animated: true)
                 
+            }else {
+                ToastManager.showMessage(message: model.recollected ?? "")
+            }
+        } catch {
+            
+        }
+    }
+    
+    private func applyOrderInfo() async {
+        do {
+            let chiefly = self.model?.awe?.sentence?.chiefly ?? ""
+            let suppose = String(self.model?.awe?.sentence?.suppose ?? 0)
+            let died = self.model?.awe?.sentence?.died ?? ""
+            let reported = String(self.model?.awe?.sentence?.reported ?? 0)
+            
+            let json = ["chiefly": chiefly,
+                        "suppose": suppose,
+                        "died": died,
+                        "reported": reported
+            ]
+            let model = try await viewModel.applyOrderIDInfo(json: json)
+            if model.hoping == "0" {
+                let pageUrl = model.awe?.fully ?? ""
+                self.goWebVc(with: pageUrl)
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")
             }

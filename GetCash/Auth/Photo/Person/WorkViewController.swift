@@ -82,7 +82,7 @@ class WorkViewController: BaseViewController {
         
         headView.backBlock = { [weak self] in
             guard let self = self else { return }
-            self.backStepPageVc()
+            self.stayLeaveClick()
         }
         
         view.addSubview(stepView)

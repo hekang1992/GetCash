@@ -85,4 +85,23 @@ class StepViewModel {
         }
     }
     
+    /// apply_order_info
+    func applyOrderIDInfo(json: [String: String]) async throws -> BaseModel {
+        
+        LoadingIndicator.shared.show()
+        
+        defer {
+            DispatchQueue.main.async {
+                LoadingIndicator.shared.hide()
+            }
+        }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/unclouded", parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
 }

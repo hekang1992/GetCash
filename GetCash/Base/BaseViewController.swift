@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import TYAlertController
 
 class BaseViewController: UIViewController {
     
@@ -42,6 +43,29 @@ extension BaseViewController {
         let webVc = GWebViewController()
         webVc.pageUrl = pageUrl
         self.navigationController?.pushViewController(webVc, animated: true)
+    }
+    
+    func stayLeaveClick() {
+        let deleteView = AlertSettingView(frame: self.view.bounds)
+        deleteView.bgImageView.image = UIImage(named: "stay_leave_bg_image")
+        let alertVc = TYAlertController(alert: deleteView, preferredStyle: .alert)
+        self.present(alertVc!, animated: true)
+        deleteView.cancelBlock = { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+        
+        deleteView.twoBlock = { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+        
+        deleteView.oneBlock = { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true) {
+                self.backStepPageVc()
+            }
+        }
     }
     
 }

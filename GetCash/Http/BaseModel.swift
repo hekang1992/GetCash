@@ -59,6 +59,9 @@ class sentenceModel: Codable {
     var symbol: String?
     var suppose: Int?
     var lord: lordModel?
+    var chiefly: String?
+    var died: String?
+    var reported: Int?
 }
 
 class lordModel: Codable {
@@ -76,11 +79,13 @@ class residenceModel: Codable {
     var blanc: String?
     var shrunk: String?
     var favourite: String?
+    var fully: String?
 }
 
 class deModel: Codable {
     var blanc: String?
     var shrunk: String?
+    var fully: String?
 }
 
 class faneModel: Codable {
