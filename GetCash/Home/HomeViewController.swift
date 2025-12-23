@@ -11,142 +11,165 @@ import MJRefresh
 
 class HomeViewController: BaseViewController {
     
-    let viewModel = HomeViewModel()
+    private let viewModel = HomeViewModel()
     
-    lazy var homeView: HomeView = {
-        let homeView = HomeView()
-        return homeView
+    private lazy var homeView: HomeView = {
+        let view = HomeView()
+        view.isHidden = true
+        setupHomeViewCallbacks(view)
+        return view
+    }()
+    
+    private lazy var luxView: HomeLuxuryView = {
+        let view = HomeLuxuryView()
+        view.isHidden = true
+        return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        view.addSubview(homeView)
-        homeView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        self.homeView.scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
-            guard let self = self else { return }
-            Task {
-                await self.refeshHomeData()
-            }
-        })
-        
-        oneTapClick()
-        
-        Task {
-            do {
-                let model = try await viewModel.getAdressInfo()
-                if model.hoping == "0" {
-                    AppCityModel.shared.modelArray = model.awe?.settled ?? []
-                }
-            } catch {
-                
-            }
-        }
-        
+        setupUI()
+        setupRefresh()
+        fetchInitialData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
-            await self.refeshHomeData()
+            await refreshHomeData()
         }
     }
-    
 }
 
 extension HomeViewController {
-    
-    private func oneTapClick() {
+    private func setupUI() {
+        view.addSubview(homeView)
+        homeView.snp.makeConstraints { $0.edges.equalToSuperview() }
         
-        self.homeView.applyBlock = { [weak self] productID in
-            guard let self = self else { return }
-            Task {
-                await self.enterInfo(with: productID)
+        view.addSubview(luxView)
+        luxView.snp.makeConstraints { $0.edges.equalToSuperview() }
+    }
+    
+    private func setupRefresh() {
+        homeView.scrollView.mj_header = MJRefreshNormalHeader { [weak self] in
+            Task { [weak self] in
+                await self?.refreshHomeData()
+            }
+        }
+    }
+    
+    private func setupHomeViewCallbacks(_ homeView: HomeView) {
+        homeView.applyBlock = { [weak self] productID in
+            Task { [weak self] in
+                await self?.enterInfo(with: productID)
             }
         }
         
-        self.homeView.oneBlock = { [weak self] in
-            guard let self = self else { return }
-            let whatVc = WhatViewController()
-            whatVc.setConfig(with: "Loan conditions", bgImage: "wht_desc_image")
-            self.navigationController?.pushViewController(whatVc, animated: true)
+        homeView.oneBlock = { [weak self] in
+            self?.navigateToWhatViewController(title: "Loan conditions", imageName: "wht_desc_image")
         }
         
-        self.homeView.twoBlock = { [weak self] in
-            guard let self = self else { return }
-            let whatVc = WhatViewController()
-            whatVc.setConfig(with: "Loan conditions", bgImage: "wht_desc_image")
-            self.navigationController?.pushViewController(whatVc, animated: true)
+        homeView.twoBlock = { [weak self] in
+            self?.navigateToWhatViewController(title: "Loan conditions", imageName: "wht_desc_image")
         }
         
-        self.homeView.threeBlock = { [weak self] in
-            guard let self = self else { return }
-            let whatVc = WhatViewController()
-            whatVc.setConfig(with: "Loan conditions", bgImage: "wht_desc_image")
-            self.navigationController?.pushViewController(whatVc, animated: true)
+        homeView.threeBlock = { [weak self] in
+            self?.navigateToWhatViewController(title: "Loan conditions", imageName: "wht_desc_image")
         }
         
-        self.homeView.fourBlock = { [weak self] in
-            guard let self = self else { return }
-            let whatVc = WhatViewController()
-            whatVc.setConfig(with: "Common problem", bgImage: "com_ques_image")
-            self.navigationController?.pushViewController(whatVc, animated: true)
+        homeView.fourBlock = { [weak self] in
+            self?.navigateToWhatViewController(title: "Common problem", imageName: "com_ques_image")
         }
-        
     }
     
+    private func fetchInitialData() {
+        Task {
+            await fetchAddressInfo()
+        }
+    }
 }
 
 extension HomeViewController {
+    private func navigateToWhatViewController(title: String, imageName: String) {
+        let whatVc = WhatViewController()
+        whatVc.setConfig(with: title, bgImage: imageName)
+        navigationController?.pushViewController(whatVc, animated: true)
+    }
+}
+
+extension HomeViewController {
+    private func fetchAddressInfo() async {
+        do {
+            let model = try await viewModel.getAdressInfo()
+            guard model.hoping == "0" else { return }
+            AppCityModel.shared.modelArray = model.awe?.settled ?? []
+        } catch {
+            debugPrint("Fetch address info failed: \(error)")
+        }
+    }
     
-    private func refeshHomeData() async {
+    private func refreshHomeData() async {
         do {
             let model = try await viewModel.homeInfo()
-            if model.hoping == "0" {
-                let settledModelArray = model.awe?.settled ?? []
-                for (_, model) in settledModelArray.enumerated() {
-                    let courteous = model.courteous ?? ""
-                    if courteous == "While" {
-                        let modelArray = model.inherited ?? []
-                        self.homeView.model = modelArray[0]
-                    }
-                }
-            }
             await MainActor.run {
-                self.homeView.scrollView.mj_header?.endRefreshing()
+                handleHomeInfoResponse(model)
+                homeView.scrollView.mj_header?.endRefreshing()
             }
         } catch {
             await MainActor.run {
-                self.homeView.scrollView.mj_header?.endRefreshing()
+                homeView.scrollView.mj_header?.endRefreshing()
+                debugPrint("Refresh home data failed: \(error)")
             }
         }
+    }
+    
+    private func handleHomeInfoResponse(_ model: BaseModel) {
+        guard model.hoping == "0" else { return }
+        
+        let settledModels = model.awe?.settled ?? []
+        
+        if let normalProduct = settledModels.first(where: { $0.courteous == "While" }) {
+            showNormalView(with: normalProduct)
+        } else {
+            showLuxuryView()
+        }
+    }
+    
+    private func showNormalView(with product: settledModel) {
+        homeView.model = product.inherited?.first
+        homeView.isHidden = false
+        luxView.isHidden = true
+    }
+    
+    private func showLuxuryView() {
+        homeView.isHidden = true
+        luxView.isHidden = false
     }
     
     private func enterInfo(with productID: String) async {
         do {
             let json = ["childhood": productID]
             let model = try await viewModel.enterInfo(json: json)
-            if model.hoping == "0" {
-                let pageUrl = model.awe?.fully ?? ""
-                judgeScheme(with: pageUrl)
-            }else {
-                ToastManager.showMessage(message: model.recollected ?? "")
+            
+            await MainActor.run {
+                if model.hoping == "0", let pageUrl = model.awe?.fully {
+                    handlePageUrl(pageUrl)
+                } else {
+                    ToastManager.showMessage(message: model.recollected ?? "")
+                }
             }
         } catch {
-            
+            await MainActor.run {
+                debugPrint("Enter info failed: \(error)")
+            }
         }
     }
     
-    private func judgeScheme(with pageUrl: String) {
+    private func handlePageUrl(_ pageUrl: String) {
         if pageUrl.contains(SchemeConfig.baseURL) {
             SchemeConfig.handleRoute(pageUrl: pageUrl, from: self)
-        }else if pageUrl.hasPrefix("http") || pageUrl.hasPrefix("https") {
-            self.goWebVc(with: pageUrl)
+        } else if pageUrl.hasPrefix("http") || pageUrl.hasPrefix("https") {
+            goWebVc(with: pageUrl)
         }
     }
-    
 }

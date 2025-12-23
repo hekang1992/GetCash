@@ -63,6 +63,7 @@
 		73B1959E2EFA7B3900C5B45A /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B1959D2EFA7B3300C5B45A /* OrderViewModel.swift */; };
 		73B195A02EFA801A00C5B45A /* OrderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B1959F2EFA801A00C5B45A /* OrderViewCell.swift */; };
 		73B195A22EFA84E700C5B45A /* OrderEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B195A12EFA84E700C5B45A /* OrderEmptyView.swift */; };
+		73B195A42EFA8F4F00C5B45A /* HomeLuxuryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B195A32EFA8F4F00C5B45A /* HomeLuxuryView.swift */; };
 		73D013EB2EF8498200A03513 /* AddressDecodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013EA2EF8498200A03513 /* AddressDecodeModel.swift */; };
 		73D013EF2EF8CF2B00A03513 /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013EE2EF8CF2B00A03513 /* ContactViewCell.swift */; };
 		73D013F12EF8D04800A03513 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013F02EF8D04400A03513 /* ContactViewModel.swift */; };
@@ -137,6 +138,7 @@
 		73B1959D2EFA7B3300C5B45A /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		73B1959F2EFA801A00C5B45A /* OrderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewCell.swift; sourceTree = "<group>"; };
 		73B195A12EFA84E700C5B45A /* OrderEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEmptyView.swift; sourceTree = "<group>"; };
+		73B195A32EFA8F4F00C5B45A /* HomeLuxuryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLuxuryView.swift; sourceTree = "<group>"; };
 		73D013EA2EF8498200A03513 /* AddressDecodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDecodeModel.swift; sourceTree = "<group>"; };
 		73D013EE2EF8CF2B00A03513 /* ContactViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewCell.swift; sourceTree = "<group>"; };
 		73D013F02EF8D04400A03513 /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
@@ -286,10 +288,11 @@
 		735C8D3F2EF529A900C7D507 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				73633CEE2EF697EE009F182D /* HomeViewModel.swift */,
 				735C8D5F2EF530FD00C7D507 /* HomeView.swift */,
+				73633CEE2EF697EE009F182D /* HomeViewModel.swift */,
 				735C8D532EF5306A00C7D507 /* HomeViewController.swift */,
 				73633CF22EF6A541009F182D /* WhatViewController.swift */,
+				73B195A32EFA8F4F00C5B45A /* HomeLuxuryView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				735C8D4E2EF5300000C7D507 /* AppConfig.swift in Sources */,
 				7333F5182EF708D100E74153 /* AuthIDListViewCell.swift in Sources */,
 				735C8D542EF5306A00C7D507 /* HomeViewController.swift in Sources */,
+				73B195A42EFA8F4F00C5B45A /* HomeLuxuryView.swift in Sources */,
 				735C8D3A2EF5213500C7D507 /* AppDelegate.swift in Sources */,
 				73633CE72EF68053009F182D /* HttpRequestManager.swift in Sources */,
 				7344600D2EF7F7D30054D267 /* PaddedLabel.swift in Sources */,
