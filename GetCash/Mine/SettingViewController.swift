@@ -57,7 +57,7 @@ class SettingViewController: BaseViewController {
         
         let logoutBtn = UIButton(type: .custom)
         logoutBtn.setImage(UIImage(named: "out_del_image"), for: .normal)
-        logoutBtn.adjustsImageWhenHighlighted = true
+        logoutBtn.adjustsImageWhenHighlighted = false
         view.addSubview(logoutBtn)
         logoutBtn.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

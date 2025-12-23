@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import BRPickerView
 
 class PhotoSuccessAlertView: BaseView {
     
@@ -138,6 +139,9 @@ extension PhotoSuccessAlertView: UITableViewDelegate, UITableViewDataSource {
             cell.tapClickBlock = { [weak self] in
                 guard let self = self else { return }
                 self.endEditing(true)
+                if let model = model {
+                    tapCityClickCell(with: model, selectCell: cell)
+                }
             }
             return cell
         }else {
@@ -149,4 +153,53 @@ extension PhotoSuccessAlertView: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+}
+
+extension PhotoSuccessAlertView {
+    
+    private func tapCityClickCell(with model: ridiculousModel, selectCell: TapClickViewCell) {
+        
+        let datePickerView = BRDatePickerView()
+        datePickerView.pickerMode = .YMD
+        datePickerView.title = "Select A Date"
+        
+        let defaultDate: Date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        if let deadDate = model.outlived, !deadDate.isEmpty {
+            if let date = dateFormatter.date(from: deadDate) {
+                defaultDate = date
+            } else {
+                let backupFormatter = DateFormatter()
+                backupFormatter.dateFormat = "yyyy-MM-dd"
+                if let date = backupFormatter.date(from: deadDate) {
+                    defaultDate = date
+                } else {
+                    defaultDate = dateFormatter.date(from: "10-10-2000") ?? Date()
+                }
+            }
+        } else {
+            defaultDate = dateFormatter.date(from: "10-10-2000") ?? Date()
+        }
+        
+        datePickerView.selectDate = defaultDate
+        
+        let customStyle = BRPickerStyle()
+        customStyle.rowHeight = 44
+        customStyle.language = "en"
+        customStyle.doneTextColor = UIColor.init(hex: "#7895F4")
+        customStyle.selectRowTextColor = UIColor.init(hex: "#7895F4")
+        customStyle.pickerTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
+        customStyle.selectRowTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight(500))
+        datePickerView.pickerStyle = customStyle
+        datePickerView.resultBlock = { selectDate, selectValue in
+            if let selectedDate = selectDate {
+                let resultDateString = dateFormatter.string(from: selectedDate)
+                selectCell.phoneTextFiled.text = resultDateString
+                model.outlived = resultDateString
+            }
+        }
+        datePickerView.show()
+    }
+    
 }
