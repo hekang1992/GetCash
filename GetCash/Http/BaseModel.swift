@@ -38,6 +38,15 @@ class settledModel: Codable {
     var departed: String?
     var shrunk: String?
     var fully: String?
+    var add: String?
+    var emigrants: String?
+    var lends: String?
+    var grasshoppers: String?
+    var married: String?
+    var possessed: String?
+    var agnes: String?
+    var permitted: String?
+    var dancing: String?
 }
 
 class inheritedModel: Codable {

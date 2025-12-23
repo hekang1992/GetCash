@@ -244,6 +244,16 @@ extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configUI(with: model)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = self.modelArray[indexPath.row]
+        let pageUrl = model.dancing ?? ""
+        if pageUrl.contains(SchemeConfig.baseURL) {
+            SchemeConfig.handleRoute(pageUrl: pageUrl, from: self)
+        }else if pageUrl.hasPrefix("http") || pageUrl.hasPrefix("https") {
+            self.goWebVc(with: pageUrl)
+        }
+    }
 }
 
 extension OrderViewController {
