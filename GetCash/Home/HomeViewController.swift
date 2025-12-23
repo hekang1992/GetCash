@@ -145,7 +145,7 @@ extension HomeViewController {
         if pageUrl.contains(SchemeConfig.baseURL) {
             SchemeConfig.handleRoute(pageUrl: pageUrl, from: self)
         }else if pageUrl.hasPrefix("http") || pageUrl.hasPrefix("https") {
-            
+            self.goWebVc(with: pageUrl)
         }
     }
     

@@ -110,7 +110,8 @@ class SchemeConfig {
     
     // MARK: - 具体页面导航方法
     private static func navigateToSetting(from viewController: BaseViewController, parameters: [String: String]) {
-        print("跳转到设置页面，参数: \(parameters)")
+        let settingVc = SettingViewController()
+        viewController.navigationController?.pushViewController(settingVc, animated: true)
     }
     
     private static func navigateToHome(from viewController: BaseViewController, parameters: [String: String]) {
