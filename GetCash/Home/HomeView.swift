@@ -41,7 +41,7 @@ class HomeView: BaseView {
             twoLabel.text = String(format: "%@: %@", blunted, dim)
         }
     }
-
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
@@ -57,18 +57,24 @@ class HomeView: BaseView {
         return oneImageView
     }()
     
+    lazy var goldImageView: UIImageView = {
+        let goldImageView = UIImageView()
+        goldImageView.image = UIImage(named: "gold_bg_c_image")
+        return goldImageView
+    }()
+    
     lazy var twoImageView: UIImageView = {
         let twoImageView = UIImageView()
         twoImageView.image = UIImage(named: "one_desc_head_image")
         return twoImageView
     }()
-
+    
     lazy var threeImageView: UIImageView = {
         let threeImageView = UIImageView()
         threeImageView.image = UIImage(named: "one_hohe_head_image")
         return threeImageView
     }()
-
+    
     
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -171,6 +177,7 @@ class HomeView: BaseView {
         }
         scrollView.addSubview(oneImageView)
         oneImageView.addSubview(twoImageView)
+        oneImageView.addSubview(goldImageView)
         scrollView.addSubview(threeImageView)
         scrollView.addSubview(stackView)
         stackView.addArrangedSubview(fourImageView)
@@ -194,6 +201,11 @@ class HomeView: BaseView {
             make.right.equalToSuperview()
             make.bottom.equalToSuperview().offset(-20)
             make.size.equalTo(CGSize(width: 113, height: 136))
+        }
+        goldImageView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(25)
+            make.bottom.equalTo(twoImageView.snp.bottom).offset(-20)
+            make.size.equalTo(CGSize(width: 61, height: 61))
         }
         threeImageView.snp.makeConstraints { make in
             make.top.equalTo(oneImageView.snp.bottom).offset(1)
