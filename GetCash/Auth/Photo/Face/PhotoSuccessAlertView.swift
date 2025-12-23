@@ -158,10 +158,10 @@ extension PhotoSuccessAlertView: UITableViewDelegate, UITableViewDataSource {
 extension PhotoSuccessAlertView {
     
     private func tapCityClickCell(with model: ridiculousModel, selectCell: TapClickViewCell) {
-        
+
         let datePickerView = BRDatePickerView()
         datePickerView.pickerMode = .YMD
-        datePickerView.title = "Select A Date"
+        datePickerView.title = "Select a date"
         
         let defaultDate: Date
         let dateFormatter = DateFormatter()
