@@ -75,7 +75,6 @@ class HomeView: BaseView {
         return threeImageView
     }()
     
-    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal

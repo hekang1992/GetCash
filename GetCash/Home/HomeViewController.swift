@@ -26,6 +26,8 @@ class HomeViewController: BaseViewController {
         return view
     }()
     
+    var modelArray: [inheritedModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -56,10 +58,22 @@ extension HomeViewController {
                 await self?.refreshHomeData()
             }
         }
+        
+        luxView.collectionView.mj_header = MJRefreshNormalHeader { [weak self] in
+            Task { [weak self] in
+                await self?.refreshHomeData()
+            }
+        }
     }
     
     private func setupHomeViewCallbacks(_ homeView: HomeView) {
         homeView.applyBlock = { [weak self] productID in
+            Task { [weak self] in
+                await self?.enterInfo(with: productID)
+            }
+        }
+        
+        luxView.tapClickBlock = { [weak self] productID in
             Task { [weak self] in
                 await self?.enterInfo(with: productID)
             }
@@ -114,10 +128,12 @@ extension HomeViewController {
             await MainActor.run {
                 handleHomeInfoResponse(model)
                 homeView.scrollView.mj_header?.endRefreshing()
+                luxView.collectionView.mj_header?.endRefreshing()
             }
         } catch {
             await MainActor.run {
                 homeView.scrollView.mj_header?.endRefreshing()
+                luxView.collectionView.mj_header?.endRefreshing()
                 debugPrint("Refresh home data failed: \(error)")
             }
         }
@@ -131,7 +147,15 @@ extension HomeViewController {
         if let normalProduct = settledModels.first(where: { $0.courteous == "While" }) {
             showNormalView(with: normalProduct)
         } else {
-            showLuxuryView()
+            modelArray.removeAll()
+            if let normalProduct = settledModels.first(where: { $0.courteous == "luxury" }) {
+                showLuxuryView(with: normalProduct)
+            }
+            
+            if let normalProduct = settledModels.first(where: { $0.courteous == "about" }) {
+                showLuxuryView(with: normalProduct)
+            }
+            
         }
     }
     
@@ -141,9 +165,13 @@ extension HomeViewController {
         luxView.isHidden = true
     }
     
-    private func showLuxuryView() {
+    private func showLuxuryView(with product: settledModel) {
+        let listArray = product.inherited ?? []
+        modelArray.append(contentsOf: listArray)
+        luxView.modelArray = modelArray
         homeView.isHidden = true
         luxView.isHidden = false
+        print("modelarray---count---\(modelArray.count)")
     }
     
     private func enterInfo(with productID: String) async {

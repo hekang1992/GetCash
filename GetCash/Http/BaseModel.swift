@@ -60,6 +60,7 @@ class inheritedModel: Codable {
     var blunted: String?
     var ashes: String?
     var hopeless: String?
+    var narrative: String?
 }
 
 class sentenceModel: Codable {

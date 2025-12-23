@@ -10,16 +10,25 @@ import SnapKit
 
 class HomeLuxuryView: BaseView {
     
+    var modelArray: [inheritedModel]? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    var tapClickBlock: ((String) -> Void)?
+    
     lazy var headView: AppNavHeadView = {
         let headView = AppNavHeadView()
         headView.backBtn.isHidden = true
         headView.nameLabel.isHidden = true
         headView.backgroundColor = .clear
+        headView.bgView.backgroundColor = UIColor.init(hex: "#EDF0FF")
         return headView
     }()
     
     private struct Constants {
-        static let headerHeight: CGFloat = 350
+        static let headerHeight: CGFloat = 375.pix()
         static let numberOfItemsPerRow: CGFloat = 2
         static let cellSpacing: CGFloat = 12
         static let sectionInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
@@ -34,16 +43,14 @@ class HomeLuxuryView: BaseView {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(HomeLuxuryViewCell.self,
-                              forCellWithReuseIdentifier: Constants.cellIdentifier)
+                                forCellWithReuseIdentifier: Constants.cellIdentifier)
         collectionView.register(HomeLuxuryHeaderView.self,
-                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                              withReuseIdentifier: Constants.headerIdentifier)
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: Constants.headerIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
     }()
-    
-    private var items: [String] = Array(1...20).map { "项目 \($0)" }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,7 +69,7 @@ class HomeLuxuryView: BaseView {
         }
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(headView.snp.bottom)
+            make.top.equalTo(headView.snp.bottom).offset(-10.pix())
             make.left.right.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(60)
         }
@@ -77,7 +84,7 @@ class HomeLuxuryView: BaseView {
     
     private func createLayoutSection() -> NSCollectionLayoutSection {
         let totalSpacing = Constants.sectionInsets.left + Constants.sectionInsets.right +
-                          Constants.cellSpacing * (Constants.numberOfItemsPerRow - 1)
+        Constants.cellSpacing * (Constants.numberOfItemsPerRow - 1)
         let availableWidth = UIScreen.main.bounds.width - totalSpacing
         let itemWidth = availableWidth / Constants.numberOfItemsPerRow
         
@@ -120,7 +127,9 @@ class HomeLuxuryView: BaseView {
 extension HomeLuxuryView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        guard let modelArray = modelArray else { return 0 }
+        let newArray = Array(modelArray.dropFirst())
+        return newArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -129,12 +138,16 @@ extension HomeLuxuryView: UICollectionViewDataSource, UICollectionViewDelegate {
             for: indexPath
         ) as! HomeLuxuryViewCell
         
+        if let modelArray = modelArray {
+            let newArray = Array(modelArray.dropFirst())
+            cell.config(with: newArray[indexPath.row])
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView,
-                       viewForSupplementaryElementOfKind kind: String,
-                       at indexPath: IndexPath) -> UICollectionReusableView {
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionView.elementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(
@@ -142,8 +155,15 @@ extension HomeLuxuryView: UICollectionViewDataSource, UICollectionViewDelegate {
                 withReuseIdentifier: Constants.headerIdentifier,
                 for: indexPath
             ) as! HomeLuxuryHeaderView
-            
-            header.configure()
+            if let modelArray = modelArray {
+                let model = modelArray[0]
+                header.configure(with: model)
+                header.tapClickBlock = { [weak self] in
+                    guard let self = self else { return }
+                    let productID = String(model.suspended ?? 0)
+                    self.tapClickBlock?(productID)
+                }
+            }
             return header
         }
         
@@ -151,6 +171,10 @@ extension HomeLuxuryView: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("选中了: \(items[indexPath.item])")
+        if let modelArray = modelArray {
+            let newArray = Array(modelArray.dropFirst())
+            let productID = String(newArray[indexPath.row].suspended ?? 0)
+            self.tapClickBlock?(productID)
+        }
     }
 }

@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class OrderViewController: BaseViewController {
-    
+
     private enum Constants {
         static let buttonSize = CGSize(width: 110, height: 50)
         static let buttonSpacing: CGFloat = 0
@@ -21,44 +21,47 @@ class OrderViewController: BaseViewController {
         static let topOffset: CGFloat = 10
         static let headerHeight: CGFloat = 87
     }
-    
+
     private let viewModel = OrderViewModel()
     private var buttons: [UIButton] = []
     private let selectedIndex = BehaviorRelay<Int>(value: 0)
     private var type: String = "4"
     private var modelArray: [settledModel] = []
-    
+
+    /// ✅ 用来防止首次进入时重复请求
+    private var isFirstLoad = true
+
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
-    
+
     private lazy var oneBtn = createButton(
         normalImage: "order_one_nor_image",
         selectedImage: "order_one_sel_image",
         tag: 0
     )
-    
+
     private lazy var twoBtn = createButton(
         normalImage: "order_two_nor_image",
         selectedImage: "order_two_sel_image",
         tag: 1
     )
-    
+
     private lazy var threeBtn = createButton(
         normalImage: "order_three_nor_image",
         selectedImage: "order_three_sel_image",
         tag: 2
     )
-    
+
     private lazy var fourBtn = createButton(
         normalImage: "order_four_nor_image",
         selectedImage: "order_four_sel_image",
         tag: 3
     )
-    
+
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
@@ -75,91 +78,94 @@ class OrderViewController: BaseViewController {
         }
         return tableView
     }()
-    
+
     lazy var emptyView: OrderEmptyView = {
         let emptyView = OrderEmptyView(frame: .zero)
         emptyView.isHidden = true
         return emptyView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupBindings()
     }
-    
+
+    /// ✅ 必须保留
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 可以在这里添加页面显示时的逻辑
+        Task {
+            await self.orderListInfo()
+        }
     }
-    
+
     private func setupUI() {
         setupHeaderView()
         setupScrollView()
         setupButtons()
     }
-    
+
     private func setupHeaderView() {
         view.addSubview(headView)
         headView.backBtn.isHidden = true
         headView.config(title: "Loan order")
         headView.bgView.backgroundColor = .clear
-        
+
         headView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(Constants.headerHeight.pix())
         }
     }
-    
+
     private func setupScrollView() {
         view.addSubview(scrollView)
         view.addSubview(tableView)
         view.addSubview(emptyView)
+
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(headView.snp.bottom).offset(Constants.topOffset)
             make.left.equalToSuperview()
             make.width.equalTo(SCREEN_WIDTH)
             make.height.equalTo(Constants.scrollViewHeight.pix())
         }
+
         tableView.snp.makeConstraints { make in
             make.top.equalTo(scrollView.snp.bottom).offset(10.pix())
             make.left.right.equalToSuperview()
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(60)
         }
-        
+
         emptyView.snp.makeConstraints { make in
             make.top.equalTo(scrollView.snp.bottom).offset(10.pix())
             make.left.right.equalToSuperview()
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(60)
         }
-        
+
         emptyView.setTapHandler {
             NotificationCenter.default.post(name: NSNotification.Name("changeRootVc"), object: nil)
         }
-        
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+
+        tableView.mj_header = MJRefreshNormalHeader { [weak self] in
             guard let self = self else { return }
             Task {
                 await self.orderListInfo()
             }
-        })
-        
+        }
     }
-    
+
     private func setupButtons() {
         buttons = [oneBtn, twoBtn, threeBtn, fourBtn]
         buttons.forEach { scrollView.addSubview($0) }
-        
         setupButtonConstraints()
     }
-    
+
     private func setupButtonConstraints() {
         var previousButton: UIButton?
-        
+
         for button in buttons {
             button.snp.makeConstraints { make in
                 if let previous = previousButton {
-                    make.left.equalTo(previous.snp.right).offset(Constants.buttonSpacing)
+                    make.left.equalTo(previous.snp.right)
                 } else {
                     make.left.equalToSuperview().offset(Constants.horizontalPadding)
                 }
@@ -168,15 +174,14 @@ class OrderViewController: BaseViewController {
             }
             previousButton = button
         }
-        
-        if let lastButton = buttons.last {
-            lastButton.snp.makeConstraints { make in
-                make.right.equalToSuperview().offset(-Constants.horizontalPadding)
-            }
+
+        buttons.last?.snp.makeConstraints {
+            $0.right.equalToSuperview().offset(-Constants.horizontalPadding)
         }
     }
-    
+
     private func setupBindings() {
+
         Observable.merge(
             oneBtn.rx.tap.map { 0 },
             twoBtn.rx.tap.map { 1 },
@@ -185,14 +190,23 @@ class OrderViewController: BaseViewController {
         )
         .bind(to: selectedIndex)
         .disposed(by: disposeBag)
-        
+
         selectedIndex
             .subscribe(onNext: { [weak self] index in
-                self?.updateButtonSelection(selectedIndex: index)
+                guard let self = self else { return }
+
+                // ✅ 首次进入，交给 viewWillAppear，不重复请求
+                if self.isFirstLoad {
+                    self.isFirstLoad = false
+                    self.updateButtonUI(selectedIndex: index)
+                    return
+                }
+
+                self.updateButtonSelection(selectedIndex: index)
             })
             .disposed(by: disposeBag)
     }
-    
+
     private func createButton(normalImage: String, selectedImage: String, tag: Int) -> UIButton {
         let button = UIButton(type: .custom)
         button.tag = tag
@@ -200,80 +214,79 @@ class OrderViewController: BaseViewController {
         button.setImage(UIImage(named: selectedImage), for: .selected)
         return button
     }
-    
-    private func updateButtonSelection(selectedIndex: Int) {
-        for (index, button) in buttons.enumerated() {
-            button.isSelected = (index == selectedIndex)
+
+    /// 仅更新 UI，不请求
+    private func updateButtonUI(selectedIndex: Int) {
+        buttons.enumerated().forEach {
+            $0.element.isSelected = $0.offset == selectedIndex
         }
-        switch selectedIndex {
-        case 0:
-            Task {
-                self.type = String(2 + 2)
-                await self.orderListInfo()
-            }
-        case 1:
-            Task {
-                self.type = String(2 + 2 + 2 + 1)
-                await self.orderListInfo()
-            }
-        case 2:
-            Task {
-                self.type = String(2 + 2 + 2)
-                await self.orderListInfo()
-            }
-        case 3:
-            Task {
-                self.type = String(2 + 2 + 1)
-                await self.orderListInfo()
-            }
-        default:
-            break
+    }
+
+    /// UI + 网络请求
+    private func updateButtonSelection(selectedIndex: Int) {
+        updateButtonUI(selectedIndex: selectedIndex)
+
+        let typeMap = ["4", "7", "6", "5"]
+        self.type = typeMap[selectedIndex]
+
+        Task {
+            await self.orderListInfo()
         }
     }
 }
+
+// MARK: - UITableView
 
 extension OrderViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.modelArray.count
+        modelArray.count
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderViewCell", for: indexPath) as! OrderViewCell
-        let model = self.modelArray[indexPath.row]
-        cell.configUI(with: model)
+
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "OrderViewCell",
+            for: indexPath
+        ) as! OrderViewCell
+
+        cell.configUI(with: modelArray[indexPath.row])
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = self.modelArray[indexPath.row]
+        let model = modelArray[indexPath.row]
         let pageUrl = model.dancing ?? ""
+
         if pageUrl.contains(SchemeConfig.baseURL) {
             SchemeConfig.handleRoute(pageUrl: pageUrl, from: self)
-        }else if pageUrl.hasPrefix("http") || pageUrl.hasPrefix("https") {
-            self.goWebVc(with: pageUrl)
+        } else if pageUrl.hasPrefix("http") {
+            goWebVc(with: pageUrl)
         }
     }
 }
 
+// MARK: - Request
+
 extension OrderViewController {
-    
+
     private func orderListInfo() async {
         do {
             let json = ["futurity": type]
             let model = try await viewModel.orderListInfo(json: json)
+
             if model.hoping == "0" {
-                let modelArray = model.awe?.settled ?? []
-                self.modelArray = modelArray
+                modelArray = model.awe?.settled ?? []
                 emptyView.isHidden = !modelArray.isEmpty
-            }else {
+            } else {
                 ToastManager.showMessage(message: model.recollected ?? "")
             }
-            self.tableView.reloadData()
-            await self.tableView.mj_header?.endRefreshing()
+
+            tableView.reloadData()
+            await tableView.mj_header?.endRefreshing()
         } catch {
-            await self.tableView.mj_header?.endRefreshing()
+            await tableView.mj_header?.endRefreshing()
         }
     }
-    
 }
