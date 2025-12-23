@@ -83,7 +83,8 @@ class MineView: BaseView {
         scrollView.addSubview(leftImageView)
         scrollView.addSubview(rightImageView)
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).inset(60)
         }
         headImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)

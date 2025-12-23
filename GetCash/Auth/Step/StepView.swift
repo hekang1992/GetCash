@@ -78,7 +78,7 @@ class StepView: BaseView {
             make.left.equalToSuperview().offset(16)
             make.height.equalTo(48.pix())
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
         
         scrollView.snp.makeConstraints { make in

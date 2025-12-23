@@ -73,7 +73,7 @@ class SettingViewController: BaseViewController {
         deleteBtn.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-20)
-            make.size.equalTo(CGSize(width: 140.pix(), height: 24.pix()))
+            make.size.equalTo(CGSize(width: 150.pix(), height: 24.pix()))
         }
         
         let lineView = UIView()
