@@ -28,6 +28,7 @@ class aweModel: Codable {
     var relations: [relationsModel]?
     var userInfo: userInfoModel?
     var aether: aetherModel?
+    var breathe: Int?
 }
 
 class settledModel: Codable {

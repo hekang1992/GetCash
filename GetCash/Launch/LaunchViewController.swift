@@ -109,6 +109,9 @@ extension LaunchViewController {
             
             if model.hoping == "0" {
                 if let fmodel = model.awe?.aether {
+                    let breathe = model.awe?.breathe ?? 0
+                    UserDefaults.standard.set(breathe, forKey: "breathe")
+                    UserDefaults.standard.synchronize()
                     uploadFacebook(with: fmodel)
                 }
             }
