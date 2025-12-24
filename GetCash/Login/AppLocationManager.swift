@@ -5,111 +5,86 @@
 //  Created by hekang on 2025/12/24.
 //
 
-import UIKit
-import Foundation
 import CoreLocation
 
 class AppLocationManager: NSObject {
     
-    static let shared = AppLocationManager()
-    
     private let locationManager = CLLocationManager()
-    
     private var completion: (([String: String]?) -> Void)?
-    
-    private var debounceWorkItem: DispatchWorkItem?
-    
-    private let debounceInterval: TimeInterval = 2.0
-    
-    private let viewModel = LaunchViewModel()
     
     override init() {
         super.init()
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
     func getCurrentLocation(completion: @escaping ([String: String]?) -> Void) {
         self.completion = completion
         
-        let status = locationManager.authorizationStatus
-        
-        switch status {
+        switch locationManager.authorizationStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
             
         case .authorizedWhenInUse, .authorizedAlways:
-            startLocationUpdate()
+            locationManager.startUpdatingLocation()
             
         case .denied, .restricted:
-            completion(nil)
+            finish(nil)
             
         @unknown default:
-            completion(nil)
+            finish(nil)
         }
     }
     
-    private func startLocationUpdate() {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+    private func finish(_ result: [String: String]?) {
+        locationManager.stopUpdatingLocation()
+        completion?(result)
     }
 }
 
+// MARK: - CLLocationManagerDelegate
 extension AppLocationManager: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        
-        let status = manager.authorizationStatus
-        
-        switch status {
-            
+        switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
-            startLocationUpdate()
+            manager.requestLocation()
             
         case .denied, .restricted:
-            completion?(nil)
+            finish(nil)
             
         case .notDetermined:
             break
             
         @unknown default:
-            completion?(nil)
+            finish(nil)
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
-        locationManager.stopUpdatingLocation()
-        debounceWorkItem?.cancel()
-        
-        let workItem = DispatchWorkItem { [weak self] in
-            CLGeocoder().reverseGeocodeLocation(location) { placemarks, _ in
-                guard let self = self else { return }
-                
-                let placemark = placemarks?.first
-                
-                let locationJson = [
-                    "local": placemark?.administrativeArea ?? "",
-                    "enough": placemark?.isoCountryCode ?? "",
-                    "opting": placemark?.country ?? "",
-                    "mutation": placemark?.thoroughfare ?? "",
-                    "perturb": String(format: "%.6f", location.coordinate.latitude),
-                    "compute": String(format: "%.6f", location.coordinate.longitude),
-                    "basic": placemark?.locality ?? "",
-                    "evolutionary": placemark?.subLocality ?? ""
-                ]
-                
-                self.completion?(locationJson)
-            }
+        CLGeocoder().reverseGeocodeLocation(location) { [weak self] placemarks, _ in
+            guard let self = self else { return }
+            
+            let placemark = placemarks?.first
+            
+            let locationJson: [String: String] = [
+                "courtesies": placemark?.administrativeArea ?? "",
+                "delineated": placemark?.isoCountryCode ?? "",
+                "spoken": placemark?.country ?? "",
+                "particulars": placemark?.thoroughfare ?? "",
+                "communicated": String(format: "%.6f", location.coordinate.latitude),
+                "palate": String(format: "%.6f", location.coordinate.longitude),
+                "fever": placemark?.locality ?? "",
+                "allayed": placemark?.subLocality ?? ""
+            ]
+            
+            self.finish(locationJson)
         }
-        
-        debounceWorkItem = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + debounceInterval, execute: workItem)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingLocation()
-        completion?(nil)
+        finish(nil)
     }
 }
-
