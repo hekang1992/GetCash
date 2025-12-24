@@ -39,9 +39,10 @@ extension BaseViewController {
         }
     }
     
-    func goWebVc(with pageUrl: String) {
+    func goWebVc(with pageUrl: String, type: String? = "") {
         let webVc = GWebViewController()
         webVc.pageUrl = pageUrl
+        webVc.type = type ?? ""
         self.navigationController?.pushViewController(webVc, animated: true)
     }
     

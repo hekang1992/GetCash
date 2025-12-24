@@ -31,6 +31,7 @@ class LaunchView: BaseView {
     
 }
 
+/// launch_view_model
 class LaunchViewModel {
     
     func appInitInfo(json: [String: String]) async throws -> BaseModel {
@@ -67,6 +68,7 @@ class LaunchViewModel {
     
 }
 
+/// track_view_model
 class AppTrackViewModel {
     
     func trackMessageInfo(json: [String: String]) async throws -> BaseModel {

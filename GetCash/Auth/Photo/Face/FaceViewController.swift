@@ -37,9 +37,17 @@ class FaceViewController: BaseViewController {
         return faceView
     }()
     
+    var model: BaseModel?
+    
     private let viewModel = StepViewModel()
     
-    var model: BaseModel?
+    private let trackViewModel = AppTrackViewModel()
+    
+    private let locationManager = AppLocationManager()
+    
+    var enterPhototime: String = ""
+    
+    var enterFacetime: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +124,12 @@ class FaceViewController: BaseViewController {
             await self.getFaceInfo()
         }
         
+        locationManager.getCurrentLocation { json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+        }
+        
     }
     
 }
@@ -152,6 +166,7 @@ extension FaceViewController {
         let faceModel = model.awe?.hid ?? faneModel()
         
         if photoModel.used == 0 {
+            enterPhototime = String(Int(Date().timeIntervalSince1970))
             alertPhoto()
             return
         }
@@ -161,6 +176,12 @@ extension FaceViewController {
         }
         
         if faceModel.used == 0 {
+            enterFacetime = String(Int(Date().timeIntervalSince1970))
+            locationManager.getCurrentLocation { json in
+                guard let json = json else { return }
+                print("location==🗺️==\(json)")
+                AppLocationModel.shared.locationJson = json
+            }
             alertFace()
             return
         }
@@ -241,6 +262,7 @@ extension FaceViewController {
                         alertSucView(with: modelArray)
                     }
                 }else if authType == "10" {
+                    await self.trackPingMessageInfo(with: "4")
                     await self.getFaceInfo()
                 }
             }else {
@@ -300,11 +322,34 @@ extension FaceViewController {
             let model = try await viewModel.savePhotoIDInfo(json: json)
             if model.hoping == "0" {
                 self.dismiss(animated: true)
+                await self.trackPingMessageInfo(with: "3")
                 await self.getFaceInfo()
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")
             }
         } catch {
+            
+        }
+    }
+    
+}
+
+extension FaceViewController {
+    
+    private func trackPingMessageInfo(with type: String) async {
+        do {
+            if let locationJson = AppLocationModel.shared.locationJson {
+                let palate = locationJson["palate"] ?? ""
+                let communicated = locationJson["communicated"] ?? ""
+                let json = ["cream": type,
+                            "palate": palate,
+                            "communicated": communicated,
+                            "embowering": enterPhototime,
+                            "lightly": String(Int(Date().timeIntervalSince1970)),
+                            "balmy": ""]
+                _ = try await trackViewModel.trackMessageInfo(json: json)
+            }
+        } catch  {
             
         }
     }

@@ -31,9 +31,17 @@ class GWebViewController: BaseViewController {
         ]
     }
     
-    // MARK: - 属性
     var productID: String = ""
+    
     var pageUrl: String = ""
+    
+    var entertime: String = ""
+    
+    var type: String = ""
+    
+    private let trackViewModel = AppTrackViewModel()
+    
+    private let locationManager = AppLocationManager()
     
     private lazy var webView: WKWebView = {
         let configuration = WKWebViewConfiguration()
@@ -228,7 +236,11 @@ class GWebViewController: BaseViewController {
         if webView.canGoBack {
             webView.goBack()
         } else {
-            backStepPageVc()
+            if type == "1" {
+                self.navigationController?.popToRootViewController(animated: true)
+            }else {
+                backStepPageVc()
+            }
         }
     }
 }
@@ -268,6 +280,8 @@ extension GWebViewController: WKScriptMessageHandler {
     }
     
     private func handleScriptMessage(_ message: WKScriptMessage) {
+        let name = message.name
+        print("name==🌾==\(name)")
         switch message.name {
         case "necks":
             handleNecksScript()
@@ -318,15 +332,33 @@ extension GWebViewController: WKScriptMessageHandler {
     }
     
     private func handleLeanedScript() {
-        // 空实现 - 根据需求添加逻辑
+        locationManager.getCurrentLocation { json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            Task {
+                await self.trackPingMessageInfo(type: "10", entertime: String(Int(Date().timeIntervalSince1970)))
+            }
+        }
+        
     }
     
     private func handleShoulderScript() {
-        // 空实现 - 根据需求添加逻辑
+        locationManager.getCurrentLocation { json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+        }
+        entertime = String(Int(Date().timeIntervalSince1970))
     }
     
     private func handleRattlingScript() {
-        // 空实现 - 根据需求添加逻辑
+        Task {
+            await self.trackPingMessageInfo(type: "8", entertime: entertime)
+        }
     }
     
     private func handleUnknownScript() {
@@ -346,3 +378,24 @@ extension GWebViewController: WKScriptMessageHandler {
     }
 }
 
+extension GWebViewController{
+    
+    private func trackPingMessageInfo(type: String, entertime: String) async {
+        do {
+            if let locationJson = AppLocationModel.shared.locationJson {
+                let palate = locationJson["palate"] ?? ""
+                let communicated = locationJson["communicated"] ?? ""
+                let json = ["cream": type,
+                            "palate": palate,
+                            "communicated": communicated,
+                            "embowering": entertime,
+                            "lightly": String(Int(Date().timeIntervalSince1970)),
+                            "balmy": ""]
+                _ = try await trackViewModel.trackMessageInfo(json: json)
+            }
+        } catch  {
+            
+        }
+    }
+    
+}

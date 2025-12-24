@@ -21,17 +21,23 @@ class ContactViewController: BaseViewController {
         }
     }
     
+    private let viewModel = ContactViewModel()
+    
+    private let trackViewModel = AppTrackViewModel()
+    
+    private let locationManager = AppLocationManager()
+    
     var productID: String = ""
     
     var stepArray: [residenceModel] = []
     
     private let stepView = StepScrollView()
     
-    private let viewModel = ContactViewModel()
-    
     var modelArray: [relationsModel] = []
     
     private let contactManager = ContactManager()
+    
+    var entertime: String = ""
     
     lazy var nextBtn: UIButton = {
         let nextBtn = UIButton(type: .custom)
@@ -175,6 +181,9 @@ class ContactViewController: BaseViewController {
                             let model = try await self.viewModel.saveContactInfo(json: json)
                             if model.hoping == "0" {
                                 self.backStepPageVc()
+                                Task {
+                                    await self.trackPingMessageInfo()
+                                }
                             }else {
                                 ToastManager.showMessage(message: model.recollected ?? "")
                             }
@@ -185,6 +194,15 @@ class ContactViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        locationManager.getCurrentLocation { [weak self] json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+            
+        }
+        
+        entertime = String(Int(Date().timeIntervalSince1970))
         
     }
     
@@ -300,6 +318,29 @@ extension ContactViewController: UITableViewDelegate, UITableViewDataSource {
             let json = ["awe": jsonStr]
             let _ = try await viewModel.uploadContactInfo(json: json)
         } catch {
+            
+        }
+    }
+    
+}
+
+
+extension ContactViewController {
+    
+    private func trackPingMessageInfo() async {
+        do {
+            if let locationJson = AppLocationModel.shared.locationJson {
+                let palate = locationJson["palate"] ?? ""
+                let communicated = locationJson["communicated"] ?? ""
+                let json = ["cream": "7",
+                            "palate": palate,
+                            "communicated": communicated,
+                            "embowering": entertime,
+                            "lightly": String(Int(Date().timeIntervalSince1970)),
+                            "balmy": ""]
+                _ = try await trackViewModel.trackMessageInfo(json: json)
+            }
+        } catch  {
             
         }
     }

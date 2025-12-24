@@ -79,7 +79,7 @@ class ContactManager: NSObject {
     
     func openContactPicker(from viewController: UIViewController, completion: @escaping ContactSelectionHandler) {
         self.selectionHandler = completion
-        
+        self.currentViewController = viewController
         checkAuthorization { [weak self] granted in
             guard let self = self else { return }
             
@@ -89,8 +89,6 @@ class ContactManager: NSObject {
                     picker.delegate = self
                     picker.predicateForEnablingContact = NSPredicate(format: "phoneNumbers.@count > 0")
                     picker.displayedPropertyKeys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
-                    
-                    self.currentViewController = viewController
                     viewController.present(picker, animated: true)
                 }
             } else {

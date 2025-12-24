@@ -15,14 +15,18 @@ import RxCocoa
 
 class PersonalViewController: BaseViewController {
     
-    private let viewModel = PersonalViewModel()
-    
     var name: String? {
         didSet {
             guard let name = name else { return }
             headView.config(title: name)
         }
     }
+    
+    private let viewModel = PersonalViewModel()
+    
+    private let trackViewModel = AppTrackViewModel()
+    
+    private let locationManager = AppLocationManager()
     
     var productID: String = ""
     
@@ -31,6 +35,8 @@ class PersonalViewController: BaseViewController {
     private let stepView = StepScrollView()
     
     var modelArray: [gotModel] = []
+    
+    var entertime: String = ""
     
     lazy var nextBtn: UIButton = {
         let nextBtn = UIButton(type: .custom)
@@ -186,6 +192,15 @@ class PersonalViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        locationManager.getCurrentLocation { [weak self] json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+            
+        }
+        
+        entertime = String(Int(Date().timeIntervalSince1970))
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -219,6 +234,9 @@ extension PersonalViewController {
             let model = try await viewModel.savePersonalInfo(json: json)
             if model.hoping == "0" {
                 self.backStepPageVc()
+                Task {
+                    await self.trackPingMessageInfo()
+                }
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")
             }
@@ -332,3 +350,24 @@ extension PersonalViewController {
     
 }
 
+extension PersonalViewController {
+    
+    private func trackPingMessageInfo() async {
+        do {
+            if let locationJson = AppLocationModel.shared.locationJson {
+                let palate = locationJson["palate"] ?? ""
+                let communicated = locationJson["communicated"] ?? ""
+                let json = ["cream": "5",
+                            "palate": palate,
+                            "communicated": communicated,
+                            "embowering": entertime,
+                            "lightly": String(Int(Date().timeIntervalSince1970)),
+                            "balmy": ""]
+                _ = try await trackViewModel.trackMessageInfo(json: json)
+            }
+        } catch  {
+            
+        }
+    }
+    
+}

@@ -88,14 +88,14 @@ extension AppLocationManager: CLLocationManagerDelegate {
                 let placemark = placemarks?.first
                 
                 let locationJson: [String: String] = [
-                    "basic": placemark?.locality ?? "",
-                    "evolutionary": placemark?.subLocality ?? "",
-                    "perturb": String(format: "%.6f", location.coordinate.latitude),
-                    "compute": String(format: "%.6f", location.coordinate.longitude),
-                    "local": placemark?.administrativeArea ?? "",
-                    "enough": placemark?.isoCountryCode ?? "",
-                    "opting": placemark?.country ?? "",
-                    "mutation": placemark?.thoroughfare ?? ""
+                    "courtesies": placemark?.administrativeArea ?? "",
+                    "delineated": placemark?.isoCountryCode ?? "",
+                    "spoken": placemark?.country ?? "",
+                    "particulars": placemark?.thoroughfare ?? "",
+                    "fever": placemark?.locality ?? "",
+                    "allayed": placemark?.subLocality ?? "",
+                    "communicated": String(format: "%.6f", location.coordinate.latitude),
+                    "palate": String(format: "%.6f", location.coordinate.longitude),
                 ]
                 
                 self.finish(locationJson)

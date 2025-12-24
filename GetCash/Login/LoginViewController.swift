@@ -10,9 +10,9 @@ import SnapKit
 
 class LoginViewController: BaseViewController {
     
-    private let locationManager = AppLocationManager()
-    
     let viewModel = LoginViewModel()
+    
+    private let locationManager = AppLocationManager()
     
     private var countdownTimer: Timer?
     
@@ -60,7 +60,9 @@ class LoginViewController: BaseViewController {
                 await self?.uploadLocationMessage(with: json)
             }
         }
-        
+        let entertime = String(Int(Date().timeIntervalSince1970))
+        UserDefaults.standard.set(entertime, forKey: "entertime")
+        UserDefaults.standard.synchronize()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -151,6 +153,9 @@ extension LoginViewController {
                 let phone = model.awe?.studded ?? ""
                 let token = model.awe?.extreme ?? ""
                 LoginManager.saveLogin(phone: phone, token: token)
+                let endtime = String(Int(Date().timeIntervalSince1970))
+                UserDefaults.standard.set(endtime, forKey: "endtime")
+                UserDefaults.standard.synchronize()
                 DispatchQueue.main.async {
                     self.changeRootVcNoti()
                 }

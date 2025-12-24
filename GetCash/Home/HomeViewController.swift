@@ -11,13 +11,15 @@ import MJRefresh
 
 class HomeViewController: BaseViewController {
     
-    private let locationManager = AppLocationManager()
-    
     private let viewModel = HomeViewModel()
     
     private let loginViewModel = LoginViewModel()
     
     private let launchViewModel = LaunchViewModel()
+    
+    private let trackViewModel = AppTrackViewModel()
+    
+    private let locationManager = AppLocationManager()
     
     private lazy var homeView: HomeView = {
         let view = HomeView()
@@ -112,6 +114,7 @@ extension HomeViewController {
         homeView.applyBlock = { [weak self] productID in
             Task { [weak self] in
                 await self?.enterInfo(with: productID)
+                await self?.trackPingMessageInfo()
             }
         }
         
@@ -242,4 +245,35 @@ extension HomeViewController {
             goWebVc(with: pageUrl)
         }
     }
+}
+
+extension HomeViewController {
+    
+    private func trackPingMessageInfo() async {
+        do {
+            let starttime = UserDefaults.standard.object(forKey: "entertime") as? String ?? ""
+            let endtime = UserDefaults.standard.object(forKey: "endtime") as? String ?? ""
+            if !starttime.isEmpty && !endtime.isEmpty {
+                if let locationJson = AppLocationModel.shared.locationJson {
+                    let palate = locationJson["palate"] ?? ""
+                    let communicated = locationJson["communicated"] ?? ""
+                    let json = ["cream": "1",
+                                "palate": palate,
+                                "communicated": communicated,
+                                "embowering": starttime,
+                                "lightly": endtime,
+                                "balmy": ""]
+                    let model = try await trackViewModel.trackMessageInfo(json: json)
+                    if model.hoping == "0" {
+                        UserDefaults.standard.removeObject(forKey: "entertime")
+                        UserDefaults.standard.removeObject(forKey: "endtime")
+                        UserDefaults.standard.synchronize()
+                    }
+                }
+            }
+        } catch  {
+            
+        }
+    }
+    
 }

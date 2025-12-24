@@ -15,14 +15,18 @@ import RxCocoa
 
 class WorkViewController: BaseViewController {
     
-    private let viewModel = PersonalViewModel()
-    
     var name: String? {
         didSet {
             guard let name = name else { return }
             headView.config(title: name)
         }
     }
+    
+    private let viewModel = PersonalViewModel()
+    
+    private let trackViewModel = AppTrackViewModel()
+    
+    private let locationManager = AppLocationManager()
     
     var productID: String = ""
     
@@ -31,6 +35,8 @@ class WorkViewController: BaseViewController {
     private let stepView = StepScrollView()
     
     var modelArray: [gotModel] = []
+    
+    var entertime: String = ""
     
     lazy var nextBtn: UIButton = {
         let nextBtn = UIButton(type: .custom)
@@ -186,6 +192,14 @@ class WorkViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        locationManager.getCurrentLocation { [weak self] json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+            
+        }
+        
+        entertime = String(Int(Date().timeIntervalSince1970))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -219,6 +233,9 @@ extension WorkViewController {
             let model = try await viewModel.saveWorkInfo(json: json)
             if model.hoping == "0" {
                 self.backStepPageVc()
+                Task {
+                    await self.trackPingMessageInfo()
+                }
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")
             }
@@ -332,3 +349,25 @@ extension WorkViewController {
     
 }
 
+
+extension WorkViewController{
+    
+    private func trackPingMessageInfo() async {
+        do {
+            if let locationJson = AppLocationModel.shared.locationJson {
+                let palate = locationJson["palate"] ?? ""
+                let communicated = locationJson["communicated"] ?? ""
+                let json = ["cream": "6",
+                            "palate": palate,
+                            "communicated": communicated,
+                            "embowering": entertime,
+                            "lightly": String(Int(Date().timeIntervalSince1970)),
+                            "balmy": ""]
+                _ = try await trackViewModel.trackMessageInfo(json: json)
+            }
+        } catch  {
+            
+        }
+    }
+    
+}

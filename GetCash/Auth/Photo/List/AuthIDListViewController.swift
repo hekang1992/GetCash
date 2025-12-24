@@ -33,6 +33,10 @@ class AuthIDListViewController: BaseViewController {
     
     var entertime: String = ""
     
+    private let trackViewModel = AppTrackViewModel()
+    
+    private let locationManager = AppLocationManager()
+    
     lazy var oneBtn: UIButton = {
         let oneBtn = UIButton(type: .custom)
         oneBtn.isSelected = true
@@ -103,7 +107,15 @@ class AuthIDListViewController: BaseViewController {
         }
         
         setupUI()
+        
         tapClick()
+        
+        locationManager.getCurrentLocation { [weak self] json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+        }
+        
     }
     
 }
@@ -111,7 +123,7 @@ class AuthIDListViewController: BaseViewController {
 extension AuthIDListViewController {
     
     private func setupUI() {
-        
+        entertime = String(Int(Date().timeIntervalSince1970))
         view.addSubview(oneBtn)
         view.addSubview(twoBtn)
         view.addSubview(nextBtn)
@@ -200,6 +212,31 @@ extension AuthIDListViewController: UITableViewDelegate, UITableViewDataSource {
         faceVc.type = type
         faceVc.name = name ?? ""
         self.navigationController?.pushViewController(faceVc, animated: true)
+        Task {
+            await self.trackPingMessageInfo()
+        }
+    }
+    
+}
+
+extension AuthIDListViewController {
+    
+    private func trackPingMessageInfo() async {
+        do {
+            if let locationJson = AppLocationModel.shared.locationJson {
+                let palate = locationJson["palate"] ?? ""
+                let communicated = locationJson["communicated"] ?? ""
+                let json = ["cream": "2",
+                            "palate": palate,
+                            "communicated": communicated,
+                            "embowering": entertime,
+                            "lightly": String(Int(Date().timeIntervalSince1970)),
+                            "balmy": ""]
+                _ = try await trackViewModel.trackMessageInfo(json: json)
+            }
+        } catch  {
+            
+        }
     }
     
 }

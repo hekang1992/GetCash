@@ -17,6 +17,10 @@ class StepDetailViewController: BaseViewController{
     
     var model: BaseModel?
     
+    private let trackViewModel = AppTrackViewModel()
+    
+    private let locationManager = AppLocationManager()
+    
     lazy var setpView: StepView = {
         let setpView = StepView()
         return setpView
@@ -73,6 +77,12 @@ class StepDetailViewController: BaseViewController{
                 await self.getSetpInfo()
             }
         })
+        
+        locationManager.getCurrentLocation { json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+        }
         
     }
     
@@ -188,11 +198,36 @@ extension StepDetailViewController {
             let model = try await viewModel.applyOrderIDInfo(json: json)
             if model.hoping == "0" {
                 let pageUrl = model.awe?.fully ?? ""
-                self.goWebVc(with: pageUrl)
+                self.goWebVc(with: pageUrl, type: "1")
+                Task {
+                    await self.trackPingMessageInfo(orderNo: chiefly)
+                }
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")
             }
         } catch {
+            
+        }
+    }
+    
+}
+
+extension StepDetailViewController {
+    
+    private func trackPingMessageInfo(orderNo: String) async {
+        do {
+            if let locationJson = AppLocationModel.shared.locationJson {
+                let palate = locationJson["palate"] ?? ""
+                let communicated = locationJson["communicated"] ?? ""
+                let json = ["cream": "9",
+                            "palate": palate,
+                            "communicated": communicated,
+                            "embowering": String(Int(Date().timeIntervalSince1970)),
+                            "lightly": String(Int(Date().timeIntervalSince1970)),
+                            "balmy": orderNo]
+                _ = try await trackViewModel.trackMessageInfo(json: json)
+            }
+        } catch  {
             
         }
     }
