@@ -81,4 +81,15 @@ class LoginViewModel {
         }
     }
     
+    func uploadDeviceInfo(json: [String: String]) async throws -> BaseModel {
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/heat",
+                parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
 }

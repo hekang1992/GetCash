@@ -46,6 +46,12 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
+            await self.homeRefreshAllApi()
+        }
+    }
+    
+    private func homeRefreshAllApi() async {
+        Task {
             await setupLocation()
             await refreshHomeData()
             await uploadIDFAInfo()
@@ -57,12 +63,31 @@ extension HomeViewController {
     
     private func setupLocation() async {
         locationManager.getCurrentLocation { [weak self] json in
-            guard let json = json else { return }
-            print("location==🗺️==\(json)")
-            AppLocationModel.shared.locationJson = json
-            Task {
-                await self?.uploadLocationMessage(with: json)
+            
+            DeviceInfoManager.getAllDeviceInfoWithDispatchGroup { deviceInfo in
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: deviceInfo, options: .prettyPrinted)
+                    if let jsonString = String(data: jsonData, encoding: .utf8) {
+                        let deviceJson = ["awe": jsonString]
+                        Task {
+                            await self?.uploadDeviceMessage(with: deviceJson)
+                        }
+                    }
+                } catch {
+                    print("JSON===\(error)")
+                }
             }
+            
+            print("location==🗺️==\(json ?? [:])")
+            
+            if let json = json {
+                
+                AppLocationModel.shared.locationJson = json
+                Task {
+                    await self?.uploadLocationMessage(with: json)
+                }
+            }
+            
         }
     }
     
@@ -88,6 +113,14 @@ extension HomeViewController {
         }
     }
     
+    private func uploadDeviceMessage(with json: [String: String]) async {
+        do {
+            _ = try await loginViewModel.uploadDeviceInfo(json: json)
+        } catch {
+            
+        }
+    }
+    
     private func setupUI() {
         view.addSubview(homeView)
         homeView.snp.makeConstraints { $0.edges.equalToSuperview() }
@@ -99,13 +132,13 @@ extension HomeViewController {
     private func setupRefresh() {
         homeView.scrollView.mj_header = MJRefreshNormalHeader { [weak self] in
             Task { [weak self] in
-                await self?.refreshHomeData()
+                await self?.homeRefreshAllApi()
             }
         }
         
         luxView.collectionView.mj_header = MJRefreshNormalHeader { [weak self] in
             Task { [weak self] in
-                await self?.refreshHomeData()
+                await self?.homeRefreshAllApi()
             }
         }
     }

