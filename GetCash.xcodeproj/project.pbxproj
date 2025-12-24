@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		731D28932EFB743800B78B29 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731D28922EFB743800B78B29 /* NetworkManager.swift */; };
+		731D28952EFB813100B78B29 /* AppLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731D28942EFB813100B78B29 /* AppLocationManager.swift */; };
 		7333F5162EF6FAA100E74153 /* AuthIDListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */; };
 		7333F5182EF708D100E74153 /* AuthIDListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */; };
 		7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5192EF70D2300E74153 /* DotLineView.swift */; };
@@ -100,6 +101,7 @@
 		342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.debug.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.release.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.release.xcconfig"; sourceTree = "<group>"; };
 		731D28922EFB743800B78B29 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		731D28942EFB813100B78B29 /* AppLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationManager.swift; sourceTree = "<group>"; };
 		7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewController.swift; sourceTree = "<group>"; };
 		7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewCell.swift; sourceTree = "<group>"; };
 		7333F5192EF70D2300E74153 /* DotLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLineView.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				73ECF6032EF538100029AF7A /* LoginManager.swift */,
 				735C8D5D2EF530F300C7D507 /* LoginView.swift */,
 				735C8D4F2EF5304D00C7D507 /* LoginViewController.swift */,
+				731D28942EFB813100B78B29 /* AppLocationManager.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				735C8D5C2EF530E300C7D507 /* LaunchView.swift in Sources */,
 				735C8D602EF530FD00C7D507 /* HomeView.swift in Sources */,
 				7344600B2EF7E1980054D267 /* ContactViewController.swift in Sources */,
+				731D28952EFB813100B78B29 /* AppLocationManager.swift in Sources */,
 				73633CFB2EF6BC70009F182D /* StepView.swift in Sources */,
 				7333F5162EF6FAA100E74153 /* AuthIDListViewController.swift in Sources */,
 				73FFAB6F2EFA9CF7005BE2A5 /* HomeLuxuryViewCell.swift in Sources */,
