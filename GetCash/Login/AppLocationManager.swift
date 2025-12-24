@@ -7,10 +7,15 @@
 
 import CoreLocation
 
-class AppLocationManager: NSObject {
+final class AppLocationManager: NSObject {
     
     private let locationManager = CLLocationManager()
+    
     private var completion: (([String: String]?) -> Void)?
+    
+    private var debounceWorkItem: DispatchWorkItem?
+    
+    private let debounceInterval: TimeInterval = 2.0
     
     override init() {
         super.init()
@@ -21,6 +26,20 @@ class AppLocationManager: NSObject {
     func getCurrentLocation(completion: @escaping ([String: String]?) -> Void) {
         self.completion = completion
         
+        debounceWorkItem?.cancel()
+        
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.requestLocationIfNeeded()
+        }
+        
+        debounceWorkItem = workItem
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + debounceInterval,
+            execute: workItem
+        )
+    }
+    
+    private func requestLocationIfNeeded() {
         switch locationManager.authorizationStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
@@ -37,7 +56,6 @@ class AppLocationManager: NSObject {
     }
     
     private func finish(_ result: [String: String]?) {
-        locationManager.stopUpdatingLocation()
         completion?(result)
     }
 }
@@ -46,17 +64,11 @@ class AppLocationManager: NSObject {
 extension AppLocationManager: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
+        if manager.authorizationStatus == .authorizedWhenInUse ||
+            manager.authorizationStatus == .authorizedAlways {
             manager.requestLocation()
-            
-        case .denied, .restricted:
-            finish(nil)
-            
-        case .notDetermined:
-            break
-            
-        @unknown default:
+        } else if manager.authorizationStatus == .denied ||
+                    manager.authorizationStatus == .restricted {
             finish(nil)
         }
     }
@@ -70,14 +82,14 @@ extension AppLocationManager: CLLocationManagerDelegate {
             let placemark = placemarks?.first
             
             let locationJson: [String: String] = [
-                "courtesies": placemark?.administrativeArea ?? "",
-                "delineated": placemark?.isoCountryCode ?? "",
-                "spoken": placemark?.country ?? "",
-                "particulars": placemark?.thoroughfare ?? "",
-                "communicated": String(format: "%.6f", location.coordinate.latitude),
-                "palate": String(format: "%.6f", location.coordinate.longitude),
-                "fever": placemark?.locality ?? "",
-                "allayed": placemark?.subLocality ?? ""
+                "local": placemark?.administrativeArea ?? "",
+                "enough": placemark?.isoCountryCode ?? "",
+                "opting": placemark?.country ?? "",
+                "mutation": placemark?.thoroughfare ?? "",
+                "basic": placemark?.locality ?? "",
+                "evolutionary": placemark?.subLocality ?? "",
+                "perturb": String(format: "%.6f", location.coordinate.latitude),
+                "compute": String(format: "%.6f", location.coordinate.longitude),
             ]
             
             self.finish(locationJson)
