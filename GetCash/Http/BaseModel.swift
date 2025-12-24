@@ -27,6 +27,7 @@ class aweModel: Codable {
     var got: [gotModel]?
     var relations: [relationsModel]?
     var userInfo: userInfoModel?
+    var aether: aetherModel?
 }
 
 class settledModel: Codable {
@@ -122,6 +123,13 @@ class relationsModel: Codable {
 
 class userInfoModel: Codable {
     var userphone: String?
+}
+
+class aetherModel: Codable {
+    var boundless: String?
+    var mould: String?
+    var mortal: String?
+    var unsphered: String?
 }
 
 class gotModel: Codable {

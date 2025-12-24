@@ -16,7 +16,7 @@ class LaunchView: BaseView {
         bgImageView.contentMode = .scaleAspectFill
         return bgImageView
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(bgImageView)
@@ -29,5 +29,36 @@ class LaunchView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
 
+class LaunchViewModel {
+    
+    func appInitInfo(json: [String: String]) async throws -> BaseModel {
+        
+        LoadingIndicator.shared.show()
+        
+        defer {
+            DispatchQueue.main.async {
+                LoadingIndicator.shared.hide()
+            }
+        }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/lateness", parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
+    func uploadIDInfo(json: [String: String]) async throws -> BaseModel {
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/settled", parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
 }
