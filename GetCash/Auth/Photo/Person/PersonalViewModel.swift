@@ -21,7 +21,9 @@ class PersonalViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/boundless", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/boundless",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -40,7 +42,9 @@ class PersonalViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/mould", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/mould",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -59,7 +63,9 @@ class PersonalViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/dread", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/dread",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -78,7 +84,9 @@ class PersonalViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/superstitious", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/superstitious",
+                parameters: json)
             return model
         } catch {
             throw error

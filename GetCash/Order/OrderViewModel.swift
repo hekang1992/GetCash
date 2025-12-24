@@ -20,7 +20,9 @@ class OrderViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/numbered", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/numbered",
+                parameters: json)
             return model
         } catch {
             throw error

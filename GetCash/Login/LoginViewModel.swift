@@ -20,7 +20,9 @@ class LoginViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/recollect", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/recollect",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -38,7 +40,9 @@ class LoginViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/strongly", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/strongly",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -56,7 +60,21 @@ class LoginViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/hoping", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/hoping",
+                parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
+    /// upload_location_info
+    func locationInfo(json: [String: String]) async throws -> BaseModel {
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/grieved",
+                parameters: json)
             return model
         } catch {
             throw error

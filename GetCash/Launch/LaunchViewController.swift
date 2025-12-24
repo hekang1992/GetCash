@@ -14,27 +14,27 @@ import AppTrackingTransparency
 import FBSDKCoreKit
 
 class LaunchViewController: BaseViewController {
-
+    
     private let viewModel = LaunchViewModel()
-
+    
     lazy var launchView: LaunchView = {
         let view = LaunchView()
         return view
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         keyboardConfig()
-
+        
         view.addSubview(launchView)
         launchView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-
+        
         NetworkMonitor.shared.startListening { [weak self] status in
             guard let self = self else { return }
-
+            
             if status == .reachableViaCellular || status == .reachableViaWiFi {
                 NetworkMonitor.shared.stopListening()
                 Task {
@@ -47,33 +47,33 @@ class LaunchViewController: BaseViewController {
 
 // MARK: - Private
 extension LaunchViewController {
-
+    
     private func keyboardConfig() {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
     }
-
+    
     private func changeRootVcNoti() {
         NotificationCenter.default.post(
             name: NSNotification.Name("changeRootVc"),
             object: nil
         )
     }
-
+    
     private func requestAll() async {
         async let idfaTask: Void = getIDFA()
         async let initTask: Void = initInfo()
-
+        
         _ = await (idfaTask, initTask)
-
+        
         changeRootVcNoti()
     }
-
+    
     private func getIDFA() async {
         guard #available(iOS 14, *) else { return }
-
+        
         let status = await ATTrackingManager.requestTrackingAuthorization()
-
+        
         switch status {
         case .authorized, .denied, .notDetermined:
             await uploadIDFAInfo()
@@ -83,7 +83,7 @@ extension LaunchViewController {
             print("IDFA ===== unknown")
         }
     }
-
+    
     private func uploadIDFAInfo() async {
         do {
             let table = DeviceConfig.getIDFV()
@@ -92,21 +92,21 @@ extension LaunchViewController {
                 "table": table,
                 "insisted": insisted
             ]
-           let _ = try await viewModel.uploadIDInfo(json: json)
+            let _ = try await viewModel.uploadIDInfo(json: json)
         } catch {
             print("uploadIDFAInfo error: \(error)")
         }
     }
-
+    
     private func initInfo() async {
         do {
             let json: [String: String] = [
-                "lateness": "1",
-                "recollect": "",
-                "strongly": ""
+                "lateness": Locale.preferredLanguages.first ?? "",
+                "recollect": String(HTTPProxyInfo.proxyStatus.rawValue),
+                "strongly": String(HTTPProxyInfo.vpnStatus.rawValue)
             ]
             let model = try await viewModel.appInitInfo(json: json)
-
+            
             if model.hoping == "0" {
                 if let fmodel = model.awe?.aether {
                     uploadFacebook(with: fmodel)

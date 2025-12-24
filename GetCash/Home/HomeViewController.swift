@@ -11,7 +11,13 @@ import MJRefresh
 
 class HomeViewController: BaseViewController {
     
+    private let locationManager = AppLocationManager()
+    
     private let viewModel = HomeViewModel()
+    
+    private let loginViewModel = LoginViewModel()
+    
+    private let launchViewModel = LaunchViewModel()
     
     private lazy var homeView: HomeView = {
         let view = HomeView()
@@ -38,12 +44,48 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
+            await setupLocation()
             await refreshHomeData()
+            await uploadIDFAInfo()
         }
     }
 }
 
 extension HomeViewController {
+    
+    private func setupLocation() async {
+        locationManager.getCurrentLocation { [weak self] json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+            Task {
+                await self?.uploadLocationMessage(with: json)
+            }
+        }
+    }
+    
+    private func uploadIDFAInfo() async {
+        do {
+            let table = DeviceConfig.getIDFV()
+            let insisted = DeviceConfig.getIDFA()
+            let json: [String: String] = [
+                "table": table,
+                "insisted": insisted
+            ]
+            _ = try await launchViewModel.uploadIDInfo(json: json)
+        } catch {
+            print("uploadIDFAInfo error: \(error)")
+        }
+    }
+    
+    private func uploadLocationMessage(with json: [String: String]) async {
+        do {
+            _ = try await loginViewModel.locationInfo(json: json)
+        } catch {
+            
+        }
+    }
+    
     private func setupUI() {
         view.addSubview(homeView)
         homeView.snp.makeConstraints { $0.edges.equalToSuperview() }

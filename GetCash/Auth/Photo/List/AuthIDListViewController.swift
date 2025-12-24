@@ -31,6 +31,8 @@ class AuthIDListViewController: BaseViewController {
     
     var stepArray: [residenceModel] = []
     
+    var entertime: String = ""
+    
     lazy var oneBtn: UIButton = {
         let oneBtn = UIButton(type: .custom)
         oneBtn.isSelected = true

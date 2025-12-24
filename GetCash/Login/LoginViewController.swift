@@ -52,8 +52,13 @@ class LoginViewController: BaseViewController {
             }
         }
         
-        locationManager.getCurrentLocation { json in
-            print("location==🗺️==\(json ?? [:])")
+        locationManager.getCurrentLocation { [weak self] json in
+            guard let json = json else { return }
+            print("location==🗺️==\(json)")
+            AppLocationModel.shared.locationJson = json
+            Task {
+                await self?.uploadLocationMessage(with: json)
+            }
         }
         
     }
@@ -159,6 +164,14 @@ extension LoginViewController {
 }
 
 extension LoginViewController {
+    
+    private func uploadLocationMessage(with json: [String: String]) async {
+        do {
+            _ = try await viewModel.locationInfo(json: json)
+        } catch {
+            
+        }
+    }
     
     private func changeRootVcNoti() {
         NotificationCenter.default.post(

@@ -21,7 +21,9 @@ class ContactViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/mortal", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/mortal",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -40,7 +42,9 @@ class ContactViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/unsphered", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/unsphered",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -51,7 +55,9 @@ class ContactViewModel {
     func uploadContactInfo(json: [String: String]) async throws -> BaseModel {
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/describe", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/describe",
+                parameters: json)
             return model
         } catch {
             throw error

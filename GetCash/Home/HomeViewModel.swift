@@ -20,7 +20,8 @@ class HomeViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.get("/zyxwv/enwrapt")
+            let model: BaseModel = try await HttpRequestManager.shared.get(
+                "/zyxwv/enwrapt")
             return model
         } catch {
             ToastManager.showMessage(message: "Network Connection Error")
@@ -39,7 +40,9 @@ class HomeViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/hint", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/hint",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -48,7 +51,8 @@ class HomeViewModel {
     
     func getAdressInfo() async throws -> BaseModel {
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.get("/zyxwv/indicated")
+            let model: BaseModel = try await HttpRequestManager.shared.get(
+                "/zyxwv/indicated")
             return model
         } catch {
             throw error

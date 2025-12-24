@@ -20,7 +20,8 @@ class MineViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.get("/zyxwv/departed")
+            let model: BaseModel = try await HttpRequestManager.shared.get(
+                "/zyxwv/departed")
             return model
         } catch {
             ToastManager.showMessage(message: "Network Connection Error")
@@ -39,7 +40,8 @@ class MineViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.get("/zyxwv/courteous")
+            let model: BaseModel = try await HttpRequestManager.shared.get(
+                "/zyxwv/courteous")
             return model
         } catch {
             ToastManager.showMessage(message: "Network Connection Error")
@@ -58,7 +60,8 @@ class MineViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.get("/zyxwv/forget")
+            let model: BaseModel = try await HttpRequestManager.shared.get(
+                "/zyxwv/forget")
             return model
         } catch {
             ToastManager.showMessage(message: "Network Connection Error")

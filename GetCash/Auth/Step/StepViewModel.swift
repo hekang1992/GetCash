@@ -21,7 +21,9 @@ class StepViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/broke", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/broke",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -40,7 +42,9 @@ class StepViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/breathe", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/breathe",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -59,7 +63,10 @@ class StepViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/cottager", parameters: json, imageData: imageData)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/cottager",
+                parameters: json,
+                imageData: imageData)
             return model
         } catch {
             throw error
@@ -78,7 +85,9 @@ class StepViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/aether", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/aether",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -97,7 +106,9 @@ class StepViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/unclouded", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/unclouded",
+                parameters: json)
             return model
         } catch {
             throw error

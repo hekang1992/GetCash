@@ -45,3 +45,9 @@ class AppCityModel {
     private init() {}
     var modelArray: [settledModel]?
 }
+
+class AppLocationModel {
+    static let shared = AppLocationModel()
+    private init() {}
+    var locationJson: [String: String]?
+}

@@ -44,7 +44,9 @@ class LaunchViewModel {
         }
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/lateness", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/lateness",
+                parameters: json)
             return model
         } catch {
             throw error
@@ -54,7 +56,33 @@ class LaunchViewModel {
     func uploadIDInfo(json: [String: String]) async throws -> BaseModel {
         
         do {
-            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm("/zyxwv/settled", parameters: json)
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/settled",
+                parameters: json)
+            return model
+        } catch {
+            throw error
+        }
+    }
+    
+}
+
+class AppTrackViewModel {
+    
+    func trackMessageInfo(json: [String: String]) async throws -> BaseModel {
+        
+        var apiJson = [
+            "fruits": "2",
+            "voisin": DeviceConfig.getIDFV(),
+            "honeysuckles": DeviceConfig.getIDFA()
+        ]
+        
+        apiJson.merge(json) { (_, new) in new }
+        
+        do {
+            let model: BaseModel = try await HttpRequestManager.shared.uploadWithForm(
+                "/zyxwv/acknowledge",
+                parameters: apiJson)
             return model
         } catch {
             throw error
