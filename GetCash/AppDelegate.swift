@@ -12,6 +12,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    var tabBar: BaseTabBarController?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         getChangeRootVcNoti()
@@ -30,17 +32,28 @@ extension AppDelegate {
     
     private func getChangeRootVcNoti() {
         NotificationCenter.default.addObserver(self,
-                                             selector: #selector(changeRootVC),
-                                             name: NSNotification.Name("changeRootVc"),
-                                             object: nil)
+                                               selector: #selector(changeRootVC),
+                                               name: NSNotification.Name("changeRootVc"),
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changeOrderRootVC),
+                                               name: NSNotification.Name("changeOrderRootVC"),
+                                               object: nil)
+        
     }
     
     @objc private func changeRootVC() {
+        tabBar = BaseTabBarController()
         if LoginManager.isLoggedIn {
-            self.window?.rootViewController = BaseTabBarController()
+            self.window?.rootViewController = tabBar
         }else {
             self.window?.rootViewController = BaseNavigationController(rootViewController: LoginViewController())
         }
+    }
+    
+    @objc private func changeOrderRootVC() {
+        tabBar?.selectedIndex = 1
     }
     
 }

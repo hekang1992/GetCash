@@ -21,6 +21,8 @@ class HomeViewController: BaseViewController {
     
     private let locationManager = AppLocationManager()
     
+    var baseModel: BaseModel?
+    
     private lazy var homeView: HomeView = {
         let view = HomeView()
         view.isHidden = true
@@ -162,11 +164,16 @@ extension HomeViewController {
         }
         
         homeView.twoBlock = { [weak self] in
-            self?.navigateToWhatViewController(title: "Loan conditions", imageName: "wht_desc_image")
+            guard let self = self else { return }
+            let pageUrl = self.baseModel?.awe?.departed?.indicated ?? ""
+            self.goWebVc(with: pageUrl)
         }
         
-        homeView.threeBlock = { [weak self] in
-            self?.navigateToWhatViewController(title: "Loan conditions", imageName: "wht_desc_image")
+        homeView.threeBlock = {
+            NotificationCenter.default.post(
+                name: NSNotification.Name("changeOrderRootVC"),
+                object: nil
+            )
         }
         
         homeView.fourBlock = { [weak self] in
@@ -221,6 +228,8 @@ extension HomeViewController {
         guard model.hoping == "0" else { return }
         
         let settledModels = model.awe?.settled ?? []
+        
+        self.baseModel = model
         
         if let normalProduct = settledModels.first(where: { $0.courteous == "While" }) {
             showNormalView(with: normalProduct)

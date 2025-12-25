@@ -29,6 +29,12 @@ class aweModel: Codable {
     var userInfo: userInfoModel?
     var aether: aetherModel?
     var breathe: Int?
+    var customerService: [customerServiceModel]?
+    var departed: departedModel?
+}
+
+class departedModel: Codable {
+    var indicated: String?
 }
 
 class settledModel: Codable {
@@ -131,6 +137,10 @@ class aetherModel: Codable {
     var mould: String?
     var mortal: String?
     var unsphered: String?
+}
+
+class customerServiceModel: Codable {
+    var fully: String?
 }
 
 class gotModel: Codable {

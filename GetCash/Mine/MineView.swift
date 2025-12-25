@@ -7,12 +7,19 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxGesture
+import RxCocoa
 
 class MineView: BaseView {
     
     var modelArray: [settledModel] = []
     
     var cellTapBlock: ((String) -> Void)?
+    
+    var leftBlock: (() -> Void)?
+    
+    var rightBlock: (() -> Void)?
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -120,6 +127,16 @@ class MineView: BaseView {
             make.height.equalTo(350.pix())
             make.bottom.equalToSuperview().offset(-10)
         }
+        
+        leftImageView.rx.tapGesture().when(.recognized).bind(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.leftBlock?()
+        }).disposed(by: disposeBag)
+        
+        rightImageView.rx.tapGesture().when(.recognized).bind(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            self.rightBlock?()
+        }).disposed(by: disposeBag)
     }
     
     @MainActor required init?(coder: NSCoder) {

@@ -11,6 +11,8 @@ import MJRefresh
 
 class MineViewController: BaseViewController {
     
+    var baseModel: BaseModel?
+    
     private let viewModel = MineViewModel()
     
     lazy var mineView: MineView = {
@@ -55,6 +57,18 @@ class MineViewController: BaseViewController {
             }
         }
         
+        self.mineView.leftBlock = {
+            NotificationCenter.default.post(
+                name: NSNotification.Name("changeOrderRootVC"),
+                object: nil
+            )
+        }
+        
+        self.mineView.rightBlock = { [weak self] in
+            guard let self = self else { return }
+            let pageUrl = self.baseModel?.awe?.customerService?.first?.fully ?? ""
+            self.goWebVc(with: pageUrl)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +86,7 @@ extension MineViewController {
         do {
             let model = try await viewModel.mineCenterInfo()
             if model.hoping == "0" {
+                self.baseModel = model
                 self.mineView.config(with: model)
                 self.mineView.modelArray = model.awe?.settled ?? []
             }else {
