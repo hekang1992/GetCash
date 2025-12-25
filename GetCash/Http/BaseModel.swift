@@ -2,7 +2,7 @@
 //  BaseModel.swift
 //  GetCash
 //
-//  Created by hekang on 2025/12/20.
+//  Created by Bea Alcantara on 2025/12/20.
 //
 
 class BaseModel: Codable {

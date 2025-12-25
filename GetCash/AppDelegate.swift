@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  GetCash
 //
-//  Created by hekang on 2025/12/19.
+//  Created by Bea Alcantara on 2025/12/19.
 //
 
 import UIKit
