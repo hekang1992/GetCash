@@ -72,6 +72,7 @@ extension LaunchViewController {
     private func getIDFA() async {
         guard #available(iOS 14, *) else { return }
         
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
         let status = await ATTrackingManager.requestTrackingAuthorization()
         
         switch status {
