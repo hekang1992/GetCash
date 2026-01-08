@@ -338,7 +338,7 @@ extension PersonalViewController {
         
         stringPickerView.multiResultBlock = { models, indexs in
             if let models = models {
-                let selectText = models.map { $0.text ?? "" }.joined(separator: "-")
+                let selectText = models.map { $0.text ?? "" }.joined(separator: "|")
                 selectCell.phoneTextFiled.text = selectText
                 model.dead = selectText
                 model.courteous = selectText

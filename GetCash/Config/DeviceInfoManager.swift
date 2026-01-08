@@ -15,17 +15,35 @@ class DeviceInfoManager {
     
     static func getStorageInfo() -> [String: String] {
         var storageInfo: [String: String] = [:]
-        
+        let getMemoryInfo = getMemoryInfo()
         do {
-            let systemAttributes = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory())
+            let fileManager = FileManager.default
+            let homeDirectory = URL(fileURLWithPath: NSHomeDirectory())
             
-            if let freeSize = systemAttributes[.systemFreeSize] as? NSNumber,
-               let totalSize = systemAttributes[.systemSize] as? NSNumber {
-                storageInfo["illuminated"] = freeSize.stringValue
-                storageInfo["inner"] = totalSize.stringValue
+            let resourceValues = try homeDirectory.resourceValues(forKeys: [
+                .volumeTotalCapacityKey,
+                .volumeAvailableCapacityKey,
+                .volumeAvailableCapacityForImportantUsageKey
+            ])
+            
+            let systemAttributes = try fileManager.attributesOfFileSystem(forPath: NSHomeDirectory())
+            
+            if let totalBytes = resourceValues.volumeTotalCapacity {
+                storageInfo["inner"] = String(totalBytes)
+            } else if let totalSize = systemAttributes[.systemSize] as? UInt64 {
+                storageInfo["inner"] = String(totalSize)
             }
+            
+            if let availableBytes = resourceValues.volumeAvailableCapacity {
+                storageInfo["illuminated"] = String(availableBytes)
+            } else if let freeSize = systemAttributes[.systemFreeSize] as? UInt64 {
+                storageInfo["illuminated"] = String(freeSize)
+            }
+            storageInfo["conductor"] = getMemoryInfo["conductor"]
+            storageInfo["preference"] = getMemoryInfo["preference"]
+            
         } catch {
-            print("获取存储信息失败: \(error)")
+            
         }
         
         return storageInfo
@@ -34,11 +52,9 @@ class DeviceInfoManager {
     static func getMemoryInfo() -> [String: String] {
         var memoryInfo: [String: String] = [:]
         
-        // 总内存
         let totalMemory = ProcessInfo.processInfo.physicalMemory
         memoryInfo["conductor"] = "\(totalMemory)"
         
-        // 可用内存（使用host_statistics获取）
         var hostSize = mach_msg_type_number_t(MemoryLayout<vm_statistics_data_t>.size / MemoryLayout<integer_t>.size)
         var hostInfo = vm_statistics_data_t()
         let hostPort = mach_host_self()

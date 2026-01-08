@@ -176,7 +176,6 @@ extension FaceViewController {
         }
         
         if faceModel.used == 0 {
-            enterFacetime = String(Int(Date().timeIntervalSince1970))
             locationManager.getCurrentLocation { json in
                 guard let json = json else { return }
                 print("location==🗺️==\(json)")
@@ -239,6 +238,7 @@ extension FaceViewController {
         
         popView.oneBlock = { [weak self] in
             guard let self = self else { return }
+            enterFacetime = String(Int(Date().timeIntervalSince1970))
             self.dismiss(animated: true) {
                 ImagePickerHelper.takePhoto(from: self, isFront: true) { image in
                     guard let image = image else { return }
