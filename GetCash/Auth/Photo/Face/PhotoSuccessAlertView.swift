@@ -165,7 +165,7 @@ extension PhotoSuccessAlertView {
         
         let defaultDate: Date
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         if let deadDate = model.outlived, !deadDate.isEmpty {
             if let date = dateFormatter.date(from: deadDate) {
                 defaultDate = date
@@ -175,11 +175,11 @@ extension PhotoSuccessAlertView {
                 if let date = backupFormatter.date(from: deadDate) {
                     defaultDate = date
                 } else {
-                    defaultDate = dateFormatter.date(from: "10-10-2000") ?? Date()
+                    defaultDate = dateFormatter.date(from: "1997-10-20") ?? Date()
                 }
             }
         } else {
-            defaultDate = dateFormatter.date(from: "10-10-2000") ?? Date()
+            defaultDate = dateFormatter.date(from: "1997-10-20") ?? Date()
         }
         
         datePickerView.selectDate = defaultDate

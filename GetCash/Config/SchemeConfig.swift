@@ -104,11 +104,9 @@ class SchemeConfig {
     }
     
     private static func handleInvalidRoute(pageUrl: String, from viewController: BaseViewController) {
-        print("无效的路由URL: \(pageUrl)")
         
     }
     
-    // MARK: - 具体页面导航方法
     private static func navigateToSetting(from viewController: BaseViewController, parameters: [String: String]) {
         let settingVc = SettingViewController()
         viewController.navigationController?.pushViewController(settingVc, animated: true)
@@ -132,7 +130,6 @@ class SchemeConfig {
     }
     
     private static func navigateToOrder(from viewController: BaseViewController, parameters: [String: String]) {
-        print("跳转到订单页面，参数: \(parameters)")
     }
     
     private static func navigateToProductDetail(from viewController: BaseViewController, parameters: [String: String]) {

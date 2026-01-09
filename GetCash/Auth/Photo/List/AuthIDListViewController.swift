@@ -112,7 +112,6 @@ class AuthIDListViewController: BaseViewController {
         
         locationManager.getCurrentLocation { [weak self] json in
             guard let json = json else { return }
-            print("location==🗺️==\(json)")
             AppLocationModel.shared.locationJson = json
         }
         

@@ -29,7 +29,7 @@ class HomeLuxuryView: BaseView {
     
     private struct Constants {
         static let headerHeight: CGFloat = 375.pix()
-        static let numberOfItemsPerRow: CGFloat = 2
+        static let numberOfItemsPerRow: CGFloat = 1
         static let cellSpacing: CGFloat = 12
         static let sectionInsets = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
         static let cellIdentifier = "HomeLuxuryViewCell"

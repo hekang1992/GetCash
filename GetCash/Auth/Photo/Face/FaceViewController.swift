@@ -126,7 +126,6 @@ class FaceViewController: BaseViewController {
         
         locationManager.getCurrentLocation { json in
             guard let json = json else { return }
-            print("location==🗺️==\(json)")
             AppLocationModel.shared.locationJson = json
         }
         
@@ -178,7 +177,6 @@ extension FaceViewController {
         if faceModel.used == 0 {
             locationManager.getCurrentLocation { json in
                 guard let json = json else { return }
-                print("location==🗺️==\(json)")
                 AppLocationModel.shared.locationJson = json
             }
             alertFace()
@@ -262,7 +260,7 @@ extension FaceViewController {
                         alertSucView(with: modelArray)
                     }
                 }else if authType == "10" {
-                    await self.trackPingMessageInfo(with: "4")
+                    await self.trackPingMessageInfo(with: "4", startTime: enterFacetime)
                     await self.getFaceInfo()
                 }
             }else {
@@ -322,7 +320,7 @@ extension FaceViewController {
             let model = try await viewModel.savePhotoIDInfo(json: json)
             if model.hoping == "0" {
                 self.dismiss(animated: true)
-                await self.trackPingMessageInfo(with: "3")
+                await self.trackPingMessageInfo(with: "3", startTime: enterPhototime)
                 await self.getFaceInfo()
             }else {
                 ToastManager.showMessage(message: model.recollected ?? "")
@@ -336,7 +334,7 @@ extension FaceViewController {
 
 extension FaceViewController {
     
-    private func trackPingMessageInfo(with type: String) async {
+    private func trackPingMessageInfo(with type: String, startTime: String) async {
         do {
             if let locationJson = AppLocationModel.shared.locationJson {
                 let palate = locationJson["palate"] ?? ""
@@ -344,7 +342,7 @@ extension FaceViewController {
                 let json = ["cream": type,
                             "palate": palate,
                             "communicated": communicated,
-                            "embowering": enterPhototime,
+                            "embowering": startTime,
                             "lightly": String(Int(Date().timeIntervalSince1970)),
                             "balmy": ""]
                 _ = try await trackViewModel.trackMessageInfo(json: json)

@@ -79,9 +79,7 @@ extension HomeViewController {
                     print("JSON===\(error)")
                 }
             }
-            
-            print("location==🗺️==\(json ?? [:])")
-            
+                        
             if let json = json {
                 
                 AppLocationModel.shared.locationJson = json

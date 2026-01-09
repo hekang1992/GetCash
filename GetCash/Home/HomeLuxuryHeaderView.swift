@@ -98,6 +98,14 @@ class HomeLuxuryHeaderView: UICollectionReusableView {
         return applyBtn
     }()
     
+    lazy var applyLabel: UILabel = {
+        let applyLabel = UILabel()
+        applyLabel.textColor = UIColor.init(hex: "#FFFFFF")
+        applyLabel.textAlignment = .center
+        applyLabel.font = UIFont.systemFont(ofSize: 30, weight: UIFont.Weight(900))
+        return applyLabel
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -120,6 +128,7 @@ class HomeLuxuryHeaderView: UICollectionReusableView {
         oneImageView.addSubview(logoImageView)
         oneImageView.addSubview(nameLabel)
         oneImageView.addSubview(twoImageView)
+        applyImageView.addSubview(applyLabel)
         
         oneImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
@@ -178,6 +187,12 @@ class HomeLuxuryHeaderView: UICollectionReusableView {
             make.bottom.equalToSuperview().offset(-25.pix())
         }
         
+        applyLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(10.pix())
+            make.height.equalTo(37.pix())
+        }
+        
         moreImageView.snp.makeConstraints { make in
             make.top.equalTo(oneImageView.snp.bottom).offset(20)
             make.size.equalTo(CGSize(width: 166.pix(), height: 24.pix()))
@@ -213,6 +228,8 @@ extension HomeLuxuryHeaderView {
         let blunted = model.blunted ?? ""
         let dim = model.dim ?? ""
         twoLabel.text = String(format: "%@: %@", blunted, dim)
+        
+        applyLabel.text = model.lends ?? ""
     }
     
 }

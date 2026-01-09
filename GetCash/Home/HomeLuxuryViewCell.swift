@@ -42,10 +42,18 @@ class HomeLuxuryViewCell: UICollectionViewCell {
     
     lazy var descLabel: UILabel = {
         let descLabel = UILabel()
-        descLabel.textAlignment = .left
+        descLabel.textAlignment = .right
         descLabel.textColor = UIColor.init(hex: "#8E9BBC")
         descLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight(500))
         return descLabel
+    }()
+    
+    lazy var mcLabel: UILabel = {
+        let mcLabel = UILabel()
+        mcLabel.textAlignment = .left
+        mcLabel.textColor = UIColor.init(hex: "#8E9BBC")
+        mcLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight(500))
+        return mcLabel
     }()
     
     lazy var lineView: DotLineView = {
@@ -76,10 +84,12 @@ class HomeLuxuryViewCell: UICollectionViewCell {
         imageView.addSubview(descLabel)
         imageView.addSubview(lineView)
         imageView.addSubview(applyImageView)
+        imageView.addSubview(mcLabel)
+        
         imageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.size.equalTo(CGSize(width: 167.pix(), height: 160.pix()))
+            make.size.equalTo(CGSize(width: 345.pix(), height: 122.pix()))
             make.bottom.equalToSuperview().offset(-5.pix())
         }
         
@@ -90,20 +100,25 @@ class HomeLuxuryViewCell: UICollectionViewCell {
         
         nameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(logoImageView)
-            make.left.equalTo(logoImageView.snp.right).offset(5)
+            make.left.equalTo(logoImageView.snp.right).offset(5.pix())
             make.height.equalTo(20)
         }
         
         moneyLabel.snp.makeConstraints { make in
             make.left.equalTo(logoImageView)
-            make.top.equalTo(logoImageView.snp.bottom).offset(8)
+            make.top.equalTo(lineView.snp.bottom).offset(10.pix())
             make.height.equalTo(29)
+        }
+        mcLabel.snp.makeConstraints { make in
+            make.left.equalTo(logoImageView)
+            make.top.equalTo(moneyLabel.snp.bottom).offset(5.pix())
+            make.height.equalTo(15.pix())
         }
         
         descLabel.snp.makeConstraints { make in
-            make.left.equalTo(logoImageView)
-            make.top.equalTo(moneyLabel.snp.bottom).offset(4)
-            make.centerX.equalToSuperview()
+            make.centerY.equalTo(logoImageView)
+            make.right.equalToSuperview().offset(-16.pix())
+            make.height.equalTo(15.pix())
         }
         
         lineView.snp.makeConstraints { make in
@@ -113,10 +128,11 @@ class HomeLuxuryViewCell: UICollectionViewCell {
             make.height.equalTo(1)
         }
         applyImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.right.equalToSuperview().offset(-15.pix())
             make.size.equalTo(CGSize(width: 135.pix(), height: 36.pix()))
-            make.bottom.equalToSuperview().offset(-10.pix())
+            make.bottom.equalToSuperview().offset(-16.pix())
         }
+        
     }
     
 }
@@ -132,6 +148,8 @@ extension HomeLuxuryViewCell {
         let one = model.narrative ?? ""
         let two = model.dim ?? ""
         descLabel.text = String(format: "%@ | %@", one, two)
+        
+        mcLabel.text = model.painted ?? ""
     }
     
 }

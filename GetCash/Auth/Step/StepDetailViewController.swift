@@ -80,7 +80,6 @@ class StepDetailViewController: BaseViewController{
         
         locationManager.getCurrentLocation { json in
             guard let json = json else { return }
-            print("location==🗺️==\(json)")
             AppLocationModel.shared.locationJson = json
         }
         
